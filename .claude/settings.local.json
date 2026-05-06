@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(gh api *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(uipro init *)",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "PowerShell($d = Get-PSDrive C; Write-Host \"Free: $\\([math]::Round\\($d.Free/1GB, 1\\)\\) GB\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__read_console_messages",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3105/)",
+      "Bash(curl -s http://localhost:3105/properties)",
+      "Bash(curl -s \"http://localhost:3105/api/properties\")",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\('next:', p.dependencies.next\\); console.log\\('react:', p.dependencies.react\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3105/properties/171)",
+      "Bash(curl -s 'https://bsuvybjinkhgfgmjqmcg.supabase.co/rest/v1/properties?id=eq.171&select=*' -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs')",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const j=JSON.parse\\(d\\)[0]; console.log\\(Object.keys\\(j\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(curl -s https://bsuvybjinkhgfgmjqmcg.supabase.co/rest/v1/ -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs')",
+      "Bash(curl -s 'https://bsuvybjinkhgfgmjqmcg.supabase.co/rest/v1/__TRACKED_VAR__?limit=1' -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXZ5YmppbmtoZ2ZnbWpxbWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MjM2OTgsImV4cCI6MjA4ODQ5OTY5OH0.QLwRFyJ_JHql6mQ3JuineaElNZ22G6or2L1FJ82E6hs')"
+    ]
+  }
+}
