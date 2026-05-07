@@ -36,6 +36,17 @@ function PropertiesContent() {
 
   const title = dealType.includes('מכירה') && !dealType.includes('השכרה') ? 'נכסים למכירה' : dealType.includes('השכרה') && !dealType.includes('מכירה') ? 'נכסים להשכרה' : 'כל הנכסים'
 
+  const buildTabHref = (dt: string) => {
+    const p = new URLSearchParams()
+    if (city) p.set('city', city)
+    if (propertyType) p.set('property_type', propertyType)
+    if (dt) p.set('deal_type', dt)
+    return `/properties?${p.toString()}`
+  }
+
+  const activeTab = dealType.includes('מכירה') && !dealType.includes('השכרה') ? 'מכירה'
+    : dealType.includes('השכרה') && !dealType.includes('מכירה') ? 'השכרה' : ''
+
   return (
     <>
       {/* Header */}
@@ -45,6 +56,24 @@ function PropertiesContent() {
           <h1 className="text-4xl font-extrabold mb-2">{title}</h1>
           {city && <p className="text-blue-200 text-lg">📍 {city}</p>}
           {propertyType && <p className="text-blue-200 text-lg">🏢 {propertyType}</p>}
+        </div>
+
+        {/* טאבים */}
+        <div className="max-w-6xl mx-auto mt-6 flex justify-center gap-2">
+          {[
+            { label: '🏠 הכל', value: '' },
+            { label: '💰 למכירה', value: 'מכירה' },
+            { label: '🔑 להשכרה', value: 'השכרה' },
+          ].map(tab => (
+            <a key={tab.value} href={buildTabHref(tab.value)}
+              className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
+                activeTab === tab.value
+                  ? 'bg-white text-slate-900'
+                  : 'bg-white/15 text-white hover:bg-white/25'
+              }`}>
+              {tab.label}
+            </a>
+          ))}
         </div>
       </div>
 
