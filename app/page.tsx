@@ -71,6 +71,30 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Categories */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <p className="text-sm font-medium mb-2" style={{ color: '#C9A84C' }}>חיפוש לפי קטגוריה</p>
+          <h2 className="text-3xl font-bold text-slate-900">מה אתם מחפשים?</h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          {[
+            { icon: '🏢', label: 'משרדים', type: 'משרד' },
+            { icon: '🛍️', label: 'חנויות', type: 'חנות' },
+            { icon: '🏭', label: 'מחסנים', type: 'מחסן' },
+            { icon: '🔧', label: 'תעשייה', type: 'תעשיה' },
+            { icon: '🌿', label: 'קרקעות', type: 'קרקע' },
+            { icon: '🏗️', label: 'מסחרי', type: 'מסחרי' },
+          ].map(({ icon, label, type }) => (
+            <Link key={type} href={`/properties?property_type=${encodeURIComponent(type)}`}
+              className="flex flex-col items-center gap-3 p-5 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all bg-white group">
+              <span className="text-4xl group-hover:scale-110 transition-transform">{icon}</span>
+              <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600">{label}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Featured Properties */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-10">
