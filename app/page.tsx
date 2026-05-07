@@ -10,8 +10,8 @@ export const revalidate = 60
 export default async function HomePage() {
   const allProperties = await getProperties()
   const featured = allProperties.slice(0, 6)
-  const forSale = allProperties.filter(p => p.deal_type === 'sale').length
-  const forRent = allProperties.filter(p => p.deal_type === 'rent').length
+  const forSale = allProperties.filter(p => p.deal_type?.includes('מכירה')).length
+  const forRent = allProperties.filter(p => p.deal_type?.includes('השכרה')).length
 
   return (
     <>
@@ -50,15 +50,15 @@ export default async function HomePage() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mt-10">
             {[
-              { num: allProperties.length, label: 'נכסים זמינים' },
-              { num: forSale, label: 'למכירה' },
-              { num: forRent, label: 'להשכרה' },
-            ].map(({ num, label }) => (
-              <div key={label} className="text-center glass-dark rounded-xl p-4"
+              { num: allProperties.length, label: 'נכסים זמינים', href: '/properties' },
+              { num: forSale, label: 'למכירה', href: '/properties?deal_type=מכירה' },
+              { num: forRent, label: 'להשכרה', href: '/properties?deal_type=השכרה' },
+            ].map(({ num, label, href }) => (
+              <Link key={label} href={href} className="text-center glass-dark rounded-xl p-4 hover:opacity-80 transition-opacity"
                 style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)' }}>
                 <p className="text-3xl font-bold text-white">{num}</p>
                 <p className="text-sm text-blue-200">{label}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
