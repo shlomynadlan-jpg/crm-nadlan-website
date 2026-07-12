@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
-  const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@ls-nadlan.co.il'
+  const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
 
   return (
     <LegalPage

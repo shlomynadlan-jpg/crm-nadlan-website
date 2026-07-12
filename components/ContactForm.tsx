@@ -35,7 +35,7 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
     }
   }
 
-  const contactPhone = agentPhone || process.env.NEXT_PUBLIC_COMPANY_PHONE || '052-3918000'
+  const contactPhone = agentPhone || process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const rawPhone = contactPhone.replace(/\D/g, '')
   const waPhone = rawPhone.startsWith('972') ? rawPhone : '972' + rawPhone.replace(/^0/, '')
   const telHref = `tel:${contactPhone}`
