@@ -35,9 +35,10 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
     }
   }
 
-  const rawPhone = (agentPhone || process.env.NEXT_PUBLIC_COMPANY_PHONE || '').replace(/\D/g, '')
+  const contactPhone = agentPhone || process.env.NEXT_PUBLIC_COMPANY_PHONE || '052-3918000'
+  const rawPhone = contactPhone.replace(/\D/g, '')
   const waPhone = rawPhone.startsWith('972') ? rawPhone : '972' + rawPhone.replace(/^0/, '')
-  const telHref = `tel:${agentPhone || process.env.NEXT_PUBLIC_COMPANY_PHONE || ''}`
+  const telHref = `tel:${contactPhone}`
 
   // WhatsApp message with property context
   const waText = encodeURIComponent(
