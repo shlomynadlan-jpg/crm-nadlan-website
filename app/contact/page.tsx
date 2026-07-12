@@ -3,7 +3,7 @@ import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 
 export default function ContactPage() {
-  const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '050-0000000'
+  const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '052-3918000'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@ls-nadlan.co.il'
 
   return (
