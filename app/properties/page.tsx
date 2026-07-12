@@ -136,9 +136,11 @@ export default function PropertiesPage() {
   return (
     <>
       <Navbar />
-      <Suspense fallback={<div className="pt-28 text-center p-20 text-slate-400">טוען...</div>}>
-        <PropertiesContent />
-      </Suspense>
+      <main id="main">
+        <Suspense fallback={<div className="pt-28 text-center p-20 text-slate-400">טוען...</div>}>
+          <PropertiesContent />
+        </Suspense>
+      </main>
       <Footer />
     </>
   )

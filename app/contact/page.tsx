@@ -18,7 +18,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-16">
+      <main id="main" className="max-w-4xl mx-auto px-6 py-16 w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Info */}
           <div>
@@ -32,7 +32,7 @@ export default function ContactPage() {
                 <a key={label} href={href} target={href.startsWith('https') ? '_blank' : undefined}
                    rel="noopener noreferrer"
                    className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="text-3xl">{icon}</div>
+                  <div className="text-3xl" aria-hidden="true">{icon}</div>
                   <div>
                     <p className="text-xs text-slate-400">{label}</p>
                     <p className="font-semibold text-slate-800">{value}</p>
@@ -51,7 +51,7 @@ export default function ContactPage() {
           {/* Form */}
           <ContactForm />
         </div>
-      </div>
+      </main>
 
       <Footer />
     </>

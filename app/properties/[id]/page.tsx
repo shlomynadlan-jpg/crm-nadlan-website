@@ -46,10 +46,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   return (
     <>
       <Navbar />
-      <div className="max-w-6xl mx-auto px-6 pt-28 pb-16">
+      <main id="main" className="max-w-6xl mx-auto px-6 pt-28 pb-16 w-full">
 
         {/* Breadcrumb */}
-        <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
+        <nav aria-label="ניווט משני" className="text-sm text-slate-400 mb-6 flex items-center gap-2">
           <Link href="/" className="hover:text-blue-600">בית</Link>
           <span>›</span>
           <Link href="/properties" className="hover:text-blue-600">נכסים</Link>
@@ -81,7 +81,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 <div className="flex gap-2 p-3 overflow-x-auto">
                   {images.slice(1).map((src, i) => (
                     <div key={i} className="relative flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden">
-                      <Image src={src} alt="" fill className="object-cover" sizes="80px" />
+                      <Image src={src} alt={`${types} ב${property.city} — תמונה ${i + 2}`} fill className="object-cover" sizes="80px" />
                     </div>
                   ))}
                 </div>
@@ -184,7 +184,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </>
   )

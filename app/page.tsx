@@ -17,6 +17,7 @@ export default async function HomePage() {
     <>
       <Navbar />
 
+      <main id="main">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0077B6 60%, #005A8E 100%)' }}>
@@ -88,7 +89,7 @@ export default async function HomePage() {
           ].map(({ icon, label, type }) => (
             <Link key={type} href={`/properties?property_type=${encodeURIComponent(type)}`}
               className="flex flex-col items-center gap-3 p-5 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all bg-white group">
-              <span className="text-4xl group-hover:scale-110 transition-transform">{icon}</span>
+              <span className="text-4xl group-hover:scale-110 transition-transform" aria-hidden="true">{icon}</span>
               <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600">{label}</span>
             </Link>
           ))}
@@ -151,6 +152,7 @@ export default async function HomePage() {
           📞 צור קשר עכשיו
         </Link>
       </section>
+      </main>
 
       <Footer />
     </>

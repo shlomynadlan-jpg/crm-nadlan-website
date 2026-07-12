@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nadlan-site",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "3457"],
+      "port": 3457,
+      "cwd": "C:\\Users\\user\\Desktop\\1CLOADE PROJECTS\\website\\site"
+    }
+  ]
+}

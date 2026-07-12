@@ -29,15 +29,15 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
   if (inline) {
     return (
       <div className="flex flex-wrap gap-3 items-end">
-        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle}>
+        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle} aria-label="בחירת עיר">
           <option value="">כל הערים</option>
           {cities.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
+        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle} aria-label="בחירת סוג נכס">
           <option value="">כל סוגי הנכסים</option>
           {PROPERTY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
-        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
+        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle} aria-label="בחירת סוג עסקה">
           <option value="">מכירה / השכרה</option>
           <option value="מכירה">למכירה</option>
           <option value="השכרה">להשכרה</option>
@@ -52,15 +52,15 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
   return (
     <div className="glass rounded-2xl p-5 shadow-xl w-full max-w-3xl mx-auto">
       <div className="flex flex-wrap gap-3 items-end">
-        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle}>
+        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle} aria-label="בחירת עיר">
           <option value="">📍 כל הערים</option>
           {cities.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
+        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle} aria-label="בחירת סוג נכס">
           <option value="">🏢 סוג נכס</option>
           {PROPERTY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
-        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
+        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle} aria-label="בחירת סוג עסקה">
           <option value="">💼 עסקה</option>
           <option value="מכירה">למכירה</option>
           <option value="השכרה">להשכרה</option>

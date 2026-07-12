@@ -1,5 +1,6 @@
 'use client'
-import { useState } from 'react'
+import { useState, useId } from 'react'
+import Link from 'next/link'
 
 interface Props {
   propertyId?: string
@@ -14,6 +15,7 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+  const formId = useId()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,25 +63,35 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-3">
+          <label htmlFor={`${formId}-name`} className="sr-only">שם מלא (חובה)</label>
           <input
+            id={`${formId}-name`} name="name"
             type="text" placeholder="שם מלא *" value={name}
             onChange={e => setName(e.target.value)} className={inputStyle} required
           />
+          <label htmlFor={`${formId}-phone`} className="sr-only">טלפון (חובה)</label>
           <input
+            id={`${formId}-phone`} name="phone"
             type="tel" placeholder="טלפון *" value={phone}
             onChange={e => setPhone(e.target.value)} className={inputStyle} required
           />
+          <label htmlFor={`${formId}-message`} className="sr-only">הודעה (אופציונלי)</label>
           <textarea
+            id={`${formId}-message`} name="message"
             placeholder="הודעה (אופציונלי)" value={message}
             onChange={e => setMessage(e.target.value)}
             rows={3} className={inputStyle + ' resize-none'}
           />
           {status === 'error' && (
-            <p className="text-red-500 text-sm">שגיאה בשליחה, נסו שוב</p>
+            <p role="alert" className="text-red-500 text-sm">שגיאה בשליחה, נסו שוב</p>
           )}
           <button type="submit" disabled={status === 'sending'} className="btn-primary w-full justify-center text-sm">
             {status === 'sending' ? '⏳ שולח...' : '📩 שלח פנייה'}
           </button>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            הפרטים ישמשו ליצירת קשר בלבד, בהתאם ל
+            <Link href="/privacy" className="underline hover:text-slate-600">מדיניות הפרטיות</Link>.
+          </p>
         </form>
       )}
 
