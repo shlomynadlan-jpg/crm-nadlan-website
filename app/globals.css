@@ -130,3 +130,59 @@ body {
 .legal-content a:hover {
   color: #005A8E;
 }
+
+/* ===== Accessibility widget modes ===== */
+
+/* Grayscale — applied per top-level element so the fixed widget stays interactive */
+html.a11y-grayscale body > *:not(#a11y-widget-root) {
+  filter: grayscale(100%);
+}
+
+/* Dark contrast (inverted colors); images/videos re-inverted to look natural */
+html.a11y-invert body > *:not(#a11y-widget-root) {
+  filter: invert(100%) hue-rotate(180deg);
+}
+html.a11y-invert body > *:not(#a11y-widget-root) img,
+html.a11y-invert body > *:not(#a11y-widget-root) video {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+/* Highlight links */
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+
+/* Readable font */
+html.a11y-readable body,
+html.a11y-readable body * {
+  font-family: Arial, 'Segoe UI', sans-serif !important;
+  letter-spacing: 0.01em;
+}
+
+/* Stop animations and transitions */
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+html.a11y-no-motion {
+  scroll-behavior: auto;
+}
+
+/* Big cursor */
+html.a11y-big-cursor,
+html.a11y-big-cursor * {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path d='M5 2l14 12h-8l-2 8z' fill='black' stroke='white' stroke-width='1.5'/></svg>") 4 2, auto !important;
+}
+
+/* Respect OS-level reduced-motion preference site-wide */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}

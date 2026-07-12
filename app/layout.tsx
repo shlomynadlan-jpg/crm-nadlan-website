@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import AccessibilityWidget from '@/components/AccessibilityWidget'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen flex flex-col">
         <a href="#main" className="skip-link">דלגו לתוכן הראשי</a>
         {children}
+        <AccessibilityWidget />
       </body>
     </html>
   )
