@@ -3,6 +3,9 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
 import SearchBar from '@/components/SearchBar'
+import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
+import ImageBanner from '@/components/ImageBanner'
+import OwnerBanner from '@/components/OwnerBanner'
 import { getProperties } from '@/lib/properties'
 
 export const revalidate = 60
@@ -72,6 +75,9 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Specialties strip */}
+      <SpecialtiesMarquee />
+
       {/* Categories */}
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
@@ -120,6 +126,9 @@ export default async function HomePage() {
         )}
       </section>
 
+      {/* Image banner */}
+      <ImageBanner />
+
       {/* Why Us */}
       <section style={{ background: 'linear-gradient(135deg, #0F172A, #1E293B)' }} className="py-20 text-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -143,6 +152,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Owner banner */}
+      <OwnerBanner />
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 py-20 text-center">
