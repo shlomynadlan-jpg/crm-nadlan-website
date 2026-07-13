@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
+
+export const metadata: Metadata = {
+  title: 'צור קשר',
+  description: 'צרו קשר עם LS נדל"ן — טלפון 055-2702800, וואטסאפ או טופס פנייה. מענה מהיר לכל שאלה על נכסים למכירה ולהשכרה.',
+  alternates: { canonical: '/contact' },
+}
 
 export default function ContactPage() {
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'

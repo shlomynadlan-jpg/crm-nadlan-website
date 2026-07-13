@@ -24,6 +24,7 @@ export default function Navbar() {
           <Link href="/properties" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">נכסים</Link>
           <Link href="/properties?deal_type=sale" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">למכירה</Link>
           <Link href="/properties?deal_type=rent" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">להשכרה</Link>
+          <Link href="/about" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">אודות</Link>
           <Link href="/contact" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">צור קשר</Link>
         </div>
 
@@ -57,6 +58,8 @@ export default function Navbar() {
           <Link href="/properties" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>כל הנכסים</Link>
           <Link href="/properties?deal_type=sale" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>למכירה</Link>
           <Link href="/properties?deal_type=rent" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>להשכרה</Link>
+          <Link href="/about" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>אודות</Link>
+          <Link href="/faq" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>שאלות נפוצות</Link>
           <Link href="/contact" className="btn-primary text-center" onClick={() => setOpen(false)}>צור קשר</Link>
         </div>
       )}

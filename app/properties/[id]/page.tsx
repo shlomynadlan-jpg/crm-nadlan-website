@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,6 +8,40 @@ import ContactForm from '@/components/ContactForm'
 import { getProperty, getAgentSettings, getPropertyImage, formatPrice, getPropertyTypes } from '@/lib/properties'
 
 export const revalidate = 60
+
+function propertyTitle(types: string, p: { gross_size: number | null; city: string; deal_type: string | null }): string {
+  const deal = p.deal_type || ''
+  const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
+  const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
+  const dealText = isRent ? 'להשכרה' : isBoth ? 'למכירה ולהשכרה' : 'למכירה'
+  const size = p.gross_size ? ` ${p.gross_size} מ"ר` : ''
+  return `${types || 'נכס'}${size} ${dealText}${p.city ? ` ב${p.city}` : ''}`
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const property = await getProperty(id)
+  if (!property) return { title: 'נכס לא נמצא' }
+
+  const types = getPropertyTypes(property)
+  const title = propertyTitle(types, property)
+  const description = (property.description || '').slice(0, 155) ||
+    `${title} — פרטים מלאים, תמונות ויצירת קשר באתר LS נדל"ן.`
+  const image = getPropertyImage(property)
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/properties/${property.id}` },
+    openGraph: {
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 630 }],
+      locale: 'he_IL',
+      type: 'website',
+    },
+  }
+}
 
 export default async function PropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -43,8 +78,45 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     { label: 'שם פרויקט', value: property.project_name || null },
   ].filter(s => s.value)
 
+  const listingJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: propertyTitle(types, property),
+    url: `https://www.nadlannow.co.il/properties/${property.id}`,
+    image: images[0],
+    description: property.description || undefined,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: property.property_address || undefined,
+      addressLocality: property.city || undefined,
+      addressCountry: 'IL',
+    },
+    ...(property.gross_size ? {
+      floorSize: { '@type': 'QuantitativeValue', value: property.gross_size, unitCode: 'MTK' },
+    } : {}),
+    offers: {
+      '@type': 'Offer',
+      price: (isRent ? rentPrice : salePrice) || undefined,
+      priceCurrency: 'ILS',
+      availability: 'https://schema.org/InStock',
+      seller: { '@type': 'RealEstateAgent', name: 'LS נדל"ן', telephone: '+972-55-2702800' },
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'בית', item: 'https://www.nadlannow.co.il' },
+      { '@type': 'ListItem', position: 2, name: 'נכסים', item: 'https://www.nadlannow.co.il/properties' },
+      { '@type': 'ListItem', position: 3, name: propertyTitle(types, property) },
+    ],
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listingJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <Navbar />
       <main id="main" className="max-w-6xl mx-auto px-6 pt-28 pb-16 w-full">
 
