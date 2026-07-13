@@ -14,18 +14,25 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
+  const [privacyConsent, setPrivacyConsent] = useState(false)
+  const [marketingConsent, setMarketingConsent] = useState(false)
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const formId = useId()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim() || !phone.trim()) return
+    if (!name.trim() || !phone.trim() || !privacyConsent) return
     setStatus('sending')
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CRM_URL || 'http://localhost:3000'}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, message, property_id: propertyId, property_city: propertyCity, property_type: propertyType }),
+        body: JSON.stringify({
+          name, phone, message,
+          property_id: propertyId, property_city: propertyCity, property_type: propertyType,
+          privacy_consent: privacyConsent,
+          marketing_consent: marketingConsent,
+        }),
       })
       if (!res.ok) throw new Error()
       setStatus('done')
@@ -83,16 +90,33 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
             onChange={e => setMessage(e.target.value)}
             rows={3} className={inputStyle + ' resize-none'}
           />
+          <label className="flex items-start gap-2 text-xs text-slate-500 leading-relaxed cursor-pointer">
+            <input
+              type="checkbox" required checked={privacyConsent}
+              onChange={e => setPrivacyConsent(e.target.checked)}
+              className="mt-0.5 w-4 h-4 shrink-0 accent-blue-600 cursor-pointer"
+            />
+            <span>
+              קראתי את <Link href="/privacy" className="underline hover:text-slate-700">מדיניות הפרטיות</Link> ואני
+              מסכים/ה שהפרטים ישמשו ליצירת קשר עמי. <span className="text-red-500">*</span>
+            </span>
+          </label>
+          <label className="flex items-start gap-2 text-xs text-slate-500 leading-relaxed cursor-pointer">
+            <input
+              type="checkbox" checked={marketingConsent}
+              onChange={e => setMarketingConsent(e.target.checked)}
+              className="mt-0.5 w-4 h-4 shrink-0 accent-blue-600 cursor-pointer"
+            />
+            <span>
+              אני מאשר/ת קבלת עדכונים והצעות נדל״ן במייל, ב-SMS או בוואטסאפ (אופציונלי, ניתן להסרה בכל עת).
+            </span>
+          </label>
           {status === 'error' && (
             <p role="alert" className="text-red-500 text-sm">שגיאה בשליחה, נסו שוב</p>
           )}
           <button type="submit" disabled={status === 'sending'} className="btn-primary w-full justify-center text-sm">
             {status === 'sending' ? '⏳ שולח...' : '📩 שלח פנייה'}
           </button>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            הפרטים ישמשו ליצירת קשר בלבד, בהתאם ל
-            <Link href="/privacy" className="underline hover:text-slate-600">מדיניות הפרטיות</Link>.
-          </p>
         </form>
       )}
 
