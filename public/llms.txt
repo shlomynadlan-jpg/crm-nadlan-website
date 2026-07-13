@@ -18,4 +18,5 @@ industrial spaces, land, and apartments.
 - [כל הנכסים](https://www.nadlannow.co.il/properties): רשימת הנכסים הזמינים למכירה ולהשכרה
 - [אודות](https://www.nadlannow.co.il/about): על החברה והשירותים
 - [שאלות נפוצות](https://www.nadlannow.co.il/faq): מידע על תיווך, עמלות ותהליכי עסקה
+- [מאמרים ומדריכים](https://www.nadlannow.co.il/blog): מדריכים מקצועיים על נדל"ן מסחרי — בחירת משרד, חישוב עלויות, שכירות מול רכישה
 - [צור קשר](https://www.nadlannow.co.il/contact): טופס פנייה ופרטי התקשרות

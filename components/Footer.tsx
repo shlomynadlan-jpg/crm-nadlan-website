@@ -33,6 +33,7 @@ export default function Footer() {
               <li><Link href="/properties" className="hover:text-white transition-colors">כל הנכסים</Link></li>
               <li><Link href="/properties?deal_type=sale" className="hover:text-white transition-colors">נכסים למכירה</Link></li>
               <li><Link href="/properties?deal_type=rent" className="hover:text-white transition-colors">נכסים להשכרה</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition-colors">מאמרים ומדריכים</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">אודות</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">שאלות נפוצות</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">צור קשר</Link></li>
