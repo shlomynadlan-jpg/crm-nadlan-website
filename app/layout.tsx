@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import AccessibilityWidget from '@/components/AccessibilityWidget'
 import CookieNotice from '@/components/CookieNotice'
 import './globals.css'
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <AccessibilityWidget />
         <CookieNotice />
+        <Analytics />
       </body>
     </html>
   )

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CookieSettingsLink from '@/components/CookieSettingsLink'
 
 export default function Footer() {
   const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
@@ -43,6 +44,7 @@ export default function Footer() {
               <li><Link href="/accessibility" className="hover:text-white transition-colors">הצהרת נגישות</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">מדיניות פרטיות</Link></li>
               <li><Link href="/terms" className="hover:text-white transition-colors">תקנון ותנאי שימוש</Link></li>
+              <li><CookieSettingsLink /></li>
             </ul>
           </div>
 
