@@ -84,7 +84,7 @@ export default async function HomePage() {
           <p className="text-sm font-medium mb-2" style={{ color: '#C9A84C' }}>חיפוש לפי קטגוריה</p>
           <h2 className="text-3xl font-bold text-slate-900">מה אתם מחפשים?</h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
           {[
             { icon: '🏢', label: 'משרדים', type: 'משרד' },
             { icon: '🛍️', label: 'חנויות', type: 'חנות' },
@@ -92,6 +92,7 @@ export default async function HomePage() {
             { icon: '🔧', label: 'תעשייה', type: 'תעשיה' },
             { icon: '🌿', label: 'קרקעות', type: 'קרקע' },
             { icon: '🏗️', label: 'מסחרי', type: 'מסחרי' },
+            { icon: '💼', label: 'עסקים למכירה', type: 'עסק' },
           ].map(({ icon, label, type }) => (
             <Link key={type} href={`/properties?property_type=${encodeURIComponent(type)}`}
               className="flex flex-col items-center gap-3 p-5 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all bg-white group">

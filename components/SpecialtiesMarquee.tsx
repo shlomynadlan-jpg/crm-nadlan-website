@@ -1,4 +1,4 @@
-const SPECIALTIES = ['משרדים', 'חנויות ומסחר', 'מחסנים ולוגיסטיקה', 'תעשייה', 'קרקעות', 'מגורים']
+const SPECIALTIES = ['משרדים', 'חנויות ומסחר', 'מחסנים ולוגיסטיקה', 'תעשייה', 'קרקעות', 'מגורים', 'מכירת עסקים']
 
 export default function SpecialtiesMarquee() {
   const Row = ({ hidden = false }: { hidden?: boolean }) => (

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { getCities } from '@/lib/properties'
 
-const PROPERTY_TYPES = ['משרד', 'חנות', 'מחסן', 'דירה', 'פנטהאוז', 'מסחרי', 'תעשייתי', 'קרקע']
+const PROPERTY_TYPES = ['משרד', 'חנות', 'מחסן', 'דירה', 'פנטהאוז', 'מסחרי', 'תעשייתי', 'קרקע', 'עסק למכירה']
 
 export default function SearchBar({ inline = false }: { inline?: boolean }) {
   const router = useRouter()
