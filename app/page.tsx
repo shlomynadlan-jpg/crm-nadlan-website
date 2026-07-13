@@ -151,6 +151,12 @@ export default async function HomePage() {
         <Link href="/contact" className="btn-primary text-base py-4 px-10">
           📞 צור קשר עכשיו
         </Link>
+        <p className="text-slate-500 mt-6">
+          יש לכם שאלות על תיווך, עמלות או תהליך העסקה?{' '}
+          <Link href="/faq" className="text-blue-600 font-medium hover:underline">
+            כל התשובות בעמוד השאלות הנפוצות
+          </Link>
+        </p>
       </section>
       </main>
 
