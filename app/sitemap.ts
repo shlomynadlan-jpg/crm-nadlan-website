@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
-import { getProperties } from '@/lib/properties'
+import { getProperties, getCities } from '@/lib/properties'
 import { articles } from '@/lib/articles'
+import { citySlug } from '@/lib/cities'
 
 const BASE = 'https://www.nadlannow.co.il'
 
@@ -23,7 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/terms`, changeFrequency: 'yearly', priority: 0.2 },
   ]
 
-  const properties = await getProperties()
+  const [properties, cities] = await Promise.all([getProperties(), getCities()])
+
   const propertyPages: MetadataRoute.Sitemap = properties.map(p => ({
     url: `${BASE}/properties/${p.id}`,
     lastModified: p.created_at ? new Date(p.created_at) : undefined,
@@ -31,5 +33,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...propertyPages]
+  const cityPages: MetadataRoute.Sitemap = cities.map(c => ({
+    url: `${BASE}/city/${encodeURIComponent(citySlug(c))}`,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...cityPages, ...propertyPages]
 }

@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import CookieSettingsLink from '@/components/CookieSettingsLink'
+import { getCities } from '@/lib/properties'
+import { citySlug } from '@/lib/cities'
 
-export default function Footer() {
+export default async function Footer() {
   const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
+  let cities: string[] = []
+  try { cities = (await getCities()).slice(0, 12) } catch { /* footer works without cities */ }
 
   return (
     <footer style={{ background: '#0F172A', direction: 'rtl' }} className="text-white mt-auto">
@@ -74,6 +78,19 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        {cities.length > 0 && (
+          <div className="border-t border-slate-800 mt-10 pt-6">
+            <h2 className="font-semibold mb-3 text-sm" style={{ color: '#C9A84C' }}>אזורי פעילות</h2>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-400">
+              {cities.map(c => (
+                <Link key={c} href={`/city/${citySlug(c)}`} className="hover:text-white transition-colors">
+                  נכסים ב{c}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="border-t border-slate-800 mt-10 pt-6 text-center text-slate-500 text-sm">
           © {new Date().getFullYear()} {companyName} — כל הזכויות שמורות
