@@ -4,17 +4,13 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
 import ContactForm from '@/components/ContactForm'
-import { getProperties, getCities } from '@/lib/properties'
+import { getProperties } from '@/lib/properties'
 import { citySlug, cityFromSlug } from '@/lib/cities'
 
-export const revalidate = 300
+// Rendered on demand: Vercel's static cache breaks on Hebrew (non-ASCII) route params
+export const dynamic = 'force-dynamic'
 
 const BASE = 'https://www.nadlannow.co.il'
-
-export async function generateStaticParams() {
-  const cities = await getCities()
-  return cities.map(c => ({ city: citySlug(c) }))
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
   const { city: slug } = await params
