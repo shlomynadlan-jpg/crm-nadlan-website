@@ -5,6 +5,7 @@ import LegalPage from '@/components/LegalPage'
 export const metadata: Metadata = {
   title: 'תקנון ותנאי שימוש | LS נדל"ן',
   description: 'תנאי השימוש באתר LS נדל"ן',
+  alternates: { canonical: '/terms' },
 }
 
 export default function TermsPage() {

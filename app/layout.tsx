@@ -13,7 +13,6 @@ export const metadata: Metadata = {
     template: '%s | LS נדל"ן',
   },
   description: 'LS נדל"ן — תיווך נכסים מסחריים ומגורים: משרדים, חנויות, מחסנים, תעשייה, קרקעות ודירות למכירה ולהשכרה. ליווי אישי מהחיפוש ועד החתימה.',
-  alternates: { canonical: './' },
   openGraph: {
     type: 'website',
     siteName: 'LS נדל"ן',

@@ -4,6 +4,7 @@ import LegalPage from '@/components/LegalPage'
 export const metadata: Metadata = {
   title: 'הצהרת נגישות | LS נדל"ן',
   description: 'הצהרת הנגישות של אתר LS נדל"ן בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות',
+  alternates: { canonical: '/accessibility' },
 }
 
 export default function AccessibilityPage() {

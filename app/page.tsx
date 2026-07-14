@@ -7,8 +7,13 @@ import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
 import ImageBanner from '@/components/ImageBanner'
 import OwnerBanner from '@/components/OwnerBanner'
 import { getProperties } from '@/lib/properties'
+import type { Metadata } from 'next'
 
 export const revalidate = 60
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 export default async function HomePage() {
   const allProperties = await getProperties()

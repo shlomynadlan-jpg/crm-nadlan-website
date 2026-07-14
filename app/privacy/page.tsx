@@ -4,6 +4,7 @@ import LegalPage from '@/components/LegalPage'
 export const metadata: Metadata = {
   title: 'מדיניות פרטיות | LS נדל"ן',
   description: 'מדיניות הפרטיות של אתר LS נדל"ן — איזה מידע נאסף, למה הוא משמש ומהן זכויותיכם',
+  alternates: { canonical: '/privacy' },
 }
 
 export default function PrivacyPage() {
