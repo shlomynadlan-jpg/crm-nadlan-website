@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import AccessibilityWidget from '@/components/AccessibilityWidget'
 import CookieNotice from '@/components/CookieNotice'
+import WhatsAppFloat from '@/components/WhatsAppFloat'
 import './globals.css'
 
 const BASE = 'https://www.nadlannow.co.il'
@@ -45,7 +47,7 @@ const orgJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -56,10 +58,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col">
+        <Script id="js-flag" strategy="beforeInteractive">
+          {"document.documentElement.classList.add('js')"}
+        </Script>
         <a href="#main" className="skip-link">דלגו לתוכן הראשי</a>
         {children}
         <AccessibilityWidget />
         <CookieNotice />
+        <WhatsAppFloat />
         <Analytics />
       </body>
     </html>

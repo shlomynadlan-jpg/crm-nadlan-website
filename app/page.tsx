@@ -7,6 +7,9 @@ import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
 import ImageBanner from '@/components/ImageBanner'
 import OwnerBanner from '@/components/OwnerBanner'
 import ProcessSection from '@/components/ProcessSection'
+import RotatingWord from '@/components/RotatingWord'
+import CountUp from '@/components/CountUp'
+import Reveal from '@/components/Reveal'
 import { getProperties } from '@/lib/properties'
 import type { Metadata } from 'next'
 
@@ -33,9 +36,9 @@ export default async function HomePage() {
 
         {/* Background orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full opacity-20"
+          <div className="orb-a absolute -top-40 -left-40 w-96 h-96 rounded-full opacity-20"
             style={{ background: '#C9A84C', filter: 'blur(80px)' }} />
-          <div className="absolute top-1/2 -right-20 w-80 h-80 rounded-full opacity-15"
+          <div className="orb-b absolute top-1/2 -right-20 w-80 h-80 rounded-full opacity-15"
             style={{ background: '#90E0EF', filter: 'blur(60px)' }} />
         </div>
 
@@ -47,7 +50,7 @@ export default async function HomePage() {
             </span>
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
               מוצאים לך את<br />
-              <span style={{ color: '#C9A84C' }}>הנכס המושלם</span>
+              <RotatingWord />
             </h1>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10">
               מגוון נכסים למכירה ולהשכרה — משרדים, חנויות, מחסנים, דירות ועוד.
@@ -66,7 +69,7 @@ export default async function HomePage() {
             ].map(({ num, label, href }) => (
               <Link key={label} href={href} className="text-center glass-dark rounded-xl p-4 hover:opacity-80 transition-opacity"
                 style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)' }}>
-                <p className="text-3xl font-bold text-white">{num}</p>
+                <p className="text-3xl font-bold text-white"><CountUp value={num} /></p>
                 <p className="text-sm text-blue-200">{label}</p>
               </Link>
             ))}
@@ -99,12 +102,14 @@ export default async function HomePage() {
             { icon: '🌿', label: 'קרקעות', type: 'קרקע' },
             { icon: '🏗️', label: 'מסחרי', type: 'מסחרי' },
             { icon: '💼', label: 'עסקים למכירה', type: 'עסק' },
-          ].map(({ icon, label, type }) => (
-            <Link key={type} href={`/properties?property_type=${encodeURIComponent(type)}`}
-              className="flex flex-col items-center gap-3 p-5 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all bg-white group">
-              <span className="text-4xl group-hover:scale-110 transition-transform" aria-hidden="true">{icon}</span>
-              <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600">{label}</span>
-            </Link>
+          ].map(({ icon, label, type }, i) => (
+            <Reveal key={type} delay={i * 70}>
+              <Link href={`/properties?property_type=${encodeURIComponent(type)}`}
+                className="flex flex-col items-center gap-3 p-5 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-md hover:-translate-y-1 transition-all bg-white group h-full">
+                <span className="text-4xl group-hover:scale-110 transition-transform" aria-hidden="true">{icon}</span>
+                <span className="text-sm font-bold text-slate-700 group-hover:text-blue-600">{label}</span>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -148,13 +153,15 @@ export default async function HomePage() {
               { icon: '🎯', title: 'מקצועיות ודיוק', desc: 'כל נכס עובר בדיקה קפדנית לפני הצגה. אנחנו מספקים מידע מדויק ואמין.' },
               { icon: '⚡', title: 'מהירות תגובה', desc: 'אנחנו זמינים בכל עת. פנייתך תקבל מענה תוך שעות.' },
               { icon: '🤝', title: 'ליווי אישי', desc: 'מהחיפוש ועד החתימה — אנחנו לצידך בכל שלב.' },
-            ].map(({ icon, title, desc }) => (
-              <div key={title} className="rounded-2xl p-8 text-center"
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <div className="text-5xl mb-4">{icon}</div>
-                <h3 className="text-xl font-bold mb-3">{title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm">{desc}</p>
-              </div>
+            ].map(({ icon, title, desc }, i) => (
+              <Reveal key={title} delay={i * 120}>
+                <div className="rounded-2xl p-8 text-center h-full"
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div className="text-5xl mb-4" aria-hidden="true">{icon}</div>
+                  <h3 className="text-xl font-bold mb-3">{title}</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm">{desc}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
