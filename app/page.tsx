@@ -6,6 +6,7 @@ import SearchBar from '@/components/SearchBar'
 import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
 import ImageBanner from '@/components/ImageBanner'
 import OwnerBanner from '@/components/OwnerBanner'
+import ProcessSection from '@/components/ProcessSection'
 import { getProperties } from '@/lib/properties'
 import type { Metadata } from 'next'
 
@@ -158,6 +159,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Process */}
+      <ProcessSection />
 
       {/* Owner banner */}
       <OwnerBanner />
