@@ -1,12 +1,13 @@
 import HeroSection from '@/components/HeroSection'
 import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
+import WantedCard from '@/components/WantedCard'
 import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
 import OwnerBanner from '@/components/OwnerBanner'
 import ProcessSection from '@/components/ProcessSection'
 import Reveal from '@/components/Reveal'
 import Link from 'next/link'
-import { getProperties } from '@/lib/properties'
+import { getProperties, getPropertyRequests } from '@/lib/properties'
 import type { Metadata } from 'next'
 
 export const revalidate = 60
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const allProperties = await getProperties()
+  const [allProperties, wantedRequests] = await Promise.all([getProperties(), getPropertyRequests()])
   const featured = allProperties.slice(0, 3)
   const forSale = allProperties.filter(p => p.deal_type?.includes('מכירה')).length
   const forRent = allProperties.filter(p => p.deal_type?.includes('השכרה')).length
@@ -131,6 +132,51 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ── Wanted / דרושים ── */}
+        {wantedRequests.length > 0 && (
+          <section
+            className="py-16 px-6"
+            style={{ background: 'linear-gradient(160deg, #040d1e 0%, #0a1e3d 55%, #091830 100%)' }}
+          >
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(201,168,76,0.8)' }}>
+                    לבעלי נכסים
+                  </p>
+                  <h2 className="text-4xl font-black text-white">דרושים נכסים</h2>
+                  <p className="text-base mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    הלקוחות שלנו מחפשים — יש לכם נכס מתאים?
+                  </p>
+                </div>
+                <Link
+                  href="/wanted"
+                  className="hidden md:block text-sm font-bold pb-0.5"
+                  style={{ color: '#C9A84C', borderBottom: '1px solid rgba(201,168,76,0.5)' }}
+                >
+                  כל הבקשות ←
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {wantedRequests.slice(0, 3).map(r => (
+                  <WantedCard key={r.id} r={r} />
+                ))}
+              </div>
+              {wantedRequests.length > 3 && (
+                <div className="text-center mt-8">
+                  <Link
+                    href="/wanted"
+                    className="inline-block text-sm font-black py-3 px-8 rounded-xl"
+                    style={{ background: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
+                  >
+                    צפה בכל {wantedRequests.length} הבקשות ←
+                  </Link>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* ── Process ── */}
         <ProcessSection />

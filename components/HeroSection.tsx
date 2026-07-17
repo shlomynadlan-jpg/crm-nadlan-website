@@ -11,15 +11,18 @@ interface Props {
 }
 
 const SLIDES = [
-  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=85',
-  'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1600&q=85',
-  'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85',
+  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=85',  // glass tower
+  'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1600&q=85',    // office interior
+  'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85', // workspace
+  'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=85', // warehouse/logistics
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=85', // shopping mall / retail
 ]
 
 const NAV_LINKS = [
   { href: '/properties', label: 'נכסים' },
   { href: '/properties?deal_type=מכירה', label: 'למכירה' },
   { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
+  { href: '/wanted', label: 'דרושים נכסים' },
   { href: '/blog', label: 'מאמרים' },
   { href: '/about', label: 'אודות' },
   { href: '/faq', label: 'שאלות נפוצות' },

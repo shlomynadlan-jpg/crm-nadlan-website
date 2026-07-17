@@ -7,6 +7,7 @@ const LINKS = [
   { href: '/properties', label: 'נכסים' },
   { href: '/properties?deal_type=מכירה', label: 'למכירה' },
   { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
+  { href: '/wanted', label: 'דרושים נכסים' },
   { href: '/blog', label: 'מאמרים' },
   { href: '/about', label: 'אודות' },
   { href: '/faq', label: 'שאלות נפוצות' },

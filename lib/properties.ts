@@ -104,6 +104,29 @@ export function getPropertyImage(p: Property): string {
   return aiImageUrl(prompt, seed)
 }
 
+export interface PropertyRequest {
+  id: number
+  property_type: string
+  city: string | null
+  deal_type: string
+  size_min: number | null
+  size_max: number | null
+  budget: number | null
+  description: string | null
+  is_urgent: boolean
+  created_at: string
+}
+
+export async function getPropertyRequests(): Promise<PropertyRequest[]> {
+  const { data, error } = await supabase
+    .from('property_requests')
+    .select('id,property_type,city,deal_type,size_min,size_max,budget,description,is_urgent,created_at')
+    .eq('show_on_website', true)
+    .order('created_at', { ascending: false })
+  if (error) { console.error(error); return [] }
+  return data || []
+}
+
 export interface AgentSettings {
   full_name: string
   phone: string
