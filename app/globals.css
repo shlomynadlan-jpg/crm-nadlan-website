@@ -220,6 +220,12 @@ html.js.a11y-no-motion .reveal {
   html.js .reveal { opacity: 1; transform: none; }
 }
 
+/* Hero photo zoom */
+@keyframes heroZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.00); }
+}
+
 /* Hero background orbs — slow drift */
 @keyframes orb-drift-a {
   from { transform: translate(0, 0) scale(1); }

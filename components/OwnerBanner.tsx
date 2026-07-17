@@ -2,22 +2,45 @@ import Link from 'next/link'
 
 export default function OwnerBanner() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-10">
-      <div className="rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
-        style={{ background: 'linear-gradient(135deg, #0F172A, #1E293B)', borderRight: '6px solid #C9A84C' }}>
+    <section
+      className="px-6 py-16 relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #040d1e 0%, #0a1e3d 40%, #0d2d5c 70%, #091830 100%)',
+        borderTop: '1px solid rgba(201,168,76,0.1)',
+      }}
+    >
+      {/* Subtle glow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: -60, left: -60, width: 300, height: 300,
+          background: 'radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative z-10">
         <div>
-          <p className="text-sm font-medium mb-2" style={{ color: '#C9A84C' }}>לבעלי נכסים</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-            יש לכם נכס למכירה או להשכרה?
+          <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: 'rgba(201,168,76,0.6)' }}>
+            לבעלי נכסים
+          </p>
+          <h2 className="text-2xl md:text-3xl font-black text-white mb-2 leading-snug">
+            יש לך נכס למכירה<br className="hidden md:block" /> או להשכרה?
           </h2>
-          <p className="text-slate-400">
-            קבלו הערכת שווי ותוכנית שיווק מותאמת — בלי עלות ובלי התחייבות.
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            נמצא לו את הקונה הנכון — מהר ובמחיר הטוב ביותר
           </p>
         </div>
-        <Link href="/contact"
-          className="shrink-0 font-bold text-sm py-4 px-8 rounded-xl transition-opacity hover:opacity-90"
-          style={{ background: '#C9A84C', color: '#2C2000' }}>
-          קבלו הערכה חינם ←
+
+        <Link
+          href="/contact"
+          className="shrink-0 font-black text-sm py-4 px-9 rounded-xl transition-all hover:-translate-y-0.5"
+          style={{
+            background: '#fff',
+            color: '#0a1e3d',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+          }}
+        >
+          פנה אלינו עכשיו ←
         </Link>
       </div>
     </section>
