@@ -16,9 +16,20 @@ const SLIDES = [
   'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85',
 ]
 
+const NAV_LINKS = [
+  { href: '/properties', label: 'נכסים' },
+  { href: '/properties?deal_type=מכירה', label: 'למכירה' },
+  { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
+  { href: '/blog', label: 'מאמרים' },
+  { href: '/about', label: 'אודות' },
+  { href: '/faq', label: 'שאלות נפוצות' },
+  { href: '/contact', label: 'צור קשר' },
+]
+
 export default function HeroSection({ totalCount, forSale, forRent }: Props) {
   const [slide, setSlide] = useState(0)
   const [fade, setFade] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const nextSlide = useCallback(() => {
     setFade(false)
@@ -47,7 +58,7 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
         }}
       />
 
-      {/* Overlay — dark RIGHT side (text side in RTL), clear left (photo side) */}
+      {/* Overlay — dark RIGHT side (text side in RTL), clear left */}
       <div
         className="absolute inset-0 z-10"
         style={{
@@ -73,53 +84,106 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
 
         {/* ── NAVBAR ── */}
         <nav
-          className="flex items-center justify-between px-10 py-5"
+          className="flex items-center justify-between px-6 md:px-10 py-5"
           style={{ borderBottom: '1px solid rgba(201,168,76,0.18)' }}
         >
-          <Link href="/" className="text-white font-black text-xl tracking-widest uppercase">
+          {/* Logo */}
+          <Link href="/" className="text-white font-black text-xl tracking-widest uppercase shrink-0">
             LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
           </Link>
-          <div className="hidden md:flex items-center gap-7">
-            {[
-              { href: '/properties', label: 'נכסים' },
-              { href: '/properties?city=', label: 'ערים' },
-              { href: '/blog', label: 'בלוג' },
-              { href: '/about', label: 'אודות' },
-            ].map(({ href, label }) => (
+
+          {/* Desktop links */}
+          <div className="hidden lg:flex items-center gap-6">
+            {NAV_LINKS.slice(0, -1).map(({ href, label }) => (
               <Link
                 key={label}
                 href={href}
-                className="text-xs font-medium tracking-widest uppercase"
-                style={{ color: 'rgba(255,255,255,0.58)' }}
+                className="text-sm font-medium tracking-wide hover:opacity-100 transition-opacity"
+                style={{ color: 'rgba(255,255,255,0.62)' }}
               >
                 {label}
               </Link>
             ))}
           </div>
-          <a
-            href="tel:0552702800"
-            className="text-sm font-medium tracking-wide"
-            style={{ color: 'rgba(255,255,255,0.55)' }}
-          >
-            055 <span style={{ color: '#C9A84C' }}>270 2800</span>
-          </a>
+
+          {/* Phone + CTA */}
+          <div className="hidden lg:flex items-center gap-4">
+            <a
+              href="tel:0552702800"
+              className="text-sm font-medium"
+              style={{ color: 'rgba(255,255,255,0.55)' }}
+            >
+              055 <span style={{ color: '#C9A84C' }}>270 2800</span>
+            </a>
+            <Link
+              href="/contact"
+              className="text-sm font-bold px-4 py-2 rounded-lg"
+              style={{ background: '#C9A84C', color: '#0a1e3d' }}
+            >
+              צור קשר
+            </Link>
+          </div>
+
+          {/* Mobile: phone + burger */}
+          <div className="flex lg:hidden items-center gap-4">
+            <a
+              href="tel:0552702800"
+              className="text-sm font-medium"
+              style={{ color: '#C9A84C' }}
+            >
+              055-2702800
+            </a>
+            <button
+              onClick={() => setMenuOpen(o => !o)}
+              className="p-2 rounded-lg"
+              style={{ color: 'rgba(255,255,255,0.8)' }}
+              aria-label="פתח תפריט"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                {menuOpen
+                  ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
+                  : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>
+                }
+              </svg>
+            </button>
+          </div>
         </nav>
 
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div
+            className="lg:hidden relative z-30 mx-4 mt-2 rounded-2xl p-4 flex flex-col gap-2"
+            style={{ background: 'rgba(4,10,24,0.96)', border: '1px solid rgba(201,168,76,0.2)' }}
+          >
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="py-3 px-4 rounded-xl text-base font-semibold"
+                style={{ color: 'rgba(255,255,255,0.8)' }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        )}
+
         {/* ── HERO BODY ── */}
-        <div className="flex-1 flex flex-col justify-center px-10 py-10 max-w-2xl">
+        <div className="flex-1 flex flex-col justify-center px-6 md:px-10 py-10 max-w-2xl">
           {/* Gold accent line */}
-          <div style={{ width: 40, height: 2, background: '#C9A84C', marginBottom: 20 }} />
+          <div style={{ width: 40, height: 2, background: '#C9A84C', marginBottom: 24 }} />
 
           <p
-            className="text-xs font-bold tracking-widest uppercase mb-5"
-            style={{ color: 'rgba(201,168,76,0.75)' }}
+            className="text-sm font-bold tracking-widest uppercase mb-5"
+            style={{ color: 'rgba(201,168,76,0.85)' }}
           >
             נדל״ן מסחרי ומגורים
           </p>
 
           <h1
-            className="font-black leading-none mb-5"
-            style={{ fontSize: 'clamp(38px, 5vw, 58px)', color: '#fff', letterSpacing: '-1px', textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}
+            className="font-black leading-tight mb-6"
+            style={{ fontSize: 'clamp(42px, 5.5vw, 64px)', color: '#fff', letterSpacing: '-1px', textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}
           >
             מוצאים לך את
             <br />
@@ -127,8 +191,8 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
           </h1>
 
           <p
-            className="text-sm leading-relaxed mb-8"
-            style={{ color: 'rgba(255,255,255,0.55)' }}
+            className="text-base leading-relaxed mb-8"
+            style={{ color: 'rgba(255,255,255,0.65)' }}
           >
             מאות נכסים בכל הארץ · ייעוץ מקצועי
             <br />
@@ -142,17 +206,17 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
             className="flex items-stretch rounded-xl overflow-x-auto"
             style={{ background: 'rgba(255,255,255,0.97)', boxShadow: '0 12px 40px rgba(0,0,0,0.35)', maxWidth: 560 }}
           >
-            <div className="flex-1 px-4 py-3 border-l border-slate-200" style={{ minWidth: 140 }}>
-              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">עיר</label>
+            <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 150 }}>
+              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">עיר</label>
               <input
                 name="city"
                 placeholder="תל אביב, רמת גן..."
-                className="w-full text-sm text-slate-700 font-medium bg-transparent outline-none"
+                className="w-full text-base text-slate-700 font-medium bg-transparent outline-none"
               />
             </div>
-            <div className="flex-1 px-4 py-3 border-l border-slate-200" style={{ minWidth: 140 }}>
-              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">סוג נכס</label>
-              <select name="property_type" className="w-full text-sm text-slate-700 font-medium bg-transparent outline-none">
+            <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 150 }}>
+              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">סוג נכס</label>
+              <select name="property_type" className="w-full text-base text-slate-700 font-medium bg-transparent outline-none">
                 <option value="">הכל</option>
                 <option value="משרד">משרד</option>
                 <option value="חנות">חנות</option>
@@ -163,8 +227,8 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
             </div>
             <button
               type="submit"
-              className="px-6 text-sm font-black tracking-wide uppercase flex items-center gap-2 shrink-0"
-              style={{ background: '#0a1e3d', color: '#C9A84C', minWidth: 90 }}
+              className="px-7 text-base font-black tracking-wide flex items-center gap-2 shrink-0"
+              style={{ background: '#0a1e3d', color: '#C9A84C', minWidth: 100 }}
             >
               🔍 חפש
             </button>
@@ -172,7 +236,7 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
         </div>
 
         {/* ── BOTTOM BAR — stats + slide dots ── */}
-        <div className="flex items-end justify-between px-10 pb-8">
+        <div className="flex items-end justify-between px-6 md:px-10 pb-8">
           <div className="flex gap-8 items-end">
             {[
               { id: 'total', value: totalCount, label: 'נכסים פעילים', plus: true },
@@ -186,11 +250,11 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
                 <div>
                   <p
                     className="font-black leading-none"
-                    style={{ fontSize: 32, color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.5)' }}
+                    style={{ fontSize: 36, color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.5)' }}
                   >
                     <CountUp value={value} suffix={plus ? '+' : ''} />
                   </p>
-                  <p className="text-xs tracking-widest uppercase mt-1" style={{ color: 'rgba(255,255,255,0.42)' }}>
+                  <p className="text-sm tracking-widest uppercase mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
                     {label}
                   </p>
                 </div>

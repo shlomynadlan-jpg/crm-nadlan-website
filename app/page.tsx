@@ -39,10 +39,10 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
+                <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
                   ✦ נבחרו במיוחד
                 </p>
-                <h2 className="text-3xl font-black" style={{ color: '#0a1e3d' }}>נכסים מובחרים</h2>
+                <h2 className="text-4xl font-black" style={{ color: '#0a1e3d' }}>נכסים מובחרים</h2>
               </div>
               <Link
                 href="/properties"
@@ -70,10 +70,10 @@ export default async function HomePage() {
         <section className="pb-16 px-6" style={{ background: '#fff' }}>
           <div className="max-w-6xl mx-auto">
             <div className="mb-6">
-              <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
+              <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
                 סנן לפי סוג
               </p>
-              <h2 className="text-2xl font-black" style={{ color: '#0a1e3d' }}>כל סוגי הנכסים</h2>
+              <h2 className="text-3xl font-black" style={{ color: '#0a1e3d' }}>כל סוגי הנכסים</h2>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {[
@@ -91,7 +91,7 @@ export default async function HomePage() {
                     style={{ background: '#f4f8fd', borderColor: '#dde8f5' }}
                   >
                     <span className="text-2xl group-hover:scale-110 transition-transform">{icon}</span>
-                    <span className="text-xs font-bold" style={{ color: '#2d5a80' }}>{label}</span>
+                    <span className="text-sm font-bold" style={{ color: '#2d5a80' }}>{label}</span>
                   </Link>
                 </Reveal>
               ))}
@@ -102,8 +102,8 @@ export default async function HomePage() {
         {/* ── Why Us ── */}
         <section className="py-16 px-6" style={{ background: '#f4f8fd', borderTop: '1px solid #dde8f5' }}>
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>למה אנחנו</p>
-            <h2 className="text-3xl font-black mb-10" style={{ color: '#0a1e3d' }}>הבחירה הנכונה לנדל״ן שלך</h2>
+            <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>למה אנחנו</p>
+            <h2 className="text-4xl font-black mb-10" style={{ color: '#0a1e3d' }}>הבחירה הנכונה לנדל״ן שלך</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { icon: '🎯', title: 'מקצועיות ודיוק', desc: 'ניסיון של שנים בשוק הנדל״ן המסחרי והמגורים בכל רחבי הארץ.' },
@@ -121,8 +121,8 @@ export default async function HomePage() {
                     >
                       {icon}
                     </div>
-                    <h3 className="text-base font-black mb-2" style={{ color: '#0a1e3d' }}>{title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6a90b0' }}>{desc}</p>
+                    <h3 className="text-lg font-black mb-2" style={{ color: '#0a1e3d' }}>{title}</h3>
+                    <p className="text-base leading-relaxed" style={{ color: '#6a90b0' }}>{desc}</p>
                   </div>
                 </Reveal>
               ))}
