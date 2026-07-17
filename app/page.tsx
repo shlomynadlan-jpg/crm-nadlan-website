@@ -105,11 +105,12 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto">
             <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>למה אנחנו</p>
             <h2 className="text-4xl font-black mb-10" style={{ color: '#0a1e3d' }}>הבחירה הנכונה לנדל״ן שלך</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { icon: '🎯', title: 'מקצועיות ודיוק', desc: 'ניסיון של שנים בשוק הנדל״ן המסחרי והמגורים בכל רחבי הארץ.' },
                 { icon: '⚡', title: 'מהירות תגובה', desc: 'נחזור אליך תוך שעות — כי כל עסקה טובה מתחילה בזמן הנכון.' },
                 { icon: '🤝', title: 'ליווי אישי', desc: 'מהחיפוש הראשון ועד חתימת החוזה — אתה לא לבד לרגע.' },
+                { icon: '🔒', title: 'דיסקרטיות מלאה', desc: 'עסקאות רגישות מטופלות בסודיות מוחלטת — פרטיך ופרטי העסקה נשמרים אצלנו בלבד.' },
               ].map(({ icon, title, desc }, i) => (
                 <Reveal key={title} delay={i * 100}>
                   <div

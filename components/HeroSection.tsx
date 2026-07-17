@@ -117,7 +117,7 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
               className="text-sm font-bold"
               style={{ color: '#fff' }}
             >
-              055{' '}<span style={{ color: '#C9A84C' }}>270 2800</span>
+              <span style={{ color: '#C9A84C' }}>055-2702800</span>
             </a>
             <Link
               href="/contact"
