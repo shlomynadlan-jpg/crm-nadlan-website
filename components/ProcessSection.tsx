@@ -49,52 +49,74 @@ const STEPS: { title: string; items: string[] }[] = [
 
 export default function ProcessSection() {
   return (
-    <section className="max-w-4xl mx-auto px-6 py-20">
-      <div className="text-center mb-14">
-        <p className="text-sm font-medium mb-2" style={{ color: '#C9A84C' }}>איך זה עובד?</p>
-        <h2 className="text-3xl font-bold text-slate-900">תהליך הליווי שלנו — שלב אחר שלב</h2>
-        <p className="text-slate-500 mt-3 max-w-xl mx-auto">
-          מהשיחה הראשונה ועד הרבה אחרי המפתח — כך נראית עסקה מלווה נכון
-        </p>
-      </div>
+    <section
+      className="px-6 py-20"
+      style={{ background: 'linear-gradient(160deg, #040d1e 0%, #0a1e3d 55%, #091830 100%)' }}
+    >
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-14">
+          <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: 'rgba(201,168,76,0.8)' }}>
+            איך זה עובד?
+          </p>
+          <h2 className="text-4xl font-black text-white mb-3">תהליך הליווי שלנו</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-base max-w-xl mx-auto">
+            מהשיחה הראשונה ועד הרבה אחרי המפתח — כך נראית עסקה מלווה נכון
+          </p>
+        </div>
 
-      <ol className="relative">
-        {STEPS.map((step, i) => (
-          <li key={step.title} className="relative flex gap-5 pb-10 last:pb-0">
-            {/* Timeline line + number */}
-            <div className="flex flex-col items-center shrink-0">
-              <span
-                className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-md z-10"
-                style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}
-                aria-hidden="true"
+        <ol className="relative">
+          {STEPS.map((step, i) => (
+            <li key={step.title} className="relative flex gap-6 pb-10 last:pb-0">
+              {/* Number + line */}
+              <div className="flex flex-col items-center shrink-0">
+                <span
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg z-10"
+                  style={{ background: 'rgba(201,168,76,0.15)', border: '2px solid rgba(201,168,76,0.5)', color: '#C9A84C' }}
+                  aria-hidden="true"
+                >
+                  {i + 1}
+                </span>
+                {i < STEPS.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    className="w-px flex-1 mt-2"
+                    style={{ background: 'linear-gradient(to bottom, rgba(201,168,76,0.4), rgba(201,168,76,0.05))' }}
+                  />
+                )}
+              </div>
+
+              {/* Card */}
+              <div
+                className="rounded-2xl p-6 flex-1 mb-1"
+                style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(8px)',
+                }}
               >
-                {i + 1}
-              </span>
-              {i < STEPS.length - 1 && (
-                <span aria-hidden="true" className="w-0.5 flex-1 mt-2" style={{ background: '#C9A84C', opacity: 0.4 }} />
-              )}
-            </div>
+                <h3 className="text-xl font-black text-white mb-4">{step.title}</h3>
+                <ul className="space-y-2.5">
+                  {step.items.map(item => (
+                    <li key={item} className="flex items-start gap-2.5 text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                      <span aria-hidden="true" className="mt-0.5 shrink-0 font-bold" style={{ color: '#C9A84C' }}>✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
 
-            {/* Content */}
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex-1">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
-              <ul className="space-y-2">
-                {step.items.map(item => (
-                  <li key={item} className="flex items-start gap-2 text-slate-600 text-sm leading-relaxed">
-                    <span aria-hidden="true" className="mt-1 shrink-0" style={{ color: '#C9A84C' }}>✔</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <div className="text-center mt-12">
-        <Link href="/contact" className="btn-primary text-base py-4 px-10">
-          קבעו פגישת היכרות — ללא עלות
-        </Link>
+        <div className="text-center mt-12">
+          <Link
+            href="/contact"
+            className="inline-block text-base font-black py-4 px-10 rounded-xl transition-all hover:-translate-y-0.5"
+            style={{ background: '#C9A84C', color: '#0a1e3d', boxShadow: '0 4px 24px rgba(201,168,76,0.3)' }}
+          >
+            קבעו פגישת היכרות — ללא עלות
+          </Link>
+        </div>
       </div>
     </section>
   )

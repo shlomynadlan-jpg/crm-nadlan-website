@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
 import SpecialtiesMarquee from '@/components/SpecialtiesMarquee'
 import OwnerBanner from '@/components/OwnerBanner'
+import ProcessSection from '@/components/ProcessSection'
 import Reveal from '@/components/Reveal'
 import Link from 'next/link'
 import { getProperties } from '@/lib/properties'
@@ -129,6 +130,9 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ── Process ── */}
+        <ProcessSection />
 
         {/* ── Owner Banner ── */}
         <OwnerBanner />

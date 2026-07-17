@@ -2,47 +2,69 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
+const LINKS = [
+  { href: '/', label: 'דף הבית' },
+  { href: '/properties', label: 'נכסים' },
+  { href: '/properties?deal_type=מכירה', label: 'למכירה' },
+  { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
+  { href: '/blog', label: 'מאמרים' },
+  { href: '/about', label: 'אודות' },
+  { href: '/faq', label: 'שאלות נפוצות' },
+]
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
 
   return (
     <header className="fixed top-0 w-full z-50" style={{ direction: 'rtl' }}>
-      <nav className="glass mx-4 mt-3 rounded-2xl px-6 py-3 flex items-center justify-between shadow-lg">
+      <nav
+        className="px-6 py-4 flex items-center justify-between"
+        style={{
+          background: 'rgba(4,10,24,0.96)',
+          borderBottom: '1px solid rgba(201,168,76,0.15)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md"
-            style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}>
-            LS
-          </div>
-          <span className="font-bold text-xl" style={{ color: '#0F172A' }}>{companyName}</span>
+        <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
+          LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">דף הבית</Link>
-          <Link href="/properties" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">נכסים</Link>
-          <Link href="/properties?deal_type=sale" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">למכירה</Link>
-          <Link href="/properties?deal_type=rent" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">להשכרה</Link>
-          <Link href="/blog" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">מאמרים</Link>
-          <Link href="/about" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">אודות</Link>
-          <Link href="/faq" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">שאלות נפוצות</Link>
-          <Link href="/contact" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">צור קשר</Link>
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-6">
+          {LINKS.map(({ href, label }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-sm font-medium hover:opacity-100 transition-opacity"
+              style={{ color: 'rgba(255,255,255,0.62)' }}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
-        {/* CTA */}
-        <div className="hidden md:block">
-          <Link href="/contact" className="btn-primary text-sm py-2 px-5">
-            📞 דבר איתנו
+        {/* CTA + phone */}
+        <div className="hidden lg:flex items-center gap-4">
+          <a href="tel:0552702800" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            055 <span style={{ color: '#C9A84C' }}>270 2800</span>
+          </a>
+          <Link
+            href="/contact"
+            className="text-sm font-bold px-4 py-2 rounded-lg"
+            style={{ background: '#C9A84C', color: '#0a1e3d' }}
+          >
+            צור קשר
           </Link>
         </div>
 
         {/* Mobile burger */}
         <button
-          className="md:hidden p-2 rounded-lg text-slate-600"
+          className="lg:hidden p-2 rounded-lg"
           onClick={() => setOpen(!open)}
-          aria-label={open ? 'סגירת תפריט ניווט' : 'פתיחת תפריט ניווט'}
+          aria-label={open ? 'סגור תפריט' : 'פתח תפריט'}
           aria-expanded={open}
+          style={{ color: 'rgba(255,255,255,0.8)' }}
         >
           <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             {open
@@ -55,15 +77,29 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="glass mx-4 mt-2 rounded-2xl p-4 flex flex-col gap-3 shadow-xl md:hidden">
-          <Link href="/" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>דף הבית</Link>
-          <Link href="/properties" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>כל הנכסים</Link>
-          <Link href="/properties?deal_type=sale" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>למכירה</Link>
-          <Link href="/properties?deal_type=rent" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>להשכרה</Link>
-          <Link href="/blog" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>מאמרים</Link>
-          <Link href="/about" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>אודות</Link>
-          <Link href="/faq" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>שאלות נפוצות</Link>
-          <Link href="/contact" className="btn-primary text-center" onClick={() => setOpen(false)}>צור קשר</Link>
+        <div
+          className="lg:hidden flex flex-col gap-1 px-4 py-3"
+          style={{ background: 'rgba(4,10,24,0.98)', borderBottom: '1px solid rgba(201,168,76,0.15)' }}
+        >
+          {LINKS.map(({ href, label }) => (
+            <Link
+              key={label}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="py-3 px-4 rounded-xl text-base font-medium"
+              style={{ color: 'rgba(255,255,255,0.8)' }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 text-center font-black text-sm py-3 px-4 rounded-xl"
+            style={{ background: '#C9A84C', color: '#0a1e3d' }}
+          >
+            צור קשר
+          </Link>
         </div>
       )}
     </header>
