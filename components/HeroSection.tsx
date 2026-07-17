@@ -84,11 +84,15 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
 
         {/* ── NAVBAR ── */}
         <nav
-          className="flex items-center justify-between px-6 md:px-10 py-5"
-          style={{ borderBottom: '1px solid rgba(201,168,76,0.18)' }}
+          className="flex items-center justify-between px-6 md:px-10 py-4"
+          style={{
+            background: 'rgba(4,10,24,0.82)',
+            backdropFilter: 'blur(12px)',
+            borderBottom: '1px solid rgba(201,168,76,0.28)',
+          }}
         >
           {/* Logo */}
-          <Link href="/" className="text-white font-black text-xl tracking-widest uppercase shrink-0">
+          <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
             LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
           </Link>
 
@@ -98,8 +102,8 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
               <Link
                 key={label}
                 href={href}
-                className="text-sm font-medium tracking-wide hover:opacity-100 transition-opacity"
-                style={{ color: 'rgba(255,255,255,0.62)' }}
+                className="text-sm font-semibold tracking-wide transition-colors hover:text-white"
+                style={{ color: 'rgba(255,255,255,0.82)' }}
               >
                 {label}
               </Link>
@@ -110,14 +114,14 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:0552702800"
-              className="text-sm font-medium"
-              style={{ color: 'rgba(255,255,255,0.55)' }}
+              className="text-sm font-bold"
+              style={{ color: '#fff' }}
             >
-              055 <span style={{ color: '#C9A84C' }}>270 2800</span>
+              055{' '}<span style={{ color: '#C9A84C' }}>270 2800</span>
             </a>
             <Link
               href="/contact"
-              className="text-sm font-bold px-4 py-2 rounded-lg"
+              className="text-sm font-black px-4 py-2 rounded-lg"
               style={{ background: '#C9A84C', color: '#0a1e3d' }}
             >
               צור קשר
@@ -128,7 +132,7 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
           <div className="flex lg:hidden items-center gap-4">
             <a
               href="tel:0552702800"
-              className="text-sm font-medium"
+              className="text-sm font-bold"
               style={{ color: '#C9A84C' }}
             >
               055-2702800
@@ -136,7 +140,7 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
             <button
               onClick={() => setMenuOpen(o => !o)}
               className="p-2 rounded-lg"
-              style={{ color: 'rgba(255,255,255,0.8)' }}
+              style={{ color: '#fff' }}
               aria-label="פתח תפריט"
             >
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -235,26 +239,27 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
           </form>
         </div>
 
-        {/* ── BOTTOM BAR — stats + slide dots ── */}
-        <div className="flex items-end justify-between px-6 md:px-10 pb-8">
-          <div className="flex gap-8 items-end">
+        {/* ── BOTTOM — stats centered + slide dots ── */}
+        <div className="pb-10 px-6">
+          {/* Stats — centered, large */}
+          <div className="flex justify-center items-center gap-0 mb-6">
             {[
               { id: 'total', value: totalCount, label: 'נכסים פעילים', plus: true },
               { id: 'sale', value: forSale, label: 'למכירה', plus: false },
               { id: 'rent', value: forRent, label: 'להשכרה', plus: false },
             ].map(({ id, value, label, plus }, i) => (
-              <div key={id} className="flex items-end gap-8">
+              <div key={id} className="flex items-stretch">
                 {i > 0 && (
-                  <div style={{ width: 1, height: 44, background: 'rgba(255,255,255,0.12)' }} />
+                  <div className="self-center mx-8" style={{ width: 1, height: 56, background: 'rgba(255,255,255,0.15)' }} />
                 )}
-                <div>
+                <div className="text-center">
                   <p
                     className="font-black leading-none"
-                    style={{ fontSize: 36, color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.5)' }}
+                    style={{ fontSize: 'clamp(44px, 5vw, 64px)', color: '#fff', textShadow: '0 2px 20px rgba(0,0,0,0.6)' }}
                   >
                     <CountUp value={value} suffix={plus ? '+' : ''} />
                   </p>
-                  <p className="text-sm tracking-widest uppercase mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                  <p className="text-sm font-semibold tracking-widest uppercase mt-2" style={{ color: 'rgba(255,255,255,0.6)' }}>
                     {label}
                   </p>
                 </div>
@@ -262,8 +267,8 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
             ))}
           </div>
 
-          {/* Slide dots */}
-          <div className="flex gap-2 items-center pb-1">
+          {/* Slide dots — centered below stats */}
+          <div className="flex justify-center gap-2">
             {SLIDES.map((_, i) => (
               <button
                 key={i}
