@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
-import { getProperty, getAgentSettings, getPropertyImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
 
 export const revalidate = 60
 
@@ -49,6 +49,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   if (!property) notFound()
 
   const images = (property.image_urls || []).filter(Boolean)
+  const isAI = isPlaceholderImage(property)
   if (images.length === 0) images.push(getPropertyImage(property))
 
   const types = getPropertyTypes(property)
@@ -148,6 +149,16 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                     {badgeText}
                   </span>
                 </div>
+                {isAI && (
+                  <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-3">
+                    <span
+                      className="text-xs px-4 py-1.5 rounded-full"
+                      style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
+                    >
+                      התמונה להמחשה בלבד
+                    </span>
+                  </div>
+                )}
               </div>
               {images.length > 1 && (
                 <div className="flex gap-2 p-3 overflow-x-auto">

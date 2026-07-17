@@ -76,14 +76,32 @@ export async function getCities(): Promise<string[]> {
   return cities.sort()
 }
 
+function aiImageUrl(prompt: string, seed: string | number): string {
+  const encoded = encodeURIComponent(prompt)
+  return `https://image.pollinations.ai/prompt/${encoded}?width=800&height=600&nologo=true&seed=${seed}`
+}
+
+function propertyAIPrompt(type: string): string {
+  if (type.includes('משרד')) return 'modern glass office interior corporate workspace professional luxury real estate Israel'
+  if (type.includes('מחסן') || type.includes('לוגיסטי')) return 'industrial warehouse storage facility professional logistics interior modern real estate Israel'
+  if (type.includes('חנות')) return 'modern retail boutique shop commercial storefront elegant interior real estate Israel'
+  if (type.includes('מסחרי')) return 'commercial business space interior modern elegant real estate Israel'
+  if (type.includes('דירה') || type.includes('פנטהאוז') || type.includes('מגורים')) return 'luxury apartment living room modern interior design real estate Israel'
+  if (type.includes('קרקע')) return 'empty land plot aerial view Israel real estate development sunny'
+  if (type.includes('תעשיה')) return 'industrial manufacturing building exterior modern Israel commercial real estate'
+  return 'commercial real estate building exterior modern glass tower Israel professional'
+}
+
+export function isPlaceholderImage(p: Property): boolean {
+  return !(p.image_urls && p.image_urls.length > 0 && p.image_urls[0])
+}
+
 export function getPropertyImage(p: Property): string {
   if (p.image_urls && p.image_urls.length > 0 && p.image_urls[0]) return p.image_urls[0]
   const type = (Array.isArray(p.property_type) ? p.property_type.join(',') : (p.property_type || '')).toLowerCase()
-  if (type.includes('משרד')) return 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80'
-  if (type.includes('מחסן') || type.includes('לוגיסטי')) return 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
-  if (type.includes('חנות') || type.includes('מסחרי')) return 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80'
-  if (type.includes('דירה') || type.includes('פנטהאוז')) return 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'
-  return 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+  const prompt = propertyAIPrompt(type)
+  const seed = p.id ? String(p.id).replace(/\D/g, '').slice(0, 8) || '42' : '42'
+  return aiImageUrl(prompt, seed)
 }
 
 export interface AgentSettings {

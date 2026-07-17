@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Property, getPropertyImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { Property, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
 
 export default function PropertyCard({ p }: { p: Property }) {
   const img = getPropertyImage(p)
+  const isAI = isPlaceholderImage(p)
   const types = getPropertyTypes(p)
   const deal = p.deal_type || ''
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
@@ -37,6 +38,17 @@ export default function PropertyCard({ p }: { p: Property }) {
             <div className="absolute top-3 left-3">
               <span className="text-xs font-medium px-3 py-1 rounded-full bg-white/90 text-slate-700 shadow-sm">
                 {types}
+              </span>
+            </div>
+          )}
+          {/* AI placeholder label */}
+          {isAI && (
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-2">
+              <span
+                className="text-xs px-3 py-1 rounded-full"
+                style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
+              >
+                התמונה להמחשה בלבד
               </span>
             </div>
           )}
