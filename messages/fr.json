@@ -37,8 +37,12 @@
     "חנות": "Boutique",
     "מחסן": "Entrepôt",
     "תעשיה": "Industriel",
+    "תעשייתי": "Industriel",
     "קרקע": "Terrain",
-    "מסחרי": "Commercial"
+    "מסחרי": "Commercial",
+    "דירה": "Appartement",
+    "פנטהאוז": "Penthouse",
+    "עסק למכירה": "Fonds de commerce"
   },
   "deal": {
     "forSale": "À vendre",

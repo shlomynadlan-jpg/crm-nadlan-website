@@ -1,10 +1,11 @@
+'use client'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import { Property, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
-import { getTranslations } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
 
-export default async function PropertyCard({ p }: { p: Property }) {
-  const t = await getTranslations()
+export default function PropertyCard({ p }: { p: Property }) {
+  const t = useTranslations()
   const img = getPropertyImage(p)
   const isAI = isPlaceholderImage(p)
   const types = getPropertyTypes(p)
