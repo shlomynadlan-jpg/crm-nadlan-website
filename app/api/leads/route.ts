@@ -1,10 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
+async function sendWhatsApp(message: string) {
+  const bridgeUrl = process.env.WA_BRIDGE_URL;
+  const myPhone = process.env.WA_MY_PHONE; // e.g. 972552702800
+  if (!bridgeUrl || !myPhone) return;
+  try {
+    await fetch(`${bridgeUrl}/send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chatId: `${myPhone}@c.us`, message }),
+    });
+  } catch { /* non-critical */ }
+}
+
+async function sendEmail(subject: string, body: string) {
+  const user = process.env.GMAIL_FROM;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) return;
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user, pass },
+    });
+    await transporter.sendMail({
+      from: user,
+      to: user,
+      subject,
+      text: body,
+    });
+  } catch { /* non-critical */ }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,6 +68,21 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) throw error;
+
+    // Notifications (non-blocking)
+    const notifText = [
+      `🔴 ליד חדש מהאתר!`,
+      `👤 שם: ${name.trim()}`,
+      `📞 טלפון: ${phone.trim()}`,
+      property_city && `📍 עיר: ${property_city}`,
+      property_type && `🏢 סוג נכס: ${property_type}`,
+      message?.trim() && `💬 הודעה: ${message.trim()}`,
+    ].filter(Boolean).join('\n');
+
+    await Promise.all([
+      sendWhatsApp(notifText),
+      sendEmail(`🔴 ליד חדש מאתר nadlannow.co.il — ${name.trim()}`, notifText),
+    ]);
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
