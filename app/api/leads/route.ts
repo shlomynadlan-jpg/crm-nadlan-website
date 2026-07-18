@@ -20,19 +20,22 @@ async function sendWhatsApp(message: string) {
   } catch { /* non-critical */ }
 }
 
-async function sendEmail(subject: string, body: string) {
+async function sendEmail(subject: string, body: string): Promise<string> {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.NOTIFY_EMAIL || 'shlomynadlan@gmail.com';
-  if (!apiKey) return;
+  if (!apiKey) return 'no RESEND_API_KEY';
   try {
     const resend = new Resend(apiKey);
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'nadlannow <onboarding@resend.dev>',
       to,
       subject,
       text: body,
     });
-  } catch { /* non-critical */ }
+    return JSON.stringify(result);
+  } catch (e: any) {
+    return `error: ${e.message}`;
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -75,12 +78,12 @@ export async function POST(req: NextRequest) {
       message?.trim() && `💬 הודעה: ${message.trim()}`,
     ].filter(Boolean).join('\n');
 
-    await Promise.all([
+    const [, emailResult] = await Promise.all([
       sendWhatsApp(notifText),
       sendEmail(`🔴 ליד חדש מאתר nadlannow.co.il — ${name.trim()}`, notifText),
     ]);
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, debug_email: emailResult });
   } catch (err: any) {
     console.error('leads error:', err);
     return NextResponse.json({ error: err.message || 'שגיאה' }, { status: 500 });
