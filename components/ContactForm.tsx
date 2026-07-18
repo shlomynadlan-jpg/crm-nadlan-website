@@ -26,7 +26,7 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
     if (!name.trim() || !phone.trim() || !privacyConsent) return
     setStatus('sending')
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CRM_URL || 'http://localhost:3000'}/api/leads`, {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
