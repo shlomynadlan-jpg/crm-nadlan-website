@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,7 +9,7 @@ const supabase = createClient(
 
 async function sendWhatsApp(message: string) {
   const bridgeUrl = process.env.WA_BRIDGE_URL;
-  const myPhone = process.env.WA_MY_PHONE; // e.g. 972552702800
+  const myPhone = process.env.WA_MY_PHONE;
   if (!bridgeUrl || !myPhone) return;
   try {
     await fetch(`${bridgeUrl}/send`, {
@@ -21,17 +21,14 @@ async function sendWhatsApp(message: string) {
 }
 
 async function sendEmail(subject: string, body: string) {
-  const user = process.env.GMAIL_FROM;
-  const pass = process.env.GMAIL_APP_PASSWORD;
-  if (!user || !pass) return;
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.NOTIFY_EMAIL || 'shlomynadlan@gmail.com';
+  if (!apiKey) return;
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user, pass },
-    });
-    await transporter.sendMail({
-      from: user,
-      to: user,
+    const resend = new Resend(apiKey);
+    await resend.emails.send({
+      from: 'nadlannow <onboarding@resend.dev>',
+      to,
       subject,
       text: body,
     });
@@ -69,7 +66,6 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error;
 
-    // Notifications (non-blocking)
     const notifText = [
       `🔴 ליד חדש מהאתר!`,
       `👤 שם: ${name.trim()}`,
