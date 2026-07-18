@@ -26,8 +26,7 @@ export default async function Footer() {
               <span className="font-bold text-xl">{companyName}</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              מומחים בתיווך נכסים מסחריים ומגורים.<br />
-              מחויבים למצוא לכם את הנכס המושלם.
+              {t('footer.brandDesc')}
             </p>
           </div>
 
@@ -35,7 +34,7 @@ export default async function Footer() {
           <div>
             <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>{t('footer.linksTitle')}</h2>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><Link href="/" className="hover:text-white transition-colors">דף הבית</Link></li>
+              <li><Link href="/" className="hover:text-white transition-colors">{t('footer.home')}</Link></li>
               <li><Link href="/properties" className="hover:text-white transition-colors">{t('nav.properties')}</Link></li>
               <li><Link href="/properties?deal_type=sale" className="hover:text-white transition-colors">{t('nav.forSale')}</Link></li>
               <li><Link href="/properties?deal_type=rent" className="hover:text-white transition-colors">{t('nav.forRent')}</Link></li>
@@ -74,7 +73,7 @@ export default async function Footer() {
                 <a href={`https://wa.me/972${phone.replace(/\D/g,'').replace(/^0/,'')}`}
                    target="_blank" rel="noopener noreferrer"
                    className="hover:text-white transition-colors">
-                  וואטסאפ
+                  {t('footer.whatsapp')}
                 </a>
               </li>
             </ul>
@@ -83,11 +82,11 @@ export default async function Footer() {
 
         {cities.length > 0 && (
           <div className="border-t border-slate-800 mt-10 pt-6">
-            <h2 className="font-semibold mb-3 text-sm" style={{ color: '#C9A84C' }}>אזורי פעילות</h2>
+            <h2 className="font-semibold mb-3 text-sm" style={{ color: '#C9A84C' }}>{t('footer.areasTitle')}</h2>
             <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-400">
               {cities.map(c => (
                 <Link key={c} href={`/city/${citySlug(c)}`} className="hover:text-white transition-colors">
-                  נכסים ב{c}
+                  {t('footer.cityLinkText', { city: c })}
                 </Link>
               ))}
             </div>

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -8,7 +9,8 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function LegalPage({ title, subtitle, updated, children }: Props) {
+export default async function LegalPage({ title, subtitle, updated, children }: Props) {
+  const t = await getTranslations('legal')
   return (
     <>
       <Navbar />
@@ -40,7 +42,7 @@ export default function LegalPage({ title, subtitle, updated, children }: Props)
             {children}
             {updated && (
               <p className="text-sm mt-10 pt-6 border-t" style={{ color: '#9ab2c8', borderColor: '#dde8f5' }}>
-                עודכן לאחרונה: {updated}
+                {t('lastUpdated', { date: updated })}
               </p>
             )}
           </article>

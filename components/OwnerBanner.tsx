@@ -1,6 +1,9 @@
 import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 
-export default function OwnerBanner() {
+export default async function OwnerBanner() {
+  const t = await getTranslations('ownerBanner')
+
   return (
     <section
       className="px-6 py-16 relative overflow-hidden"
@@ -21,13 +24,13 @@ export default function OwnerBanner() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative z-10">
         <div>
           <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: 'rgba(201,168,76,0.6)' }}>
-            לבעלי נכסים
+            {t('label')}
           </p>
           <h2 className="text-2xl md:text-3xl font-black text-white mb-2 leading-snug">
-            יש לך נכס למכירה<br className="hidden md:block" /> או להשכרה?
+            {t('title')}
           </h2>
           <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            נמצא לו את הקונה הנכון — מהר ובמחיר הטוב ביותר
+            {t('subtitle')}
           </p>
         </div>
 
@@ -40,7 +43,7 @@ export default function OwnerBanner() {
             boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
           }}
         >
-          פנה אלינו עכשיו ←
+          {t('cta')} ←
         </Link>
       </div>
     </section>

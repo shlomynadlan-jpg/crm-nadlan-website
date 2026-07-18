@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -13,18 +14,21 @@ export const dynamic = 'force-dynamic'
 const BASE = 'https://www.nadlannow.co.il'
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
+  const t = await getTranslations('city')
   const { city: slug } = await params
   const city = cityFromSlug(slug)
-  const title = `נכסים למכירה ולהשכרה ב${city}`
+  const title = t('metaTitle', { city })
   return {
     title,
-    description: `משרדים, חנויות, מחסנים ונכסים מסחריים ב${city} — כל הנכסים הזמינים של LS נדל"ן ב${city}, מתעדכן שוטף. ליווי מקצועי מהחיפוש ועד החתימה.`,
+    description: t('metaDesc', { city }),
     alternates: { canonical: `/city/${citySlug(city)}` },
     openGraph: { title, locale: 'he_IL', type: 'website' },
   }
 }
 
 export default async function CityPage({ params }: { params: Promise<{ city: string }> }) {
+  const t = await getTranslations('city')
+  const tNav = await getTranslations('nav')
   const { city: slug } = await params
   const city = cityFromSlug(slug)
   const properties = await getProperties({ city })
@@ -38,9 +42,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'בית', item: BASE },
-      { '@type': 'ListItem', position: 2, name: 'נכסים', item: `${BASE}/properties` },
-      { '@type': 'ListItem', position: 3, name: `נכסים ב${city}` },
+      { '@type': 'ListItem', position: 1, name: tNav('home'), item: BASE },
+      { '@type': 'ListItem', position: 2, name: t('breadcrumbProperties'), item: `${BASE}/properties` },
+      { '@type': 'ListItem', position: 3, name: t('h1', { city }) },
     ],
   }
 
@@ -69,19 +73,19 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           style={{ background: 'linear-gradient(135deg, #0F172A, #0077B6)' }}>
           <div className="max-w-6xl mx-auto text-center text-white">
             <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center justify-center gap-2">
-              <Link href="/" className="hover:text-white">בית</Link>
+              <Link href="/" className="hover:text-white">{tNav('home')}</Link>
               <span aria-hidden="true">›</span>
-              <Link href="/properties" className="hover:text-white">נכסים</Link>
+              <Link href="/properties" className="hover:text-white">{t('breadcrumbProperties')}</Link>
               <span aria-hidden="true">›</span>
               <span>{city}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-              נכסים למכירה ולהשכרה ב{city}
+              {t('h1', { city })}
             </h1>
             <p className="text-blue-200 text-lg max-w-2xl mx-auto">
               {properties.length > 0
-                ? `${properties.length} נכסים זמינים כרגע ב${city} — ${forSale.length} למכירה ו-${forRent.length} להשכרה`
-                : `מחפשים נכס ב${city}? השאירו פרטים ונאתר עבורכם`}
+                ? t('subtitle', { count: properties.length, city, forSale: forSale.length, forRent: forRent.length })
+                : t('subtitleContact', { city })}
             </p>
           </div>
         </div>
@@ -90,9 +94,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           {/* Intro */}
           <div className="max-w-3xl mx-auto text-center mb-12">
             <p className="text-slate-600 leading-relaxed">
-              LS נדל״ן מלווה עסקאות נדל״ן ב{city} — {types.length > 0 ? types.slice(0, 4).join(', ') : 'משרדים, חנויות, מחסנים ונכסים מסחריים'} ועוד.
-              אנחנו מכירים את השוק המקומי, המחירים והבניינים, ונשמח למצוא לכם את הנכס
-              המתאים או לשווק נכס שבבעלותכם ב{city}.
+              {t('intro1', { city })}
+              {t('intro2')}
             </p>
           </div>
 
@@ -104,21 +107,20 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           ) : (
             <div className="text-center py-14 text-slate-400 mb-10">
               <p className="text-5xl mb-4" aria-hidden="true">🏙️</p>
-              <p className="text-xl font-medium text-slate-600">אין כרגע נכסים מפורסמים ב{city}</p>
-              <p className="text-slate-400 mt-2">אבל יש לנו נכסים שלא מתפרסמים באתר — השאירו פרטים ונחזור אליכם</p>
+              <p className="text-xl font-medium text-slate-600">{t('empty', { city })}</p>
+              <p className="text-slate-400 mt-2">{t('emptySub')}</p>
             </div>
           )}
 
           {/* CTA + form */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">מחפשים נכס ב{city}?</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">{t('ctaTitle', { city })}</h2>
               <p className="text-slate-500 leading-relaxed mb-4">
-                ספרו לנו מה אתם מחפשים — סוג נכס, שטח ותקציב — ונחזור אליכם עם
-                הצעות מתאימות, כולל נכסים שעדיין לא פורסמו.
+                {t('ctaPara1', { city })}
               </p>
               <p className="text-slate-500 leading-relaxed">
-                בעלי נכס ב{city}? נשמח להעריך את הנכס ולשווק אותו לקהל הלקוחות שלנו.
+                {t('ctaPara2')}
               </p>
             </div>
             <ContactForm propertyCity={city} />

@@ -8,7 +8,10 @@
     "about": "About",
     "faq": "FAQ",
     "contact": "Contact",
-    "phone": "055-2702800"
+    "phone": "055-2702800",
+    "home": "Home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "tagline": "Commercial & Residential Real Estate",
@@ -78,17 +81,116 @@
     "discTitle": "Full Discretion",
     "discDesc": "Sensitive deals handled with complete confidentiality — your details stay with us."
   },
+  "common": {
+    "loading": "Loading...",
+    "readMore": "Read more →",
+    "readMoreArticle": "Read article →",
+    "callNow": "055-2702800"
+  },
+  "search": {
+    "allCities": "All Cities",
+    "allTypes": "All Property Types",
+    "allDeals": "Sale / Rent",
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "searchBtn": "🔍 Search",
+    "searchPropertiesBtn": "🔍 Search Properties",
+    "cityAriaLabel": "Select city",
+    "typeAriaLabel": "Select property type",
+    "dealAriaLabel": "Select deal type"
+  },
+  "specialties": {
+    "ariaLabel": "Our specialties",
+    "offices": "Offices",
+    "retail": "Retail & Commerce",
+    "warehouses": "Warehouses & Logistics",
+    "industrial": "Industrial",
+    "land": "Land",
+    "residential": "Residential",
+    "businessSale": "Business Sales"
+  },
   "process": {
     "label": "How it works",
-    "title": "Simple Process, Maximum Results",
-    "step1Title": "Initial Inquiry",
-    "step1Desc": "Leave your details and we'll get back to you within hours",
-    "step2Title": "Expert Consultation",
-    "step2Desc": "We understand your needs and present matching properties",
-    "step3Title": "Property Tours",
-    "step3Desc": "Personal accompaniment on tours and analysis of each property",
-    "step4Title": "Deal Closure",
-    "step4Desc": "Full support until contract signing and key handover"
+    "title": "Our Guidance Process",
+    "subtitle": "From the first call to long after the keys — this is what a properly guided deal looks like",
+    "cta": "Schedule a free meeting",
+    "step1Title": "Initial Meeting",
+    "step1Items": ["Understanding needs & budget", "Explaining the transaction process", "Initial relevant property showcase", "Setting expectations & timeline"],
+    "step2Title": "Property Search",
+    "step2Items": ["Focused search by criteria", "Access to off-market properties", "Initial screening & filtering", "Tour coordination"],
+    "step3Title": "Due Diligence & Negotiation",
+    "step3Items": ["Tour accompaniment", "Legal & planning checks", "Professional negotiation", "Strategic consulting"],
+    "step4Title": "Signing & Closing",
+    "step4Items": ["Selecting a real estate attorney", "Contract signing support", "Payment transfer coordination", "Document verification"],
+    "step5Title": "Post-Deal Support",
+    "step5Items": ["Connecting to professionals", "Renovation & design consulting", "Property follow-up", "Available for future questions"]
+  },
+  "blog": {
+    "knowledge": "Our Knowledge — For You",
+    "title": "Articles & Guides",
+    "subtitle": "Everything we've learned about commercial real estate — straight talk, no fine print",
+    "featured": "Featured",
+    "readingMinutes": "{n} min read",
+    "readMore": "Read article →",
+    "readShort": "Read →",
+    "ctaTitle": "Have a question we haven't covered?",
+    "ctaSubtitle": "Tell us what interests you",
+    "ctaBtn": "Talk to us",
+    "notFound": "Article not found",
+    "breadcrumbBlog": "Blog",
+    "authorBio": "Licensed real estate broker (license 3151306), specializing in commercial and residential properties.",
+    "talkToMe": "Talk to me",
+    "moreArticles": "More articles you might like"
+  },
+  "city": {
+    "metaTitle": "Properties in {city}",
+    "metaDesc": "Properties for sale and rent in {city} — offices, shops, warehouses and more.",
+    "breadcrumbProperties": "Properties",
+    "h1": "Properties for Sale & Rent in {city}",
+    "subtitle": "{count} properties available in {city} — {forSale} for sale and {forRent} for rent",
+    "subtitleContact": "Looking for a property in {city}? Leave your details and we'll find it for you",
+    "intro1": "LS Real Estate handles property deals in {city} — offices, shops, warehouses, industrial and residential.",
+    "intro2": "We know the local market and can help you find the right property at the right price.",
+    "empty": "No properties currently listed in {city}",
+    "emptySub": "But we have off-market properties — leave your details and we'll get back to you",
+    "ctaTitle": "Looking for a property in {city}?",
+    "ctaPara1": "If you're looking for a property in {city} — for sale, rent, or investment — the LS Real Estate team is here to help.",
+    "ctaPara2": "We have access to off-market properties and proven experience in the local market."
+  },
+  "contactPage": {
+    "title": "Contact Us",
+    "metaDesc": "Contact LS Real Estate — we're happy to help with property search, consulting, or any question",
+    "h1": "Contact Us",
+    "subtitle": "We're here for any question — finding you the right property",
+    "talkTitle": "Talk to Us",
+    "labelPhone": "Phone",
+    "labelEmail": "Email",
+    "labelWhatsapp": "WhatsApp",
+    "whatsappSend": "Send message",
+    "hoursTitle": "Business Hours",
+    "hoursSunThu": "Sun–Thu: 09:00–18:00",
+    "hoursFri": "Fri: 09:00–13:00"
+  },
+  "contactForm": {
+    "title": "Interested in a property?",
+    "subtitle": "Leave your details and we'll get back to you soon",
+    "successTitle": "We got your message!",
+    "successSubtitle": "We'll get back to you as soon as possible",
+    "sendAnother": "Send another message",
+    "nameLabel": "Full name (required)",
+    "namePlaceholder": "Full name *",
+    "phoneLabel": "Phone (required)",
+    "phonePlaceholder": "Phone *",
+    "messageLabel": "Message (optional)",
+    "messagePlaceholder": "Message (optional)",
+    "privacyConsent": "I have read the {link} and agree that my details will be used to contact me.",
+    "privacyLink": "Privacy Policy",
+    "marketingConsent": "I agree to receive real estate updates and offers (optional, can unsubscribe anytime).",
+    "sendError": "Error sending, please try again",
+    "sending": "⏳ Sending...",
+    "sendBtn": "📩 Send Message",
+    "callBtn": "📞 Call",
+    "whatsappBtn": "WhatsApp"
   },
   "ownerBanner": {
     "label": "For Property Owners",
@@ -103,6 +205,8 @@
     "callAgent": "📞",
     "specsTitle": "Property Details",
     "descTitle": "Description",
+    "notFound": "Property Not Found",
+    "address": "Address",
     "specLabels": {
       "type": "Property Type",
       "city": "City",
@@ -118,7 +222,10 @@
       "furniture": "Furnished",
       "project": "Project Name",
       "yes": "Yes",
-      "parkingSpots": "{n} spots"
+      "parkingSpots": "{n} spots",
+      "sqm": "sqm",
+      "meters": "m",
+      "spots": "spots"
     }
   },
   "wanted": {
@@ -130,7 +237,17 @@
     "ctaTitle": "Have a matching property?",
     "ctaSubtitle": "Contact us and we'll connect you with the right client",
     "ctaBtn": "📞 Contact Us Now",
-    "whatsapp": "📲 WhatsApp"
+    "whatsapp": "📲 WhatsApp",
+    "urgent": "🔥 Urgent",
+    "budgetOnRequest": "Budget on request",
+    "sizeRange": "{min}–{max} sqm",
+    "sizeFrom": "From {min} sqm",
+    "sizeTo": "Up to {max} sqm",
+    "hasProperty": "I have a matching property",
+    "activeRequestsLabel": "Active Requests",
+    "activeRequestsCount": "{count} Properties Wanted",
+    "checkBack": "Check back soon",
+    "callNowBtn": "Call Now — 055-2702800"
   },
   "contact": {
     "title": "Contact Us",
@@ -153,6 +270,18 @@
     "privacy": "Privacy Policy",
     "accessibility": "Accessibility",
     "terms": "Terms of Use",
-    "rights": "All rights reserved"
+    "rights": "All rights reserved",
+    "brandDesc": "Experts in commercial and residential property brokerage. Committed to finding you the perfect property.",
+    "home": "Home",
+    "allProperties": "All Properties",
+    "forSaleLink": "Properties for Sale",
+    "forRentLink": "Properties for Rent",
+    "articlesLink": "Articles & Guides",
+    "whatsapp": "WhatsApp",
+    "areasTitle": "Coverage Areas",
+    "cityLinkText": "Properties in {city}"
+  },
+  "legal": {
+    "lastUpdated": "Last updated: {date}"
   }
 }

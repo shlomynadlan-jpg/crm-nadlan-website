@@ -1,15 +1,20 @@
 import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 
-export const metadata: Metadata = {
-  title: 'צור קשר',
-  description: 'צרו קשר עם LS נדל"ן — טלפון 055-2702800, וואטסאפ או טופס פנייה. מענה מהיר לכל שאלה על נכסים למכירה ולהשכרה.',
-  alternates: { canonical: '/contact' },
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('contactPage')
+  return {
+    title: t('h1'),
+    description: t('metaDesc'),
+    alternates: { canonical: '/contact' },
+  }
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const t = await getTranslations('contactPage')
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
 
@@ -23,8 +28,8 @@ export default function ContactPage() {
       >
         <div className="max-w-4xl mx-auto text-center py-10">
           <div style={{ width: 40, height: 2, background: '#C9A84C', margin: '0 auto 20px' }} />
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-3">צור קשר</h1>
-          <p className="text-lg" style={{ color: 'rgba(255,255,255,0.55)' }}>אנחנו כאן לכל שאלה — מוצאים לכם את הנכס המתאים</p>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-3">{t('h1')}</h1>
+          <p className="text-lg" style={{ color: 'rgba(255,255,255,0.55)' }}>{t('subtitle')}</p>
         </div>
       </div>
 
@@ -33,12 +38,12 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Info */}
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">דברו איתנו</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">{t('talkTitle')}</h2>
             <div className="space-y-5">
               {[
-                { icon: '📞', label: 'טלפון', value: phone, href: `tel:${phone}` },
-                { icon: '✉️', label: 'אימייל', value: email, href: `mailto:${email}` },
-                { icon: '💬', label: 'וואטסאפ', value: 'שלחו הודעה', href: `https://wa.me/972${phone.replace(/\D/g,'').replace(/^0/,'')}` },
+                { icon: '📞', label: t('labelPhone'), value: phone, href: `tel:${phone}` },
+                { icon: '✉️', label: t('labelEmail'), value: email, href: `mailto:${email}` },
+                { icon: '💬', label: t('labelWhatsapp'), value: t('whatsappSend'), href: `https://wa.me/972${phone.replace(/\D/g,'').replace(/^0/,'')}` },
               ].map(({ icon, label, value, href }) => (
                 <a key={label} href={href} target={href.startsWith('https') ? '_blank' : undefined}
                    rel="noopener noreferrer"
@@ -53,9 +58,9 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-8 p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}>
-              <p className="text-white font-semibold mb-1">⏰ שעות פעילות</p>
-              <p className="text-blue-100 text-sm">א׳–ה׳: 09:00–18:00</p>
-              <p className="text-blue-100 text-sm">ו׳: 09:00–13:00</p>
+              <p className="text-white font-semibold mb-1">⏰ {t('hoursTitle')}</p>
+              <p className="text-blue-100 text-sm">{t('hoursSunThu')}</p>
+              <p className="text-blue-100 text-sm">{t('hoursFri')}</p>
             </div>
           </div>
 

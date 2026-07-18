@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -13,9 +14,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const t = await getTranslations('blog')
   const { slug } = await params
   const article = getArticle(slug)
-  if (!article) return { title: 'מאמר לא נמצא' }
+  if (!article) return { title: t('notFound') }
   return {
     title: article.title,
     description: article.description,
@@ -55,6 +57,8 @@ function Block({ block }: { block: ArticleBlock }) {
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const t = await getTranslations('blog')
+  const tNav = await getTranslations('nav')
   const { slug } = await params
   const article = getArticle(slug)
   if (!article) notFound()
@@ -79,8 +83,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'בית', item: BASE },
-      { '@type': 'ListItem', position: 2, name: 'מאמרים', item: `${BASE}/blog` },
+      { '@type': 'ListItem', position: 1, name: tNav('home'), item: BASE },
+      { '@type': 'ListItem', position: 2, name: t('breadcrumbBlog'), item: `${BASE}/blog` },
       { '@type': 'ListItem', position: 3, name: article.title },
     ],
   }
@@ -98,13 +102,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="absolute bottom-0 right-0 left-0 pb-10 px-6">
             <div className="max-w-3xl mx-auto text-white">
               <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center gap-2">
-                <Link href="/" className="hover:text-white">בית</Link>
+                <Link href="/" className="hover:text-white">{tNav('home')}</Link>
                 <span aria-hidden="true">›</span>
-                <Link href="/blog" className="hover:text-white">מאמרים</Link>
+                <Link href="/blog" className="hover:text-white">{t('breadcrumbBlog')}</Link>
               </nav>
               <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{article.title}</h1>
               <p className="text-blue-100 text-sm">
-                {AUTHOR} · {new Date(article.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })} · {article.readingMinutes} דקות קריאה
+                {AUTHOR} · {new Date(article.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })} · {t('readingMinutes', { n: article.readingMinutes })}
               </p>
             </div>
           </div>
@@ -123,8 +127,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div>
               <p className="font-bold text-slate-900">{AUTHOR}</p>
               <p className="text-sm text-slate-500">
-                מתווך נדל״ן מורשה (רישיון 3151306), מתמחה בנכסים מסחריים ומגורים.{' '}
-                <Link href="/contact" className="text-blue-600 hover:underline">דברו איתי</Link>
+                {t('authorBio')}{' '}
+                <Link href="/contact" className="text-blue-600 hover:underline">{t('talkToMe')}</Link>
               </p>
             </div>
           </div>
@@ -133,7 +137,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {/* More articles */}
         {others.length > 0 && (
           <div className="max-w-6xl mx-auto px-6 pb-16">
-            <h2 className="text-2xl font-bold text-slate-900 mb-8">עוד מאמרים שיעניינו אתכם</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">{t('moreArticles')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {others.map(a => (
                 <Link key={a.slug} href={`/blog/${a.slug}`} className="group block">
@@ -143,7 +147,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     </div>
                     <div className="p-6">
                       <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{a.title}</h3>
-                      <span className="text-blue-600 font-semibold text-sm mt-3 inline-block">לקריאה ←</span>
+                      <span className="text-blue-600 font-semibold text-sm mt-3 inline-block">{t('readShort')}</span>
                     </div>
                   </article>
                 </Link>

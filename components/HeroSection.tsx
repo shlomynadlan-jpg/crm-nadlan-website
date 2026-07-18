@@ -23,6 +23,7 @@ const SLIDES = [
 
 export default function HeroSection({ totalCount, forSale, forRent, wantedCount }: Props) {
   const t = useTranslations()
+  const tTypes = useTranslations('propertyTypes')
   const router = useRouter()
   const [slide, setSlide] = useState(0)
   const [fade, setFade] = useState(true)
@@ -163,7 +164,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
               onClick={() => setMenuOpen(o => !o)}
               className="p-2 rounded-lg"
               style={{ color: '#fff' }}
-              aria-label="פתח תפריט"
+              aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
             >
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
                 {menuOpen
@@ -242,11 +243,11 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
               <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.typeLabel')}</label>
               <select name="property_type" className="w-full text-base text-slate-700 font-medium bg-transparent outline-none">
                 <option value="">{t('hero.typeAll')}</option>
-                <option value="משרד">משרד</option>
-                <option value="חנות">חנות</option>
-                <option value="קרקע">קרקע</option>
-                <option value="מחסן">מחסן</option>
-                <option value="תעשיה">תעשייה</option>
+                <option value="משרד">{tTypes('משרד')}</option>
+                <option value="חנות">{tTypes('חנות')}</option>
+                <option value="קרקע">{tTypes('קרקע')}</option>
+                <option value="מחסן">{tTypes('מחסן')}</option>
+                <option value="תעשיה">{tTypes('תעשיה')}</option>
               </select>
             </div>
             <button

@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
@@ -18,10 +19,11 @@ function propertyTitle(types: string, p: { gross_size: number | null; city: stri
   return `${types || 'נכס'}${size} ${dealText}${p.city ? ` ב${p.city}` : ''}`
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
   const { id } = await params
+  const t = await getTranslations()
   const property = await getProperty(id)
-  if (!property) return { title: 'נכס לא נמצא' }
+  if (!property) return { title: t('propertyPage.notFound') }
 
   const types = getPropertyTypes(property)
   const title = propertyTitle(types, property)
@@ -43,8 +45,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 }
 
-export default async function PropertyPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default async function PropertyPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
+  const { id, locale } = await params
+  const t = await getTranslations()
   const [property, agent] = await Promise.all([getProperty(id), getAgentSettings()])
   if (!property) notFound()
 
@@ -56,27 +59,39 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const deal = property.deal_type || ''
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
   const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
-  const badgeText = isRent ? 'להשכרה' : isBoth ? 'מכירה והשכרה' : 'למכירה'
+  const badgeText = isRent ? t('deal.forRent') : isBoth ? t('deal.both') : t('deal.forSale')
   const badgeColor = isRent ? '#0077B6' : isBoth ? '#7C3AED' : '#C9A84C'
 
   const salePrice = property.price
   const rentPrice = property.rent_price
 
+  const description = locale === 'en'
+    ? (property.description_en || property.description)
+    : locale === 'fr'
+    ? (property.description_fr || property.description)
+    : property.description
+
+  const projectName = locale === 'en'
+    ? (property.project_name_en || property.project_name)
+    : locale === 'fr'
+    ? (property.project_name_fr || property.project_name)
+    : property.project_name
+
   const specs = [
-    { label: 'סוג נכס', value: types },
-    { label: 'עיר', value: property.city },
-    { label: 'כתובת', value: null },
-    { label: 'שטח ברוטו', value: property.gross_size ? `${property.gross_size} מ״ר` : null },
-    { label: 'שטח נטו', value: property.net_size ? `${property.net_size} מ״ר` : null },
-    { label: 'חדרים', value: property.rooms ? String(property.rooms) : null },
-    { label: 'קומה', value: property.floor != null ? String(property.floor) : null },
-    { label: 'חניה', value: property.parking_count ? `${property.parking_count} מקומות` : null },
-    { label: 'גובה תקרה', value: property.ceiling_height ? `${property.ceiling_height} מ׳` : null },
-    { label: 'כניסה', value: property.entry_date || null },
-    { label: 'מיזוג אוויר', value: property.ac ? 'כן' : null },
-    { label: 'מעלית', value: property.elevator ? 'כן' : null },
-    { label: 'ריהוט', value: property.furniture ? 'כן' : null },
-    { label: 'שם פרויקט', value: property.project_name || null },
+    { label: t('propertyPage.specLabels.type'), value: types },
+    { label: t('propertyPage.specLabels.city'), value: property.city },
+    { label: t('propertyPage.address'), value: null },
+    { label: t('propertyPage.specLabels.gross'), value: property.gross_size ? `${property.gross_size} ${t('propertyPage.specLabels.sqm')}` : null },
+    { label: t('propertyPage.specLabels.net'), value: property.net_size ? `${property.net_size} ${t('propertyPage.specLabels.sqm')}` : null },
+    { label: t('propertyPage.specLabels.rooms'), value: property.rooms ? String(property.rooms) : null },
+    { label: t('propertyPage.specLabels.floor'), value: property.floor != null ? String(property.floor) : null },
+    { label: t('propertyPage.specLabels.parking'), value: property.parking_count ? t('propertyPage.specLabels.parkingSpots', { n: property.parking_count }) : null },
+    { label: t('propertyPage.specLabels.ceiling'), value: property.ceiling_height ? `${property.ceiling_height} ${t('propertyPage.specLabels.meters')}` : null },
+    { label: t('propertyPage.specLabels.entry'), value: property.entry_date || null },
+    { label: t('propertyPage.specLabels.ac'), value: property.ac ? t('propertyPage.specLabels.yes') : null },
+    { label: t('propertyPage.specLabels.elevator'), value: property.elevator ? t('propertyPage.specLabels.yes') : null },
+    { label: t('propertyPage.specLabels.furniture'), value: property.furniture ? t('propertyPage.specLabels.yes') : null },
+    { label: t('propertyPage.specLabels.project'), value: projectName || null },
   ].filter(s => s.value)
 
   const listingJsonLd = {
@@ -108,8 +123,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'בית', item: 'https://www.nadlannow.co.il' },
-      { '@type': 'ListItem', position: 2, name: 'נכסים', item: 'https://www.nadlannow.co.il/properties' },
+      { '@type': 'ListItem', position: 1, name: t('propertyPage.home'), item: 'https://www.nadlannow.co.il' },
+      { '@type': 'ListItem', position: 2, name: t('propertyPage.properties'), item: 'https://www.nadlannow.co.il/properties' },
       { '@type': 'ListItem', position: 3, name: propertyTitle(types, property) },
     ],
   }
@@ -123,9 +138,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
         {/* Breadcrumb */}
         <nav aria-label="ניווט משני" className="text-sm text-slate-400 mb-6 flex items-center gap-2">
-          <Link href="/" className="hover:text-blue-600">בית</Link>
+          <Link href="/" className="hover:text-blue-600">{t('propertyPage.home')}</Link>
           <span>›</span>
-          <Link href="/properties" className="hover:text-blue-600">נכסים</Link>
+          <Link href="/properties" className="hover:text-blue-600">{t('propertyPage.properties')}</Link>
           <span>›</span>
           <span className="text-slate-600">{property.city}</span>
         </nav>
@@ -155,7 +170,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                       className="text-xs px-4 py-1.5 rounded-full"
                       style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
                     >
-                      התמונה להמחשה בלבד
+                      {t('card.aiDisclaimer')}
                     </span>
                   </div>
                 )}
@@ -181,7 +196,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               <div className="flex flex-wrap gap-4 items-baseline">
                 {salePrice && (
                   <div>
-                    <p className="text-xs text-slate-400 mb-0.5">מחיר מכירה</p>
+                    <p className="text-xs text-slate-400 mb-0.5">{t('deal.salePrice')}</p>
                     <p className="text-3xl font-extrabold" style={{ color: '#C9A84C' }}>
                       {formatPrice(salePrice)}
                     </p>
@@ -189,14 +204,14 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 )}
                 {rentPrice && (
                   <div>
-                    <p className="text-xs text-slate-400 mb-0.5">שכ״ד חודשי</p>
+                    <p className="text-xs text-slate-400 mb-0.5">{t('deal.rentPrice')}</p>
                     <p className="text-3xl font-extrabold" style={{ color: '#0077B6' }}>
                       {formatPrice(rentPrice)}
                     </p>
                   </div>
                 )}
                 {!salePrice && !rentPrice && (
-                  <p className="text-2xl font-bold text-slate-400">מחיר לפי פנייה</p>
+                  <p className="text-2xl font-bold text-slate-400">{t('deal.priceOnRequest')}</p>
                 )}
               </div>
             </div>
@@ -204,7 +219,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             {/* Specs grid */}
             {specs.length > 0 && (
               <div className="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
-                <h2 className="font-bold text-slate-900 text-lg mb-4">פרטי הנכס</h2>
+                <h2 className="font-bold text-slate-900 text-lg mb-4">{t('propertyPage.specsTitle')}</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {specs.map(({ label, value }) => (
                     <div key={label} className="bg-slate-50 rounded-xl p-3">
@@ -217,10 +232,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             )}
 
             {/* Description */}
-            {property.description && (
+            {description && (
               <div className="bg-white rounded-2xl border border-slate-100 p-6">
-                <h2 className="font-bold text-slate-900 text-lg mb-3">תיאור</h2>
-                <p className="text-slate-600 leading-relaxed whitespace-pre-line">{property.description}</p>
+                <h2 className="font-bold text-slate-900 text-lg mb-3">{t('propertyPage.descTitle')}</h2>
+                <p className="text-slate-600 leading-relaxed whitespace-pre-line">{description}</p>
               </div>
             )}
           </div>
@@ -232,7 +247,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               {/* Agent card */}
               {agent && (
                 <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
-                  <p className="text-xs text-slate-400 mb-3 font-medium">הסוכן המטפל</p>
+                  <p className="text-xs text-slate-400 mb-3 font-medium">{t('propertyPage.agent')}</p>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0"
                       style={{ background: 'linear-gradient(135deg, #0077B6, #023E8A)' }}>

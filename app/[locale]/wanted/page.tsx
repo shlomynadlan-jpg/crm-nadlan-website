@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WantedCard from '@/components/WantedCard'
@@ -6,13 +7,17 @@ import { getPropertyRequests } from '@/lib/properties'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'דרושים נכסים',
-  description: 'לקוחות LS נדל״ן מחפשים נכסים — משרדים, חנויות, מחסנים ודירות למכירה ולהשכרה. יש לכם נכס מתאים? צרו איתנו קשר.',
-  alternates: { canonical: '/wanted' },
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('wanted')
+  return {
+    title: t('pageTitle'),
+    description: t('pageSubtitle'),
+    alternates: { canonical: '/wanted' },
+  }
 }
 
 export default async function WantedPage() {
+  const t = await getTranslations('wanted')
   const requests = await getPropertyRequests()
 
   return (
@@ -27,11 +32,11 @@ export default async function WantedPage() {
         <div className="max-w-5xl mx-auto py-10 text-center">
           <div style={{ width: 40, height: 2, background: '#C9A84C', margin: '0 auto 20px' }} />
           <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: 'rgba(201,168,76,0.8)' }}>
-            לבעלי נכסים
+            {t('pageLabel')}
           </p>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">דרושים נכסים</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4">{t('pageTitle')}</h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.55)' }}>
-            הלקוחות שלנו מחפשים נכסים — אם יש לכם נכס מתאים, צרו קשר ונסגור עסקה מהר
+            {t('pageSubtitle')}
           </p>
         </div>
       </div>
@@ -42,18 +47,18 @@ export default async function WantedPage() {
           {requests.length === 0 ? (
             <div className="text-center py-24 text-slate-400">
               <p className="text-5xl mb-4">🔍</p>
-              <p className="text-xl font-semibold">אין בקשות פעילות כרגע</p>
-              <p className="text-base mt-2">בדקו שוב בקרוב</p>
+              <p className="text-xl font-semibold">{t('noResults')}</p>
+              <p className="text-base mt-2">{t('checkBack')}</p>
             </div>
           ) : (
             <>
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <p className="text-sm font-bold tracking-widest uppercase mb-1" style={{ color: '#C9A84C' }}>
-                    בקשות פעילות
+                    {t('activeRequestsLabel')}
                   </p>
                   <h2 className="text-3xl font-black" style={{ color: '#0a1e3d' }}>
-                    {requests.length} נכסים דרושים
+                    {t('activeRequestsCount', { count: requests.length })}
                   </h2>
                 </div>
                 <a
@@ -78,16 +83,16 @@ export default async function WantedPage() {
             className="mt-16 rounded-2xl p-8 text-center"
             style={{ background: 'linear-gradient(135deg, #040d1e 0%, #0a1e3d 100%)', border: '1px solid rgba(201,168,76,0.2)' }}
           >
-            <h3 className="text-2xl font-black text-white mb-2">יש לכם נכס שלא מופיע כאן?</h3>
+            <h3 className="text-2xl font-black text-white mb-2">{t('ctaTitle')}</h3>
             <p className="mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>
-              צרו קשר ונבדוק אם יש לנו לקוח מתאים במאגר
+              {t('ctaSubtitle')}
             </p>
             <a
               href="tel:0552702800"
               className="inline-block font-black text-sm py-3 px-8 rounded-xl"
               style={{ background: '#C9A84C', color: '#0a1e3d' }}
             >
-              התקשרו עכשיו — 055-2702800
+              {t('callNowBtn')}
             </a>
           </div>
         </div>

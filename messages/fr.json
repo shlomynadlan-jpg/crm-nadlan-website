@@ -8,7 +8,10 @@
     "about": "À Propos",
     "faq": "FAQ",
     "contact": "Contact",
-    "phone": "055-2702800"
+    "phone": "055-2702800",
+    "home": "Accueil",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
   },
   "hero": {
     "tagline": "Immobilier Commercial et Résidentiel",
@@ -78,17 +81,116 @@
     "discTitle": "Discrétion totale",
     "discDesc": "Les transactions sensibles sont traitées en toute confidentialité — vos données restent chez nous."
   },
+  "common": {
+    "loading": "Chargement...",
+    "readMore": "Lire →",
+    "readMoreArticle": "Lire l'article →",
+    "callNow": "055-2702800"
+  },
+  "search": {
+    "allCities": "Toutes les villes",
+    "allTypes": "Tous les types",
+    "allDeals": "Vente / Location",
+    "forSale": "À vendre",
+    "forRent": "À louer",
+    "searchBtn": "🔍 Rechercher",
+    "searchPropertiesBtn": "🔍 Rechercher des biens",
+    "cityAriaLabel": "Sélectionner une ville",
+    "typeAriaLabel": "Sélectionner un type",
+    "dealAriaLabel": "Sélectionner le type"
+  },
+  "specialties": {
+    "ariaLabel": "Nos spécialités",
+    "offices": "Bureaux",
+    "retail": "Commerce & Retail",
+    "warehouses": "Entrepôts & Logistique",
+    "industrial": "Industriel",
+    "land": "Terrains",
+    "residential": "Résidentiel",
+    "businessSale": "Cession d'entreprises"
+  },
   "process": {
     "label": "Comment ça marche",
-    "title": "Un processus simple, des résultats optimaux",
-    "step1Title": "Première prise de contact",
-    "step1Desc": "Laissez vos coordonnées et nous vous recontacterons dans les heures qui suivent",
-    "step2Title": "Conseil expert",
-    "step2Desc": "Nous comprenons vos besoins et vous présentons les biens correspondants",
-    "step3Title": "Visites des biens",
-    "step3Desc": "Accompagnement personnalisé lors des visites et analyse de chaque bien",
-    "step4Title": "Conclusion de la transaction",
-    "step4Desc": "Accompagnement complet jusqu'à la signature et la remise des clés"
+    "title": "Notre processus d'accompagnement",
+    "subtitle": "Du premier appel bien après la remise des clés — voici à quoi ressemble une transaction bien accompagnée",
+    "cta": "Planifier une réunion gratuite",
+    "step1Title": "Réunion de présentation",
+    "step1Items": ["Compréhension des besoins et du budget", "Explication du processus de transaction", "Présentation initiale des biens", "Définition des attentes et calendrier"],
+    "step2Title": "Recherche de biens",
+    "step2Items": ["Recherche ciblée selon critères", "Accès aux biens non publiés", "Filtrage et vérification initiale", "Coordination des visites"],
+    "step3Title": "Vérifications et négociation",
+    "step3Items": ["Accompagnement aux visites", "Vérifications juridiques et urbanistiques", "Négociation professionnelle", "Conseil stratégique"],
+    "step4Title": "Signature et clôture",
+    "step4Items": ["Sélection d'un notaire/avocat", "Accompagnement à la signature", "Coordination des transferts", "Vérification des documents"],
+    "step5Title": "Accompagnement post-transaction",
+    "step5Items": ["Mise en contact avec des professionnels", "Conseils en rénovation et design", "Suivi du bien", "Disponibilité pour questions futures"]
+  },
+  "blog": {
+    "knowledge": "Notre savoir — pour vous",
+    "title": "Articles & Guides",
+    "subtitle": "Tout ce que nous avons appris sur l'immobilier commercial — présenté clairement",
+    "featured": "À la une",
+    "readingMinutes": "{n} min de lecture",
+    "readMore": "Lire l'article →",
+    "readShort": "Lire →",
+    "ctaTitle": "Vous avez une question sans réponse ?",
+    "ctaSubtitle": "Dites-nous ce qui vous intéresse",
+    "ctaBtn": "Parlez-nous",
+    "notFound": "Article introuvable",
+    "breadcrumbBlog": "Blog",
+    "authorBio": "Agent immobilier agréé (licence 3151306), spécialisé dans les biens commerciaux et résidentiels.",
+    "talkToMe": "Parlons-en",
+    "moreArticles": "D'autres articles qui pourraient vous intéresser"
+  },
+  "city": {
+    "metaTitle": "Propriétés à {city}",
+    "metaDesc": "Biens à vendre et à louer à {city} — bureaux, boutiques, entrepôts et plus.",
+    "breadcrumbProperties": "Propriétés",
+    "h1": "Biens à Vendre et à Louer à {city}",
+    "subtitle": "{count} biens disponibles à {city} — {forSale} à vendre et {forRent} à louer",
+    "subtitleContact": "Vous cherchez un bien à {city} ? Laissez vos coordonnées et nous le trouverons pour vous",
+    "intro1": "LS Immobilier gère des transactions à {city} — bureaux, boutiques, entrepôts, industriel et résidentiel.",
+    "intro2": "Nous connaissons le marché local et pouvons vous aider à trouver le bon bien au bon prix.",
+    "empty": "Aucun bien actuellement annoncé à {city}",
+    "emptySub": "Mais nous avons des biens non publiés — laissez vos coordonnées et nous vous recontacterons",
+    "ctaTitle": "Cherchez-vous un bien à {city} ?",
+    "ctaPara1": "Si vous cherchez un bien à {city} — pour vente, location ou investissement — l'équipe LS Immobilier est là pour vous aider.",
+    "ctaPara2": "Nous avons accès à des biens non publiés et une expérience avérée sur le marché local."
+  },
+  "contactPage": {
+    "title": "Contactez-nous",
+    "metaDesc": "Contactez LS Immobilier — nous sommes là pour vous aider",
+    "h1": "Contactez-nous",
+    "subtitle": "Nous sommes là pour toute question — pour trouver le bien qui vous convient",
+    "talkTitle": "Parlez-nous",
+    "labelPhone": "Téléphone",
+    "labelEmail": "E-mail",
+    "labelWhatsapp": "WhatsApp",
+    "whatsappSend": "Envoyer un message",
+    "hoursTitle": "Horaires d'ouverture",
+    "hoursSunThu": "Dim–Jeu: 09:00–18:00",
+    "hoursFri": "Ven: 09:00–13:00"
+  },
+  "contactForm": {
+    "title": "Intéressé par un bien ?",
+    "subtitle": "Laissez vos coordonnées et nous vous recontacterons",
+    "successTitle": "Nous avons reçu votre message !",
+    "successSubtitle": "Nous vous répondrons dans les plus brefs délais",
+    "sendAnother": "Envoyer un autre message",
+    "nameLabel": "Nom complet (obligatoire)",
+    "namePlaceholder": "Nom complet *",
+    "phoneLabel": "Téléphone (obligatoire)",
+    "phonePlaceholder": "Téléphone *",
+    "messageLabel": "Message (facultatif)",
+    "messagePlaceholder": "Message (facultatif)",
+    "privacyConsent": "J'ai lu la {link} et j'accepte que mes coordonnées soient utilisées pour me contacter.",
+    "privacyLink": "Politique de confidentialité",
+    "marketingConsent": "J'accepte de recevoir des mises à jour et offres immobilières (facultatif, désinscription possible).",
+    "sendError": "Erreur d'envoi, veuillez réessayer",
+    "sending": "⏳ Envoi...",
+    "sendBtn": "📩 Envoyer",
+    "callBtn": "📞 Appeler",
+    "whatsappBtn": "WhatsApp"
   },
   "ownerBanner": {
     "label": "Pour les propriétaires",
@@ -103,6 +205,8 @@
     "callAgent": "📞",
     "specsTitle": "Détails du bien",
     "descTitle": "Description",
+    "notFound": "Bien introuvable",
+    "address": "Adresse",
     "specLabels": {
       "type": "Type de bien",
       "city": "Ville",
@@ -118,7 +222,10 @@
       "furniture": "Meublé",
       "project": "Nom du projet",
       "yes": "Oui",
-      "parkingSpots": "{n} places"
+      "parkingSpots": "{n} places",
+      "sqm": "m²",
+      "meters": "m",
+      "spots": "places"
     }
   },
   "wanted": {
@@ -130,7 +237,17 @@
     "ctaTitle": "Vous avez un bien correspondant ?",
     "ctaSubtitle": "Contactez-nous et nous vous mettrons en relation avec le bon client",
     "ctaBtn": "📞 Contactez-nous maintenant",
-    "whatsapp": "📲 WhatsApp"
+    "whatsapp": "📲 WhatsApp",
+    "urgent": "🔥 Urgent",
+    "budgetOnRequest": "Budget sur demande",
+    "sizeRange": "{min}–{max} m²",
+    "sizeFrom": "À partir de {min} m²",
+    "sizeTo": "Jusqu'à {max} m²",
+    "hasProperty": "J'ai un bien correspondant",
+    "activeRequestsLabel": "Demandes actives",
+    "activeRequestsCount": "{count} biens recherchés",
+    "checkBack": "Revenez bientôt",
+    "callNowBtn": "Appelez maintenant — 055-2702800"
   },
   "contact": {
     "title": "Contactez-nous",
@@ -153,6 +270,18 @@
     "privacy": "Politique de confidentialité",
     "accessibility": "Accessibilité",
     "terms": "Conditions d'utilisation",
-    "rights": "Tous droits réservés"
+    "rights": "Tous droits réservés",
+    "brandDesc": "Experts en courtage immobilier commercial et résidentiel. Engagés à trouver le bien idéal pour vous.",
+    "home": "Accueil",
+    "allProperties": "Tous les biens",
+    "forSaleLink": "Biens à vendre",
+    "forRentLink": "Biens à louer",
+    "articlesLink": "Articles & Guides",
+    "whatsapp": "WhatsApp",
+    "areasTitle": "Zones d'activité",
+    "cityLinkText": "Biens à {city}"
+  },
+  "legal": {
+    "lastUpdated": "Dernière mise à jour : {date}"
   }
 }
