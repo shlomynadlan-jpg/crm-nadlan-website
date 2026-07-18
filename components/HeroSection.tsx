@@ -178,9 +178,9 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
         )}
 
         {/* ── HERO BODY ── */}
-        <div className="flex-1 flex flex-col justify-center px-6 md:px-10 py-10 max-w-2xl">
+        <div className="flex-1 flex flex-col justify-center items-center text-center px-6 md:px-10 py-10 w-full">
           {/* Gold accent line */}
-          <div style={{ width: 40, height: 2, background: '#C9A84C', marginBottom: 24 }} />
+          <div style={{ width: 48, height: 2, background: '#C9A84C', marginBottom: 24 }} />
 
           <p
             className="text-sm font-bold tracking-widest uppercase mb-5"
@@ -191,7 +191,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
 
           <h1
             className="font-black leading-tight mb-6"
-            style={{ fontSize: 'clamp(42px, 5.5vw, 64px)', color: '#fff', letterSpacing: '-1px', textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}
+            style={{ fontSize: 'clamp(52px, 7vw, 90px)', color: '#fff', letterSpacing: '-2px', textShadow: '0 4px 32px rgba(0,0,0,0.6)' }}
           >
             מוצאים לך את
             <br />
@@ -212,7 +212,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
             action="/properties"
             method="GET"
             className="flex items-stretch rounded-xl overflow-x-auto"
-            style={{ background: 'rgba(255,255,255,0.97)', boxShadow: '0 12px 40px rgba(0,0,0,0.35)', maxWidth: 560 }}
+            style={{ background: 'rgba(255,255,255,0.97)', boxShadow: '0 12px 40px rgba(0,0,0,0.35)', width: '100%', maxWidth: 600 }}
           >
             <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 150 }}>
               <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">עיר</label>
