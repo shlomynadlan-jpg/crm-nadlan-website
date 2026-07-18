@@ -8,6 +8,7 @@ interface Props {
   totalCount: number
   forSale: number
   forRent: number
+  wantedCount: number
 }
 
 const SLIDES = [
@@ -29,7 +30,7 @@ const NAV_LINKS = [
   { href: '/contact', label: 'צור קשר' },
 ]
 
-export default function HeroSection({ totalCount, forSale, forRent }: Props) {
+export default function HeroSection({ totalCount, forSale, forRent, wantedCount }: Props) {
   const [slide, setSlide] = useState(0)
   const [fade, setFade] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -244,28 +245,30 @@ export default function HeroSection({ totalCount, forSale, forRent }: Props) {
 
         {/* ── BOTTOM — stats centered + slide dots ── */}
         <div className="pb-10 px-6">
-          {/* Stats — centered, large */}
-          <div className="flex justify-center items-center gap-0 mb-6">
+          {/* Stats — grid 3x2, centered */}
+          <div className="grid grid-cols-3 gap-x-6 gap-y-8 mb-6 max-w-3xl mx-auto">
             {[
-              { id: 'total', value: totalCount, label: 'נכסים פעילים', plus: true },
-              { id: 'sale', value: forSale, label: 'למכירה', plus: false },
-              { id: 'rent', value: forRent, label: 'להשכרה', plus: false },
-            ].map(({ id, value, label, plus }, i) => (
-              <div key={id} className="flex items-stretch">
-                {i > 0 && (
-                  <div className="self-center mx-8" style={{ width: 1, height: 56, background: 'rgba(255,255,255,0.15)' }} />
+              { id: 'total',  value: totalCount,   label: 'נכסים פעילים',  suffix: '+',  static: false },
+              { id: 'sale',   value: forSale,       label: 'למכירה',        suffix: '',   static: false },
+              { id: 'rent',   value: forRent,       label: 'להשכרה',        suffix: '',   static: false },
+              { id: 'wanted', value: wantedCount,   label: 'נכסים דרושים',  suffix: '+',  static: false },
+              { id: 'years',  value: 9,             label: 'שנות ותק',      suffix: '',   static: true  },
+              { id: 'deals',  value: 200,           label: 'עסקאות',        suffix: '+',  static: true  },
+            ].map(({ id, value, label, suffix }, i) => (
+              <div key={id} className="text-center relative">
+                {/* vertical divider — right side of cols 2 and 3 */}
+                {i % 3 !== 0 && (
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2" style={{ width: 1, height: 44, background: 'rgba(255,255,255,0.12)' }} />
                 )}
-                <div className="text-center">
-                  <p
-                    className="font-black leading-none"
-                    style={{ fontSize: 'clamp(44px, 5vw, 64px)', color: '#fff', textShadow: '0 2px 20px rgba(0,0,0,0.6)' }}
-                  >
-                    <CountUp value={value} suffix={plus ? '+' : ''} />
-                  </p>
-                  <p className="text-sm font-semibold tracking-widest uppercase mt-2" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                    {label}
-                  </p>
-                </div>
+                <p
+                  className="font-black leading-none"
+                  style={{ fontSize: 'clamp(32px, 4vw, 52px)', color: '#fff', textShadow: '0 2px 20px rgba(0,0,0,0.6)' }}
+                >
+                  <CountUp value={value} suffix={suffix} />
+                </p>
+                <p className="text-xs font-semibold tracking-widest uppercase mt-2" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  {label}
+                </p>
               </div>
             ))}
           </div>
