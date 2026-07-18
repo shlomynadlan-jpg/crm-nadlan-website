@@ -86,11 +86,30 @@ export default function PropertyCard({ p }: { p: Property }) {
 
           {/* Price */}
           <div className="mt-auto pt-3 border-t border-slate-100 flex items-end justify-between">
-            <div>
-              <p className="text-xs text-slate-400 mb-0.5">{priceLabel}</p>
-              <p className="font-bold text-lg" style={{ color: '#0077B6' }}>
-                {formatPrice(price)}
-              </p>
+            <div className="flex flex-col gap-1">
+              {isBoth ? (
+                <>
+                  <div>
+                    <p className="text-xs text-slate-400">מחיר מכירה</p>
+                    <p className="font-bold text-base" style={{ color: '#C9A84C' }}>
+                      {formatPrice(p.price)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">שכ״ד חודשי</p>
+                    <p className="font-bold text-base" style={{ color: '#0077B6' }}>
+                      {formatPrice(p.rent_price)}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <p className="text-xs text-slate-400 mb-0.5">{priceLabel}</p>
+                  <p className="font-bold text-lg" style={{ color: isRent ? '#0077B6' : '#C9A84C' }}>
+                    {formatPrice(price)}
+                  </p>
+                </div>
+              )}
             </div>
             <span className="text-xs font-medium text-blue-600 hover:underline">
               פרטים ←
