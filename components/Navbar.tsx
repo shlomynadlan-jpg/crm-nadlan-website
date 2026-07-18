@@ -1,20 +1,23 @@
 'use client'
 import { useState } from 'react'
-import Link from 'next/link'
-
-const LINKS = [
-  { href: '/', label: 'דף הבית' },
-  { href: '/properties', label: 'נכסים' },
-  { href: '/properties?deal_type=מכירה', label: 'למכירה' },
-  { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
-  { href: '/wanted', label: 'דרושים נכסים' },
-  { href: '/blog', label: 'מאמרים' },
-  { href: '/about', label: 'אודות' },
-  { href: '/faq', label: 'שאלות נפוצות' },
-]
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const t = useTranslations('nav')
+
+  const LINKS = [
+    { href: '/', label: t('properties') },
+    { href: '/properties', label: t('properties') },
+    { href: '/properties?deal_type=מכירה', label: t('forSale') },
+    { href: '/properties?deal_type=השכרה', label: t('forRent') },
+    { href: '/wanted', label: t('wanted') },
+    { href: '/blog', label: t('blog') },
+    { href: '/about', label: t('about') },
+    { href: '/faq', label: t('faq') },
+  ]
 
   return (
     <header className="fixed top-0 w-full z-50" style={{ direction: 'rtl' }}>
@@ -35,7 +38,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-6">
           {LINKS.map(({ href, label }) => (
             <Link
-              key={label}
+              key={href}
               href={href}
               className="text-sm font-medium hover:opacity-100 transition-opacity"
               style={{ color: 'rgba(255,255,255,0.62)' }}
@@ -50,12 +53,13 @@ export default function Navbar() {
           <a href="tel:0552702800" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
             055 <span style={{ color: '#C9A84C' }}>270 2800</span>
           </a>
+          <LanguageSwitcher />
           <Link
             href="/contact"
             className="text-sm font-bold px-4 py-2 rounded-lg"
             style={{ background: '#C9A84C', color: '#0a1e3d' }}
           >
-            צור קשר
+            {t('contact')}
           </Link>
         </div>
 
@@ -84,7 +88,7 @@ export default function Navbar() {
         >
           {LINKS.map(({ href, label }) => (
             <Link
-              key={label}
+              key={href}
               href={href}
               onClick={() => setOpen(false)}
               className="py-3 px-4 rounded-xl text-base font-medium"
@@ -99,8 +103,9 @@ export default function Navbar() {
             className="mt-2 text-center font-black text-sm py-3 px-4 rounded-xl"
             style={{ background: '#C9A84C', color: '#0a1e3d' }}
           >
-            צור קשר
+            {t('contact')}
           </Link>
+          <LanguageSwitcher className="mt-2 justify-center" />
         </div>
       )}
     </header>

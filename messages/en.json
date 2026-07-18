@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "properties": "Properties",
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "wanted": "Wanted Properties",
+    "blog": "Blog",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "phone": "055-2702800"
+  },
+  "hero": {
+    "tagline": "Commercial & Residential Real Estate",
+    "title1": "We find you the",
+    "subtitle": "Hundreds of properties across Israel · Expert advice\nPersonal guidance until deal closure",
+    "cityLabel": "City",
+    "cityPlaceholder": "Tel Aviv, Ramat Gan...",
+    "typeLabel": "Property Type",
+    "typeAll": "All",
+    "searchBtn": "🔍 Search",
+    "rotating": ["perfect property", "next office space", "right investment", "ideal shop", "perfect warehouse"]
+  },
+  "stats": {
+    "years": "Years Active",
+    "deals": "Deals",
+    "activeProperties": "Active Listings",
+    "forRent": "For Rent",
+    "forSale": "For Sale",
+    "wanted": "Wanted"
+  },
+  "propertyTypes": {
+    "משרד": "Office",
+    "חנות": "Shop",
+    "מחסן": "Warehouse",
+    "תעשיה": "Industrial",
+    "קרקע": "Land",
+    "מסחרי": "Commercial"
+  },
+  "deal": {
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "both": "Sale & Rent",
+    "salePrice": "Sale Price",
+    "rentPrice": "Monthly Rent",
+    "saleOrRent": "Sale / Rent",
+    "priceOnRequest": "Price on Request"
+  },
+  "card": {
+    "details": "Details →",
+    "sqm": "sqm",
+    "rooms": "rooms",
+    "floor": "Floor",
+    "aiDisclaimer": "Image for illustration only"
+  },
+  "home": {
+    "featuredLabel": "✦ Hand-Picked",
+    "featuredTitle": "Featured Properties",
+    "viewAll": "View all properties →",
+    "noProperties": "No properties available at the moment",
+    "categoriesLabel": "Filter by type",
+    "categoriesTitle": "All Property Types",
+    "whyLabel": "Why us",
+    "whyTitle": "The right choice for your real estate",
+    "wantedForOwners": "For Property Owners",
+    "wantedTitle": "Wanted Properties",
+    "wantedSubtitle": "Our clients are searching — do you have a matching property?",
+    "wantedViewAll": "All requests →",
+    "wantedViewCount": "View all {count} requests →"
+  },
+  "why": {
+    "profTitle": "Professionalism & Precision",
+    "profDesc": "Years of experience in commercial and residential real estate across Israel.",
+    "speedTitle": "Fast Response",
+    "speedDesc": "We get back to you within hours — because every good deal starts at the right time.",
+    "personalTitle": "Personal Guidance",
+    "personalDesc": "From first search to contract signing — you're never alone.",
+    "discTitle": "Full Discretion",
+    "discDesc": "Sensitive deals handled with complete confidentiality — your details stay with us."
+  },
+  "process": {
+    "label": "How it works",
+    "title": "Simple Process, Maximum Results",
+    "step1Title": "Initial Inquiry",
+    "step1Desc": "Leave your details and we'll get back to you within hours",
+    "step2Title": "Expert Consultation",
+    "step2Desc": "We understand your needs and present matching properties",
+    "step3Title": "Property Tours",
+    "step3Desc": "Personal accompaniment on tours and analysis of each property",
+    "step4Title": "Deal Closure",
+    "step4Desc": "Full support until contract signing and key handover"
+  },
+  "ownerBanner": {
+    "label": "For Property Owners",
+    "title": "Have a property for rent or sale?",
+    "subtitle": "List with us and reach thousands of potential buyers and tenants",
+    "cta": "Contact Us Now"
+  },
+  "propertyPage": {
+    "home": "Home",
+    "properties": "Properties",
+    "agent": "Your Agent",
+    "callAgent": "📞",
+    "specsTitle": "Property Details",
+    "descTitle": "Description",
+    "specLabels": {
+      "type": "Property Type",
+      "city": "City",
+      "gross": "Gross Area",
+      "net": "Net Area",
+      "rooms": "Rooms",
+      "floor": "Floor",
+      "parking": "Parking",
+      "ceiling": "Ceiling Height",
+      "entry": "Entry Date",
+      "ac": "Air Conditioning",
+      "elevator": "Elevator",
+      "furniture": "Furnished",
+      "project": "Project Name",
+      "yes": "Yes",
+      "parkingSpots": "{n} spots"
+    }
+  },
+  "wanted": {
+    "pageLabel": "For Property Owners",
+    "pageTitle": "Wanted Properties",
+    "pageSubtitle": "Our clients are searching — do you have a matching property?",
+    "contact": "Contact",
+    "noResults": "No requests at the moment",
+    "ctaTitle": "Have a matching property?",
+    "ctaSubtitle": "Contact us and we'll connect you with the right client",
+    "ctaBtn": "📞 Contact Us Now",
+    "whatsapp": "📲 WhatsApp"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you",
+    "name": "Full Name",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Thank you! We'll get back to you soon.",
+    "error": "Error sending, please try again."
+  },
+  "footer": {
+    "tagline": "Commercial & Residential Real Estate",
+    "description": "We find you the perfect property — whether for sale, rent, or investment.",
+    "linksTitle": "Quick Links",
+    "contactTitle": "Contact",
+    "legalTitle": "Legal",
+    "privacy": "Privacy Policy",
+    "accessibility": "Accessibility",
+    "terms": "Terms of Use",
+    "rights": "All rights reserved"
+  }
+}

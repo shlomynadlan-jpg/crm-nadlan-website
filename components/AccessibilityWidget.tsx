@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 interface Prefs {
   fontScale: number // 100 | 110 | 125 | 140

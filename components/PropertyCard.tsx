@@ -1,8 +1,10 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import { Property, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { getTranslations } from 'next-intl/server'
 
-export default function PropertyCard({ p }: { p: Property }) {
+export default async function PropertyCard({ p }: { p: Property }) {
+  const t = await getTranslations()
   const img = getPropertyImage(p)
   const isAI = isPlaceholderImage(p)
   const types = getPropertyTypes(p)
@@ -10,9 +12,9 @@ export default function PropertyCard({ p }: { p: Property }) {
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
   const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
   const isSale = deal.includes('מכירה') && !deal.includes('השכרה')
-  const priceLabel = isRent ? 'שכ"ד חודשי' : isBoth ? 'מכירה / שכירות' : 'מחיר מכירה'
+  const priceLabel = isRent ? t('deal.rentPrice') : isBoth ? t('deal.saleOrRent') : t('deal.salePrice')
   const price = isRent ? p.rent_price : p.price
-  const badgeText = isRent ? 'להשכרה' : isBoth ? 'מכירה והשכרה' : 'למכירה'
+  const badgeText = isRent ? t('deal.forRent') : isBoth ? t('deal.both') : t('deal.forSale')
   const badgeColor = isRent ? '#0077B6' : isBoth ? '#7C3AED' : '#C9A84C'
 
   return (
@@ -48,7 +50,7 @@ export default function PropertyCard({ p }: { p: Property }) {
                 className="text-xs px-3 py-1 rounded-full"
                 style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
               >
-                התמונה להמחשה בלבד
+                {t('card.aiDisclaimer')}
               </span>
             </div>
           )}
@@ -64,17 +66,17 @@ export default function PropertyCard({ p }: { p: Property }) {
           <div className="flex items-center gap-4 text-slate-500 text-sm my-3">
             {p.gross_size && (
               <span className="flex items-center gap-1">
-                <span>📐</span> {p.gross_size} מ״ר
+                <span>📐</span> {p.gross_size} {t('card.sqm')}
               </span>
             )}
             {p.rooms && (
               <span className="flex items-center gap-1">
-                <span>🚪</span> {p.rooms} חד׳
+                <span>🚪</span> {p.rooms} {t('card.rooms')}
               </span>
             )}
             {p.floor != null && (
               <span className="flex items-center gap-1">
-                <span>🏢</span> קומה {p.floor}
+                <span>🏢</span> {t('card.floor')} {p.floor}
               </span>
             )}
             {p.parking_count != null && p.parking_count > 0 && (
@@ -90,13 +92,13 @@ export default function PropertyCard({ p }: { p: Property }) {
               {isBoth ? (
                 <>
                   <div>
-                    <p className="text-xs text-slate-400">מחיר מכירה</p>
+                    <p className="text-xs text-slate-400">{t('deal.salePrice')}</p>
                     <p className="font-bold text-base" style={{ color: '#C9A84C' }}>
                       {formatPrice(p.price)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400">שכ״ד חודשי</p>
+                    <p className="text-xs text-slate-400">{t('deal.rentPrice')}</p>
                     <p className="font-bold text-base" style={{ color: '#0077B6' }}>
                       {formatPrice(p.rent_price)}
                     </p>
@@ -112,7 +114,7 @@ export default function PropertyCard({ p }: { p: Property }) {
               )}
             </div>
             <span className="text-xs font-medium text-blue-600 hover:underline">
-              פרטים ←
+              {t('card.details')}
             </span>
           </div>
         </div>

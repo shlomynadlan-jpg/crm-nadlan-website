@@ -1,9 +1,11 @@
-import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
+import { Link } from '@/i18n/navigation'
 import CookieSettingsLink from '@/components/CookieSettingsLink'
 import { getCities } from '@/lib/properties'
 import { citySlug } from '@/lib/cities'
 
 export default async function Footer() {
+  const t = await getTranslations()
   const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
@@ -31,33 +33,33 @@ export default async function Footer() {
 
           {/* Links */}
           <div>
-            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>ניווט מהיר</h2>
+            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>{t('footer.linksTitle')}</h2>
             <ul className="space-y-2 text-slate-400 text-sm">
               <li><Link href="/" className="hover:text-white transition-colors">דף הבית</Link></li>
-              <li><Link href="/properties" className="hover:text-white transition-colors">כל הנכסים</Link></li>
-              <li><Link href="/properties?deal_type=sale" className="hover:text-white transition-colors">נכסים למכירה</Link></li>
-              <li><Link href="/properties?deal_type=rent" className="hover:text-white transition-colors">נכסים להשכרה</Link></li>
-              <li><Link href="/blog" className="hover:text-white transition-colors">מאמרים ומדריכים</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">אודות</Link></li>
-              <li><Link href="/faq" className="hover:text-white transition-colors">שאלות נפוצות</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">צור קשר</Link></li>
+              <li><Link href="/properties" className="hover:text-white transition-colors">{t('nav.properties')}</Link></li>
+              <li><Link href="/properties?deal_type=sale" className="hover:text-white transition-colors">{t('nav.forSale')}</Link></li>
+              <li><Link href="/properties?deal_type=rent" className="hover:text-white transition-colors">{t('nav.forRent')}</Link></li>
+              <li><Link href="/blog" className="hover:text-white transition-colors">{t('nav.blog')}</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors">{t('nav.faq')}</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">{t('nav.contact')}</Link></li>
             </ul>
           </div>
 
           {/* Legal */}
           <div>
-            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>מידע ומדיניות</h2>
+            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>{t('footer.legalTitle')}</h2>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><Link href="/accessibility" className="hover:text-white transition-colors">הצהרת נגישות</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">מדיניות פרטיות</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">תקנון ותנאי שימוש</Link></li>
+              <li><Link href="/accessibility" className="hover:text-white transition-colors">{t('footer.accessibility')}</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">{t('footer.privacy')}</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">{t('footer.terms')}</Link></li>
               <li><CookieSettingsLink /></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>יצירת קשר</h2>
+            <h2 className="font-semibold mb-4" style={{ color: '#C9A84C' }}>{t('footer.contactTitle')}</h2>
             <ul className="space-y-3 text-slate-400 text-sm">
               <li className="flex items-center gap-2">
                 <span aria-hidden="true">📞</span>
@@ -93,7 +95,7 @@ export default async function Footer() {
         )}
 
         <div className="border-t border-slate-800 mt-10 pt-6 text-center text-slate-500 text-sm">
-          © {new Date().getFullYear()} {companyName} — כל הזכויות שמורות
+          © {new Date().getFullYear()} {companyName} — {t('footer.rights')}
         </div>
       </div>
     </footer>

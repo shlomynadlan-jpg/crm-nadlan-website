@@ -1,14 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-const WORDS = ['הנכס המושלם', 'המשרד המושלם', 'החנות המושלמת', 'המחסן המושלם', 'העסק הבא שלך']
-
 function motionDisabled() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
     document.documentElement.classList.contains('a11y-no-motion')
 }
 
-export default function RotatingWord() {
+export default function RotatingWord({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
 
@@ -17,18 +15,18 @@ export default function RotatingWord() {
       if (motionDisabled()) return
       setVisible(false)
       setTimeout(() => {
-        setIndex(prev => (prev + 1) % WORDS.length)
+        setIndex(prev => (prev + 1) % words.length)
         setVisible(true)
       }, 300)
     }, 2800)
     return () => clearInterval(interval)
-  }, [])
+  }, [words.length])
 
   return (
     <span
       style={{ color: '#C9A84C', display: 'inline-block', transition: 'opacity .3s', opacity: visible ? 1 : 0 }}
     >
-      {WORDS[index]}
+      {words[index]}
     </span>
   )
 }

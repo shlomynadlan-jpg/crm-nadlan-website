@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "properties": "Propriétés",
+    "forSale": "À Vendre",
+    "forRent": "À Louer",
+    "wanted": "Propriétés Recherchées",
+    "blog": "Blog",
+    "about": "À Propos",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "phone": "055-2702800"
+  },
+  "hero": {
+    "tagline": "Immobilier Commercial et Résidentiel",
+    "title1": "Nous trouvons",
+    "subtitle": "Des centaines de propriétés à travers Israël · Conseil expert\nAccompagnement jusqu'à la conclusion",
+    "cityLabel": "Ville",
+    "cityPlaceholder": "Tel Aviv, Ramat Gan...",
+    "typeLabel": "Type de bien",
+    "typeAll": "Tous",
+    "searchBtn": "🔍 Rechercher",
+    "rotating": ["la propriété parfaite", "votre prochain bureau", "le bon investissement", "la boutique idéale", "l'entrepôt parfait"]
+  },
+  "stats": {
+    "years": "Années d'activité",
+    "deals": "Transactions",
+    "activeProperties": "Biens actifs",
+    "forRent": "À louer",
+    "forSale": "À vendre",
+    "wanted": "Recherchés"
+  },
+  "propertyTypes": {
+    "משרד": "Bureau",
+    "חנות": "Boutique",
+    "מחסן": "Entrepôt",
+    "תעשיה": "Industriel",
+    "קרקע": "Terrain",
+    "מסחרי": "Commercial"
+  },
+  "deal": {
+    "forSale": "À vendre",
+    "forRent": "À louer",
+    "both": "Vente & Location",
+    "salePrice": "Prix de vente",
+    "rentPrice": "Loyer mensuel",
+    "saleOrRent": "Vente / Location",
+    "priceOnRequest": "Prix sur demande"
+  },
+  "card": {
+    "details": "Détails →",
+    "sqm": "m²",
+    "rooms": "pièces",
+    "floor": "Étage",
+    "aiDisclaimer": "Image à titre illustratif"
+  },
+  "home": {
+    "featuredLabel": "✦ Sélection",
+    "featuredTitle": "Propriétés en vedette",
+    "viewAll": "Voir toutes les propriétés →",
+    "noProperties": "Aucune propriété disponible",
+    "categoriesLabel": "Filtrer par type",
+    "categoriesTitle": "Tous les types de biens",
+    "whyLabel": "Pourquoi nous",
+    "whyTitle": "Le bon choix pour votre immobilier",
+    "wantedForOwners": "Pour les propriétaires",
+    "wantedTitle": "Propriétés Recherchées",
+    "wantedSubtitle": "Nos clients cherchent — avez-vous un bien correspondant ?",
+    "wantedViewAll": "Toutes les demandes →",
+    "wantedViewCount": "Voir les {count} demandes →"
+  },
+  "why": {
+    "profTitle": "Professionnalisme & Précision",
+    "profDesc": "Des années d'expérience dans l'immobilier commercial et résidentiel à travers Israël.",
+    "speedTitle": "Réactivité",
+    "speedDesc": "Nous vous répondons en quelques heures — chaque bonne transaction commence au bon moment.",
+    "personalTitle": "Accompagnement personnalisé",
+    "personalDesc": "De la première recherche jusqu'à la signature — vous n'êtes jamais seul.",
+    "discTitle": "Discrétion totale",
+    "discDesc": "Les transactions sensibles sont traitées en toute confidentialité — vos données restent chez nous."
+  },
+  "process": {
+    "label": "Comment ça marche",
+    "title": "Un processus simple, des résultats optimaux",
+    "step1Title": "Première prise de contact",
+    "step1Desc": "Laissez vos coordonnées et nous vous recontacterons dans les heures qui suivent",
+    "step2Title": "Conseil expert",
+    "step2Desc": "Nous comprenons vos besoins et vous présentons les biens correspondants",
+    "step3Title": "Visites des biens",
+    "step3Desc": "Accompagnement personnalisé lors des visites et analyse de chaque bien",
+    "step4Title": "Conclusion de la transaction",
+    "step4Desc": "Accompagnement complet jusqu'à la signature et la remise des clés"
+  },
+  "ownerBanner": {
+    "label": "Pour les propriétaires",
+    "title": "Vous avez un bien à louer ou à vendre ?",
+    "subtitle": "Publiez chez nous et atteignez des milliers d'acheteurs et locataires potentiels",
+    "cta": "Contactez-nous maintenant"
+  },
+  "propertyPage": {
+    "home": "Accueil",
+    "properties": "Propriétés",
+    "agent": "Votre Agent",
+    "callAgent": "📞",
+    "specsTitle": "Détails du bien",
+    "descTitle": "Description",
+    "specLabels": {
+      "type": "Type de bien",
+      "city": "Ville",
+      "gross": "Surface brute",
+      "net": "Surface nette",
+      "rooms": "Pièces",
+      "floor": "Étage",
+      "parking": "Parking",
+      "ceiling": "Hauteur de plafond",
+      "entry": "Date d'entrée",
+      "ac": "Climatisation",
+      "elevator": "Ascenseur",
+      "furniture": "Meublé",
+      "project": "Nom du projet",
+      "yes": "Oui",
+      "parkingSpots": "{n} places"
+    }
+  },
+  "wanted": {
+    "pageLabel": "Pour les propriétaires",
+    "pageTitle": "Propriétés Recherchées",
+    "pageSubtitle": "Nos clients cherchent — avez-vous un bien correspondant ?",
+    "contact": "Contact",
+    "noResults": "Aucune demande pour le moment",
+    "ctaTitle": "Vous avez un bien correspondant ?",
+    "ctaSubtitle": "Contactez-nous et nous vous mettrons en relation avec le bon client",
+    "ctaBtn": "📞 Contactez-nous maintenant",
+    "whatsapp": "📲 WhatsApp"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous serions ravis de vous entendre",
+    "name": "Nom complet",
+    "phone": "Téléphone",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "success": "Merci ! Nous vous répondrons bientôt.",
+    "error": "Erreur d'envoi, veuillez réessayer."
+  },
+  "footer": {
+    "tagline": "Immobilier Commercial et Résidentiel",
+    "description": "Nous trouvons la propriété parfaite — qu'il s'agisse d'une vente, d'une location ou d'un investissement.",
+    "linksTitle": "Navigation rapide",
+    "contactTitle": "Contact",
+    "legalTitle": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "accessibility": "Accessibilité",
+    "terms": "Conditions d'utilisation",
+    "rights": "Tous droits réservés"
+  }
+}

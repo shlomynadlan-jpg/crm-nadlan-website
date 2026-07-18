@@ -22,6 +22,10 @@ export interface Property {
   elevator: boolean | null
   furniture: boolean | null
   project_name: string | null
+  project_name_en?: string | null
+  project_name_fr?: string | null
+  description_en?: string | null
+  description_fr?: string | null
   status: string | null
   created_at: string
 }
@@ -39,7 +43,7 @@ export interface PropertyFilters {
 export async function getProperties(filters?: PropertyFilters): Promise<Property[]> {
   let query = supabase
     .from('properties')
-    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,status,created_at,ceiling_height,price_per_meter')
+    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,description_en,description_fr,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,project_name_en,project_name_fr,status,created_at,ceiling_height,price_per_meter')
     .eq('show_on_website', true)
     .order('created_at', { ascending: false })
 

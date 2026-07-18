@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
-import Link from 'next/link'
+import { Link, useRouter } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import RotatingWord from '@/components/RotatingWord'
 import CountUp from '@/components/CountUp'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 interface Props {
   totalCount: number
@@ -19,21 +21,25 @@ const SLIDES = [
   'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=85', // shopping mall / retail
 ]
 
-const NAV_LINKS = [
-  { href: '/properties', label: 'נכסים' },
-  { href: '/properties?deal_type=מכירה', label: 'למכירה' },
-  { href: '/properties?deal_type=השכרה', label: 'להשכרה' },
-  { href: '/wanted', label: 'דרושים נכסים' },
-  { href: '/blog', label: 'מאמרים' },
-  { href: '/about', label: 'אודות' },
-  { href: '/faq', label: 'שאלות נפוצות' },
-  { href: '/contact', label: 'צור קשר' },
-]
-
 export default function HeroSection({ totalCount, forSale, forRent, wantedCount }: Props) {
+  const t = useTranslations()
+  const router = useRouter()
   const [slide, setSlide] = useState(0)
   const [fade, setFade] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const NAV_LINKS = [
+    { href: '/properties', label: t('nav.properties') },
+    { href: '/properties?deal_type=מכירה', label: t('nav.forSale') },
+    { href: '/properties?deal_type=השכרה', label: t('nav.forRent') },
+    { href: '/wanted', label: t('nav.wanted') },
+    { href: '/blog', label: t('nav.blog') },
+    { href: '/about', label: t('nav.about') },
+    { href: '/faq', label: t('nav.faq') },
+    { href: '/contact', label: t('nav.contact') },
+  ]
+
+  const rotatingWords = t.raw('hero.rotating') as string[]
 
   const nextSlide = useCallback(() => {
     setFade(false)
@@ -47,6 +53,17 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
     const id = setInterval(nextSlide, 5000)
     return () => clearInterval(id)
   }, [nextSlide])
+
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const params = new URLSearchParams()
+    const city = data.get('city') as string
+    const type = data.get('property_type') as string
+    if (city) params.set('city', city)
+    if (type) params.set('property_type', type)
+    router.push(`/properties${params.toString() ? '?' + params.toString() : ''}`)
+  }
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
@@ -123,12 +140,13 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
             >
               <span style={{ color: '#C9A84C' }}>055-2702800</span>
             </a>
+            <LanguageSwitcher />
             <Link
               href="/contact"
               className="text-sm font-black px-4 py-2 rounded-lg"
               style={{ background: '#C9A84C', color: '#0a1e3d' }}
             >
-              צור קשר
+              {t('nav.contact')}
             </Link>
           </div>
 
@@ -174,6 +192,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
                 {label}
               </Link>
             ))}
+            <LanguageSwitcher className="mt-2 justify-center" />
           </div>
         )}
 
@@ -186,46 +205,43 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
             className="text-sm font-bold tracking-widest uppercase mb-5"
             style={{ color: 'rgba(201,168,76,0.85)' }}
           >
-            נדל״ן מסחרי ומגורים
+            {t('hero.tagline')}
           </p>
 
           <h1
             className="font-black leading-tight mb-6"
             style={{ fontSize: 'clamp(52px, 7vw, 90px)', color: '#fff', letterSpacing: '-2px', textShadow: '0 4px 32px rgba(0,0,0,0.6)' }}
           >
-            מוצאים לך את
+            {t('hero.title1')}
             <br />
-            <RotatingWord />
+            <RotatingWord words={rotatingWords} />
           </h1>
 
           <p
             className="text-base leading-relaxed mb-8"
-            style={{ color: 'rgba(255,255,255,0.65)' }}
+            style={{ color: 'rgba(255,255,255,0.65)', whiteSpace: 'pre-line' }}
           >
-            מאות נכסים בכל הארץ · ייעוץ מקצועי
-            <br />
-            ליווי אישי עד סגירת עסקה
+            {t('hero.subtitle')}
           </p>
 
           {/* Search card */}
           <form
-            action="/properties"
-            method="GET"
+            onSubmit={handleSearch}
             className="flex items-stretch rounded-xl overflow-x-auto"
             style={{ background: 'rgba(255,255,255,0.97)', boxShadow: '0 12px 40px rgba(0,0,0,0.35)', width: '100%', maxWidth: 600 }}
           >
             <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 150 }}>
-              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">עיר</label>
+              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.cityLabel')}</label>
               <input
                 name="city"
-                placeholder="תל אביב, רמת גן..."
+                placeholder={t('hero.cityPlaceholder')}
                 className="w-full text-base text-slate-700 font-medium bg-transparent outline-none"
               />
             </div>
             <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 150 }}>
-              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">סוג נכס</label>
+              <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.typeLabel')}</label>
               <select name="property_type" className="w-full text-base text-slate-700 font-medium bg-transparent outline-none">
-                <option value="">הכל</option>
+                <option value="">{t('hero.typeAll')}</option>
                 <option value="משרד">משרד</option>
                 <option value="חנות">חנות</option>
                 <option value="קרקע">קרקע</option>
@@ -238,7 +254,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
               className="px-7 text-base font-black tracking-wide flex items-center gap-2 shrink-0"
               style={{ background: '#0a1e3d', color: '#C9A84C', minWidth: 100 }}
             >
-              🔍 חפש
+              {t('hero.searchBtn')}
             </button>
           </form>
         </div>
@@ -248,12 +264,12 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount 
           {/* Stats — single row */}
           <div className="flex justify-center items-center flex-wrap gap-0 mb-6">
             {[
-              { id: 'years',  value: 7,           label: 'שנות פעילות', suffix: '' },
-              { id: 'deals',  value: 200,         label: 'עסקאות',      suffix: '+' },
-              { id: 'total',  value: totalCount,  label: 'נכסים פעילים',suffix: '+' },
-              { id: 'rent',   value: forRent,     label: 'להשכרה',      suffix: '' },
-              { id: 'sale',   value: forSale,     label: 'למכירה',      suffix: '' },
-              { id: 'wanted', value: wantedCount, label: 'דרושים',      suffix: '+' },
+              { id: 'years',  value: 7,           label: t('stats.years'),            suffix: '' },
+              { id: 'deals',  value: 200,         label: t('stats.deals'),            suffix: '+' },
+              { id: 'total',  value: totalCount,  label: t('stats.activeProperties'), suffix: '+' },
+              { id: 'rent',   value: forRent,     label: t('stats.forRent'),          suffix: '' },
+              { id: 'sale',   value: forSale,     label: t('stats.forSale'),          suffix: '' },
+              { id: 'wanted', value: wantedCount, label: t('stats.wanted'),           suffix: '+' },
             ].map(({ id, value, label, suffix }, i) => (
               <div key={id} className="flex items-stretch">
                 {i > 0 && (
