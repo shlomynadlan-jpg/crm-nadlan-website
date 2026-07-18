@@ -57,7 +57,7 @@ export default function PropertyCard({ p }: { p: Property }) {
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
           <h3 className="font-semibold text-slate-900 text-base mb-1 line-clamp-1">
-            {p.property_address && p.city ? `${p.property_address}, ${p.city}` : p.city}
+            {p.city}
           </h3>
 
           {/* Specs row */}

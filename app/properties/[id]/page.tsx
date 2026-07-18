@@ -65,7 +65,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const specs = [
     { label: 'סוג נכס', value: types },
     { label: 'עיר', value: property.city },
-    { label: 'כתובת', value: property.property_address },
+    { label: 'כתובת', value: null },
     { label: 'שטח ברוטו', value: property.gross_size ? `${property.gross_size} מ״ר` : null },
     { label: 'שטח נטו', value: property.net_size ? `${property.net_size} מ״ר` : null },
     { label: 'חדרים', value: property.rooms ? String(property.rooms) : null },
@@ -174,7 +174,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             {/* Title & price */}
             <div className="mb-6">
               <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">
-                {types}{property.property_address ? ` — ${property.property_address}` : ''}
+                {types}
               </h1>
               <p className="text-slate-500 text-lg mb-4">📍 {property.city}</p>
 
