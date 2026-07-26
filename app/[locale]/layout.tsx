@@ -82,10 +82,10 @@ export default async function LocaleLayout({
         <a href="#main" className="skip-link">דלגו לתוכן הראשי</a>
         <NextIntlClientProvider messages={messages}>
           {children}
+          <CookieNotice />
+          <WhatsAppFloat />
         </NextIntlClientProvider>
         <AccessibilityWidget />
-        <CookieNotice />
-        <WhatsAppFloat />
         <Analytics />
       </body>
     </html>
