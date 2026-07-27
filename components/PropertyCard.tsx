@@ -30,6 +30,10 @@ export default function PropertyCard({ p }: { p: Property }) {
             className="object-cover transition-transform duration-500 hover:scale-105"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
+          {/* Watermark */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <Image src="/logo.png" alt="" width={120} height={120} style={{ opacity: 0.30, width: 120, height: 'auto', filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.3))' }} />
+          </div>
           {/* Badge */}
           <div className="absolute top-3 right-3">
             <span className="text-xs font-semibold px-3 py-1 rounded-full text-white shadow-md"
