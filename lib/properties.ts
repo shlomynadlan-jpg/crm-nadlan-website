@@ -28,6 +28,8 @@ export interface Property {
   description_fr?: string | null
   status: string | null
   created_at: string
+  exclusivity: boolean | null
+  exclusivity_until: string | null
 }
 
 export interface PropertyFilters {
@@ -43,7 +45,7 @@ export interface PropertyFilters {
 export async function getProperties(filters?: PropertyFilters): Promise<Property[]> {
   let query = supabase
     .from('properties')
-    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,description_en,description_fr,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,project_name_en,project_name_fr,status,created_at,ceiling_height,price_per_meter')
+    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,description_en,description_fr,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,project_name_en,project_name_fr,status,created_at,ceiling_height,price_per_meter,exclusivity,exclusivity_until')
     .eq('show_on_website', true)
     .order('created_at', { ascending: false })
 
@@ -72,7 +74,7 @@ export async function getProperties(filters?: PropertyFilters): Promise<Property
 export async function getProperty(id: string): Promise<Property | null> {
   const { data, error } = await supabase
     .from('properties')
-    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,description_en,description_fr,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,project_name_en,project_name_fr,status,created_at,ceiling_height,price_per_meter')
+    .select('id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,description_en,description_fr,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,project_name_en,project_name_fr,status,created_at,ceiling_height,price_per_meter,exclusivity,exclusivity_until')
     .eq('id', Number(id))
     .maybeSingle()
 

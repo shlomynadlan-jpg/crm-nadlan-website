@@ -44,6 +44,17 @@ export default function PropertyCard({ p }: { p: Property }) {
               </span>
             </div>
           )}
+          {/* Exclusivity badge */}
+          {p.exclusivity && p.exclusivity_until && (
+            <div className="absolute bottom-2 right-3">
+              <span
+                className="text-xs font-bold px-2.5 py-1 rounded-full shadow-md"
+                style={{ background: 'rgba(201,168,76,0.95)', color: '#0a1e3d' }}
+              >
+                ⭐ בבלעדיות עד {new Date(p.exclusivity_until).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric', year: '2-digit' })}
+              </span>
+            </div>
+          )}
           {/* AI placeholder label */}
           {isAI && (
             <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-2">
