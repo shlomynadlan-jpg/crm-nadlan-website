@@ -44,7 +44,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'אודות LS נדל"ן',
     subtitle: 'מי אנחנו ואיך אנחנו עובדים',
     whoTitle: 'מי אנחנו',
-    whoPara: 'LS נדל״ן היא חברת תיווך נדל״ן בראשות שלומי לימור, מתווך מורשה (רישיון מס׳ 3151306), המתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ. אנחנו מלווים בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
+    whoPara: 'LS נדל״ן היא חברת תיווך נדל״ן המתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ. אנחנו מלווים בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
     specTitle: 'במה אנחנו מתמחים',
     specItems: [
       { bold: 'משרדים', text: ' — השכרה ומכירה של שטחי משרדים, ממשרדי בוטיק ועד קומות שלמות במגדלים.' },
@@ -72,7 +72,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'About LS Real Estate',
     subtitle: 'Who we are and how we work',
     whoTitle: 'Who We Are',
-    whoPara: 'LS Real Estate is a property brokerage led by Shlomi Limor, a licensed broker (license no. 3151306), specializing in commercial and residential properties across central Israel. We guide property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
+    whoPara: 'LS Real Estate is a property brokerage specializing in commercial and residential properties across central Israel. We guide property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
     specTitle: 'Our Specialties',
     specItems: [
       { bold: 'Offices', text: ' — Rental and sale of office spaces, from boutique offices to full floors in towers.' },
@@ -100,7 +100,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'À Propos de LS Immobilier',
     subtitle: 'Qui sommes-nous et comment nous travaillons',
     whoTitle: 'Qui Sommes-Nous',
-    whoPara: 'LS Immobilier est une agence immobilière dirigée par Shlomi Limor, agent agréé (licence n° 3151306), spécialisée dans les biens commerciaux et résidentiels en Israël. Nous accompagnons propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
+    whoPara: 'LS Immobilier est une agence immobilière spécialisée dans les biens commerciaux et résidentiels en Israël. Nous accompagnons propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
     specTitle: 'Nos Spécialités',
     specItems: [
       { bold: 'Bureaux', text: ' — Location et vente de bureaux, des petits espaces aux étages entiers en tour.' },
