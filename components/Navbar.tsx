@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import { Link, usePathname } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -31,8 +32,8 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
-          LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
+        <Link href="/" className="shrink-0">
+          <Image src="/logo.png" alt="LS נדל״ן" width={80} height={80} className="h-14 w-auto" priority />
         </Link>
 
         {/* Desktop links */}
