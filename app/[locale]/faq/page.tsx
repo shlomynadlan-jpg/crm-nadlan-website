@@ -32,7 +32,8 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'כמה זמן לוקחת עסקת שכירות מסחרית?', a: 'מרגע שנמצא נכס מתאים, משא ומתן וחתימה אורכים בדרך כלל שבועות בודדים. עסקאות מורכבות יכולות להימשך חודשיים-שלושה.' },
     { q: 'האם אתם עובדים עם עורכי דין ושמאים?', a: 'אנחנו ממליצים לכל לקוח להיעזר בעורך דין מטעמו לפני חתימה, ובמידת הצורך גם בשמאי מקרקעין. נשמח להפנות לאנשי מקצוע מנוסים.' },
     { q: 'אני בעל נכס — איך מפרסמים אצלכם?', a: 'יוצרים קשר בטלפון 055-2702800 או דרך טופס האתר. ניפגש בנכס, נאסוף נתונים ותמונות, נחתום על הזמנת שירות — והנכס יעלה לאתר.' },
-    { q: 'באילו אזורים אתם פועלים?', a: 'עיקר הפעילות שלנו במרכז הארץ — פתח תקווה, ראש העין, בני ברק, תל אביב והסביבה — אבל אנחנו מטפלים בנכסים מתאימים בכל הארץ.' },
+    { q: 'באילו אזורים אתם פועלים?', a: 'עיקר הפעילות שלנו במרכז הארץ — פתח תקווה, ראש העין, בני ברק, תל אביב, הוד השרון, כפר סבא, בקעת אונו, אור יהודה, יהוד והרצליה. בנוסף, אנחנו מטפלים בנכסים בכל רחבי הארץ כאשר יש בקשה מיוחדת. כמו כן, אנחנו עובדים בשיתוף פעולה מלא עם שאר המתווכים והחברות — כי אנחנו מאמינים שהלקוח חשוב יותר מהגבולות.' },
+    { q: 'האם אתם עובדים עם מתווכים אחרים?', a: 'בהחלט. אנחנו עובדים בשיתוף פעולה מלא עם מתווכים וחברות נדל"ן נוספות. שת"פ בין מתווכים מביא ללקוח יותר אפשרויות ומזרז את מציאת הנכס המתאים.' },
   ],
   en: [
     { q: 'How much is the brokerage fee for a commercial property?', a: 'For commercial rental deals, the standard fee is one month\'s rent plus VAT. For sales, it\'s a percentage of the deal price (typically 1%–2% plus VAT). The exact fee is agreed upfront and signed in a brokerage order before work begins.' },
@@ -42,7 +43,8 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'How long does a commercial rental deal take?', a: 'Once a suitable property is found, negotiation and signing typically take a few weeks. More complex deals — with build-outs, regulatory approvals, or thorough legal checks — can take two to three months.' },
     { q: 'Do you work with lawyers and appraisers?', a: 'We recommend every client engage their own lawyer before signing any agreement, and an appraiser when needed. We\'re happy to refer experienced professionals we work with.' },
     { q: 'I\'m a property owner — how do I list with you?', a: 'Simply contact us by phone at 055-2702800 or via the website form. We\'ll visit the property, gather details and photos, sign a brokerage order — and the property will go live on the site.' },
-    { q: 'Which areas do you cover?', a: 'Our main activity is in central Israel — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv and surroundings — but we handle suitable properties across the country.' },
+    { q: 'Which areas do you cover?', a: 'Our main activity is in central Israel — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv, Hod HaSharon, Kfar Saba, Bikat Ono, Or Yehuda, Yehud, and Herzliya. We also handle properties across the entire country when there is a special request. Furthermore, we work in full cooperation with other brokers and real estate companies — because the client\'s needs come first.' },
+    { q: 'Do you work with other brokers?', a: 'Absolutely. We work in full cooperation with other brokers and real estate companies. Collaboration between brokers gives the client more options and speeds up finding the right property.' },
   ],
   fr: [
     { q: 'Combien coûtent les honoraires de courtage pour un bien commercial ?', a: 'Pour les locations commerciales, les honoraires standards sont d\'un mois de loyer plus TVA. Pour les ventes, il s\'agit d\'un pourcentage du prix (généralement 1 % à 2 % plus TVA). Le montant exact est convenu à l\'avance et signé dans un mandat de courtage avant le début du travail.' },
@@ -52,7 +54,8 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'Combien de temps prend une transaction de location commerciale ?', a: 'Une fois le bien trouvé, la négociation et la signature prennent généralement quelques semaines. Les transactions plus complexes — avec travaux, autorisations réglementaires ou due diligence juridique approfondie — peuvent durer deux à trois mois.' },
     { q: 'Travaillez-vous avec des avocats et des experts immobiliers ?', a: 'Nous recommandons à chaque client de faire appel à son propre avocat avant de signer tout accord, et à un expert immobilier si nécessaire. Nous sommes heureux de recommander des professionnels expérimentés avec qui nous collaborons.' },
     { q: 'Je suis propriétaire — comment publier mon bien chez vous ?', a: 'Contactez-nous par téléphone au 055-2702800 ou via le formulaire du site. Nous visiterons le bien, collecterons les informations et photos, signerons un mandat — et le bien sera publié sur le site.' },
-    { q: 'Dans quelles zones intervenez-vous ?', a: 'Notre activité principale se situe en Israël central — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv et environs — mais nous traitons les biens appropriés dans tout le pays.' },
+    { q: 'Dans quelles zones intervenez-vous ?', a: 'Notre activité principale se situe en Israël central — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv, Hod HaSharon, Kfar Saba, Bikat Ono, Or Yehuda, Yehud et Herzliya. Nous intervenons également dans tout le pays lorsqu\'il y a une demande particulière. Par ailleurs, nous travaillons en pleine collaboration avec les autres agents et sociétés immobilières — car les besoins du client passent avant tout.' },
+    { q: 'Travaillez-vous avec d\'autres agents immobiliers ?', a: 'Absolument. Nous travaillons en pleine collaboration avec d\'autres agents et sociétés immobilières. La coopération entre professionnels offre au client plus d\'options et accélère la recherche du bien idéal.' },
   ],
 }
 
