@@ -37,6 +37,15 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-6">
+          {!isHome && (
+            <Link
+              href="/"
+              className="text-sm font-medium transition-all"
+              style={{ color: '#C9A84C', borderBottom: '1px solid rgba(201,168,76,0.4)', paddingBottom: 1 }}
+            >
+              ← {t('home')}
+            </Link>
+          )}
           {LINKS.map(({ href, label }) => (
             <Link
               key={href}
@@ -81,26 +90,22 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Back to home breadcrumb — shown on all non-home pages */}
-      {!isHome && (
-        <div style={{ background: 'rgba(4,10,24,0.88)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '5px 24px', direction: 'rtl' }}>
-          <Link
-            href="/"
-            style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: 5, transition: 'color 0.2s' }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#C9A84C')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-          >
-            ← {t('home')}
-          </Link>
-        </div>
-      )}
-
       {/* Mobile menu */}
       {open && (
         <div
           className="lg:hidden flex flex-col gap-1 px-4 py-3"
           style={{ background: 'rgba(4,10,24,0.98)', borderBottom: '1px solid rgba(201,168,76,0.15)' }}
         >
+          {!isHome && (
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="py-3 px-4 rounded-xl text-base font-bold"
+              style={{ color: '#C9A84C' }}
+            >
+              ← {t('home')}
+            </Link>
+          )}
           {LINKS.map(({ href, label }) => (
             <Link
               key={href}
