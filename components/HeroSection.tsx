@@ -169,8 +169,8 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:0552702800" className="text-sm font-bold" style={{ color: '#fff' }}>
-              <span style={{ color: '#C9A84C' }}>055-2702800</span>
+            <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+              055-<span style={{ color: '#C9A84C' }}>2702800</span>
             </a>
             <LanguageSwitcher />
             <Link
@@ -183,8 +183,8 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
           </div>
 
           <div className="flex lg:hidden items-center gap-4">
-            <a href="tel:0552702800" className="text-sm font-bold" style={{ color: '#C9A84C' }}>
-              055-2702800
+            <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+              055-<span style={{ color: '#C9A84C' }}>2702800</span>
             </a>
             <button
               onClick={() => setMenuOpen(o => !o)}
