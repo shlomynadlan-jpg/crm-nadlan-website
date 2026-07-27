@@ -30,24 +30,22 @@ export default function Navbar() {
           backdropFilter: 'blur(12px)',
         }}
       >
-        {/* Logo + back to home */}
-        <div className="flex items-center gap-3 shrink-0">
-          <Link href="/" className="font-black text-xl tracking-widest uppercase" style={{ color: '#fff' }}>
-            LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
-          </Link>
+        {/* Logo */}
+        <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
+          LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
+        </Link>
+
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-5">
           {!isHome && (
             <Link
               href="/"
-              className="hidden lg:inline-flex items-center text-xs font-bold px-2 py-1 rounded-lg"
-              style={{ background: 'rgba(201,168,76,0.12)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
+              className="text-sm font-medium hover:opacity-100 transition-opacity"
+              style={{ color: 'rgba(255,255,255,0.62)' }}
             >
-              ← {t('home')}
+              {t('home')}
             </Link>
           )}
-        </div>
-
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-6">
           {LINKS.map(({ href, label }) => (
             <Link
               key={href}
@@ -61,7 +59,7 @@ export default function Navbar() {
         </div>
 
         {/* CTA + phone */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
           <a href="tel:0552702800" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
             055 <span style={{ color: '#C9A84C' }}>270 2800</span>
           </a>
@@ -105,7 +103,7 @@ export default function Navbar() {
               className="py-3 px-4 rounded-xl text-base font-bold"
               style={{ color: '#C9A84C' }}
             >
-              ← {t('home')}
+              {t('home')}
             </Link>
           )}
           {LINKS.map(({ href, label }) => (
