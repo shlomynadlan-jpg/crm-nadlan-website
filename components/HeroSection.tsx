@@ -80,12 +80,15 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
     router.push(`/properties${params.toString() ? '?' + params.toString() : ''}`)
   }
 
-  // pick 2 cards to show (wrap around)
-  const cards = featuredProperties.length >= 2
+  // pick 3 cards to show (wrap around)
+  const cards = featuredProperties.length >= 3
     ? [
         featuredProperties[cardIndex % featuredProperties.length],
         featuredProperties[(cardIndex + 1) % featuredProperties.length],
+        featuredProperties[(cardIndex + 2) % featuredProperties.length],
       ]
+    : featuredProperties.length === 2
+    ? [featuredProperties[0], featuredProperties[1]]
     : []
 
   return (
@@ -234,7 +237,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
           {/* ── Floating property cards — desktop only ── */}
           {cards.length >= 2 && (
             <div
-              className="absolute hidden lg:flex flex-col gap-4"
+              className="absolute hidden lg:flex flex-col gap-3"
               style={{
                 left: 40,
                 top: '50%',
@@ -272,7 +275,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
                     }}
                   >
                     {/* image */}
-                    <div style={{ position: 'relative', height: 110, overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: 88, overflow: 'hidden' }}>
                       <img
                         src={img}
                         alt={`${types} ב${p.city}`}
