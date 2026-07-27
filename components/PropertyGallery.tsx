@@ -53,10 +53,12 @@ export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Pr
             priority
             sizes="(max-width: 1024px) 100vw, 66vw"
           />
-          {/* Watermark */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <Image src="/logo.png" alt="" width={180} height={180} style={{ opacity: 0.30, width: 180, height: 'auto', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.3))' }} />
-          </div>
+          {/* Watermark — only on real uploaded images */}
+          {!aiDisclaimer && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <Image src="/logo.png" alt="" width={180} height={180} style={{ opacity: 0.30, width: 180, height: 'auto', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.3))' }} />
+            </div>
+          )}
           {/* Zoom icon on hover */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <div className="bg-black/40 backdrop-blur-sm rounded-full p-3">
