@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WantedCard from '@/components/WantedCard'
+import WantedContactForm from '@/components/WantedContactForm'
 import { getPropertyRequests } from '@/lib/properties'
 
 export const revalidate = 60
@@ -78,23 +79,8 @@ export default async function WantedPage() {
             </>
           )}
 
-          {/* Owner CTA */}
-          <div
-            className="mt-16 rounded-2xl p-8 text-center"
-            style={{ background: 'linear-gradient(135deg, #040d1e 0%, #0a1e3d 100%)', border: '1px solid rgba(201,168,76,0.2)' }}
-          >
-            <h3 className="text-2xl font-black text-white mb-2">{t('ctaTitle')}</h3>
-            <p className="mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>
-              {t('ctaSubtitle')}
-            </p>
-            <a
-              href="tel:0552702800"
-              className="inline-block font-black text-sm py-3 px-8 rounded-xl"
-              style={{ background: '#C9A84C', color: '#0a1e3d' }}
-            >
-              {t('callNowBtn')}
-            </a>
-          </div>
+          {/* Contact Form */}
+          <WantedContactForm />
         </div>
       </main>
 

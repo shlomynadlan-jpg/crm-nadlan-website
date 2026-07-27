@@ -251,7 +251,16 @@
     "activeRequestsLabel": "בקשות פעילות",
     "activeRequestsCount": "{count} נכסים דרושים",
     "checkBack": "בדקו שוב בקרוב",
-    "callNowBtn": "התקשרו עכשיו — 055-2702800"
+    "callNowBtn": "התקשרו עכשיו — 055-2702800",
+    "formLabel": "יש לכם נכס מתאים?",
+    "formTitle": "השאירו פרטים ונחזור אליכם",
+    "formSubtitle": "מלאו את הפרטים ונצור איתכם קשר בהקדם",
+    "formPropertyDetails": "פרטים על הנכס",
+    "formPropertyPlaceholder": "תארו את הנכס שברשותכם — סוג, עיר, שטח, מחיר, כל פרט רלוונטי...",
+    "formSend": "שלח פנייה",
+    "formSuccess": "תודה! קיבלנו את הפנייה",
+    "formSuccessNote": "ניצור איתכם קשר בהקדם האפשרי",
+    "formSendAnother": "שלח פנייה נוספת"
   },
   "contact": {
     "title": "צור קשר",

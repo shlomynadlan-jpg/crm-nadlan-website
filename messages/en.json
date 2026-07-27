@@ -251,7 +251,16 @@
     "activeRequestsLabel": "Active Requests",
     "activeRequestsCount": "{count} Properties Wanted",
     "checkBack": "Check back soon",
-    "callNowBtn": "Call Now — 055-2702800"
+    "callNowBtn": "Call Now — 055-2702800",
+    "formLabel": "Have a matching property?",
+    "formTitle": "Leave your details and we'll contact you",
+    "formSubtitle": "Fill in the details and we'll get back to you as soon as possible",
+    "formPropertyDetails": "Property Details",
+    "formPropertyPlaceholder": "Describe your property — type, city, size, price, any relevant details...",
+    "formSend": "Send Inquiry",
+    "formSuccess": "Thank you! We received your inquiry",
+    "formSuccessNote": "We'll get back to you as soon as possible",
+    "formSendAnother": "Send another inquiry"
   },
   "contact": {
     "title": "Contact Us",

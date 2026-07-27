@@ -251,7 +251,16 @@
     "activeRequestsLabel": "Demandes actives",
     "activeRequestsCount": "{count} biens recherchés",
     "checkBack": "Revenez bientôt",
-    "callNowBtn": "Appelez maintenant — 055-2702800"
+    "callNowBtn": "Appelez maintenant — 055-2702800",
+    "formLabel": "Vous avez un bien correspondant ?",
+    "formTitle": "Laissez vos coordonnées et nous vous contacterons",
+    "formSubtitle": "Remplissez le formulaire et nous vous répondrons dès que possible",
+    "formPropertyDetails": "Détails du bien",
+    "formPropertyPlaceholder": "Décrivez votre bien — type, ville, surface, prix, tout détail pertinent...",
+    "formSend": "Envoyer",
+    "formSuccess": "Merci ! Nous avons reçu votre demande",
+    "formSuccessNote": "Nous vous contacterons dans les plus brefs délais",
+    "formSendAnother": "Envoyer une autre demande"
   },
   "contact": {
     "title": "Contactez-nous",
