@@ -9,7 +9,6 @@ export default function Navbar() {
   const t = useTranslations('nav')
 
   const LINKS = [
-    { href: '/', label: t('properties') },
     { href: '/properties', label: t('properties') },
     { href: '/properties?deal_type=מכירה', label: t('forSale') },
     { href: '/properties?deal_type=השכרה', label: t('forRent') },
