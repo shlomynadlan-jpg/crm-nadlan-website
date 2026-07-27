@@ -207,6 +207,14 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               </div>
             </div>
 
+            {/* Description */}
+            {description && (
+              <div className="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
+                <h2 className="font-bold text-slate-900 text-lg mb-3">{t('propertyPage.descTitle')}</h2>
+                <p className="text-slate-600 leading-relaxed whitespace-pre-line">{description}</p>
+              </div>
+            )}
+
             {/* Specs grid */}
             {specs.length > 0 && (
               <div className="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
@@ -219,14 +227,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
-
-            {/* Description */}
-            {description && (
-              <div className="bg-white rounded-2xl border border-slate-100 p-6">
-                <h2 className="font-bold text-slate-900 text-lg mb-3">{t('propertyPage.descTitle')}</h2>
-                <p className="text-slate-600 leading-relaxed whitespace-pre-line">{description}</p>
               </div>
             )}
           </div>
