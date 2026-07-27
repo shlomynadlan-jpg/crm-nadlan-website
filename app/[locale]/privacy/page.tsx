@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import LegalPage from '@/components/LegalPage'
+import { buildAlternates } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: titles[locale] ?? titles.he,
     description: descs[locale] ?? descs.he,
-    alternates: { canonical: '/privacy' },
+    alternates: buildAlternates('/privacy'),
   }
 }
 

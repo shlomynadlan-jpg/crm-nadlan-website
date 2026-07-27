@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Link } from '@/i18n/navigation'
 import LegalPage from '@/components/LegalPage'
 import { getTranslations } from 'next-intl/server'
+import { buildAlternates } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: titles[locale] ?? titles.he,
     description: descs[locale] ?? descs.he,
-    alternates: { canonical: '/about' },
+    alternates: buildAlternates('/about'),
   }
 }
 

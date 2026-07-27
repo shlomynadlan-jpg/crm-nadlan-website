@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import LegalPage from '@/components/LegalPage'
+import { buildAlternates } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -8,9 +9,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     en: 'Terms of Use | LS Real Estate',
     fr: 'Conditions d\'utilisation | LS Immobilier',
   }
+  const descs: Record<string, string> = {
+    he: 'תקנון ותנאי השימוש באתר LS נדל"ן — קראו את הכללים המלאים לפני השימוש בשירותינו.',
+    en: 'Terms of use for the LS Real Estate website — read the full rules before using our services.',
+    fr: 'Conditions d\'utilisation du site LS Immobilier — lisez les règles complètes avant d\'utiliser nos services.',
+  }
   return {
     title: titles[locale] ?? titles.he,
-    alternates: { canonical: '/terms' },
+    description: descs[locale] ?? descs.he,
+    alternates: buildAlternates('/terms'),
   }
 }
 

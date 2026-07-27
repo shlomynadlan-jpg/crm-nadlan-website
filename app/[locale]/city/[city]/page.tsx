@@ -7,6 +7,7 @@ import PropertyCard from '@/components/PropertyCard'
 import ContactForm from '@/components/ContactForm'
 import { getProperties } from '@/lib/properties'
 import { citySlug, cityFromSlug } from '@/lib/cities'
+import { buildAlternates } from '@/lib/alternates'
 
 // Rendered on demand: Vercel's static cache breaks on Hebrew (non-ASCII) route params
 export const dynamic = 'force-dynamic'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   return {
     title,
     description: t('metaDesc', { city }),
-    alternates: { canonical: `/city/${citySlug(city)}` },
+    alternates: buildAlternates(`/city/${citySlug(city)}`),
     openGraph: { title, locale: 'he_IL', type: 'website' },
   }
 }

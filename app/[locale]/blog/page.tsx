@@ -5,13 +5,14 @@ import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getLocalizedArticles, AUTHOR } from '@/lib/articles'
+import { buildAlternates } from '@/lib/alternates'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('blog')
   return {
     title: t('title'),
     description: t('subtitle'),
-    alternates: { canonical: '/blog' },
+    alternates: buildAlternates('/blog'),
   }
 }
 

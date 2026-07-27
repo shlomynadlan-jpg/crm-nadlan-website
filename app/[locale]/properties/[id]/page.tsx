@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
 import { getTranslations } from 'next-intl/server'
+import { buildAlternates } from '@/lib/alternates'
 
 export const revalidate = 60
 
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title,
     description,
-    alternates: { canonical: `/properties/${property.id}` },
+    alternates: buildAlternates(`/properties/${property.id}`),
     openGraph: {
       title,
       description,

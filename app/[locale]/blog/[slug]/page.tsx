@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { articles, getLocalizedArticle, getLocalizedArticles, AUTHOR, type ArticleBlock } from '@/lib/articles'
+import { buildAlternates } from '@/lib/alternates'
 
 const BASE = 'https://www.nadlannow.co.il'
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: article.title,
     description: article.description,
-    alternates: { canonical: `/blog/${article.slug}` },
+    alternates: buildAlternates(`/blog/${article.slug}`),
     openGraph: {
       title: article.title,
       description: article.description,

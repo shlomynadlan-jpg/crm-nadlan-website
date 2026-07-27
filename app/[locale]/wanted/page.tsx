@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WantedCard from '@/components/WantedCard'
+import { buildAlternates } from '@/lib/alternates'
 import WantedContactForm from '@/components/WantedContactForm'
 import { getPropertyRequests } from '@/lib/properties'
 
@@ -13,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('pageTitle'),
     description: t('pageSubtitle'),
-    alternates: { canonical: '/wanted' },
+    alternates: buildAlternates('/wanted'),
   }
 }
 

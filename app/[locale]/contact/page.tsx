@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
+import { buildAlternates } from '@/lib/alternates'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 
@@ -9,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('h1'),
     description: t('metaDesc'),
-    alternates: { canonical: '/contact' },
+    alternates: buildAlternates('/contact'),
   }
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Link } from '@/i18n/navigation'
 import LegalPage from '@/components/LegalPage'
+import { buildAlternates } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: titles[locale] ?? titles.he,
     description: descs[locale] ?? descs.he,
-    alternates: { canonical: '/faq' },
+    alternates: buildAlternates('/faq'),
   }
 }
 
@@ -34,6 +35,13 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'אני בעל נכס — איך מפרסמים אצלכם?', a: 'יוצרים קשר בטלפון 055-2702800 או דרך טופס האתר. ניפגש בנכס, נאסוף נתונים ותמונות, נחתום על הזמנת שירות — והנכס יעלה לאתר.' },
     { q: 'באילו אזורים אתם פועלים?', a: 'עיקר הפעילות שלנו במרכז הארץ — פתח תקווה, ראש העין, בני ברק, תל אביב, הוד השרון, כפר סבא, בקעת אונו, אור יהודה, יהוד והרצליה. בנוסף, אנחנו מטפלים בנכסים בכל רחבי הארץ כאשר יש בקשה מיוחדת.' },
     { q: 'האם אתם עובדים עם מתווכים אחרים?', a: 'בהחלט. אנחנו עובדים בשיתוף פעולה מלא עם מתווכים וחברות נדל"ן נוספות. שת"פ בין מתווכים מביא ללקוח יותר אפשרויות ומזרז את מציאת הנכס המתאים.' },
+    { q: 'מה זה מקדם העמסה ואיך הוא משפיע על מחיר השכירות?', a: 'מקדם העמסה הוא היחס בין השטח הברוטו לשטח הנטו. בבניינים ישנים הוא עומד על כ-8%, ובמגדלים חדשים יכול להגיע ל-20% ויותר. דמי השכירות מחושבים לפי ברוטו — כלומר, אתם משלמים גם על שטחים משותפים. תמיד השוו עלות למ"ר נטו בין נכסים.' },
+    { q: 'האם נדרש עורך דין בעסקת נדל"ן מסחרי?', a: 'כן, בהחלט מומלץ. עורך דין מטעם הלקוח — לא מטעם בעל הנכס — יבדוק את החוזה, יוודא שאין עיקולים, ויגן על האינטרסים שלכם. בעסקאות מכירה, עורך דין הוא חובה.' },
+    { q: 'מה זה הזמנת שירותי תיווך?', a: 'הזמנת שירותי תיווך היא מסמך חוקי שמגדיר את שכר הטרחה ותנאי העבודה. לפי חוק המתווכים הישראלי, מתווך אינו זכאי לעמלה ללא הזמנה חתומה. אנחנו חותמים עליה בתחילת העבודה המשותפת — שקיפות מלאה.' },
+    { q: 'כמה עולה ארנונה למשרד בישראל?', a: 'ארנונה למשרדים משתנה לפי עיר וסיווג הנכס — בין כ-250 ₪ למ"ר בשנה באזורי תעשייה ועד 400 ₪ ויותר בתל אביב. תמיד בקשו שובר ארנונה אמיתי לנכס, ולא הערכה כללית.' },
+    { q: 'מה הם דמי ניהול ומה כוללים?', a: 'דמי ניהול הם תשלום חודשי נוסף לשכר הדירה, המכסה ניקיון, אבטחה, תחזוקת מבנה ותאורת שטחים משותפים. בבניינים מסחריים מקובל 15–30 ₪ למ"ר בחודש — עוד 3,000–6,000 ₪ לחודש על משרד של 200 מ"ר. חשוב לבדוק מה כלול לפני חתימה.' },
+    { q: 'כמה הון עצמי צריך לרכישת נכס מסחרי?', a: 'מימון בנקאי לנכסים מסחריים שמרני יותר מאשר לדירות מגורים — הבנקים דורשים בדרך כלל 30%–50% הון עצמי. על נכס של 4 מיליון ₪ מדובר ב-1.2–2 מיליון ₪. תכננו מראש עם יועץ משכנתאות ורואה חשבון.' },
+    { q: 'מה ההבדל בין נכס מסחרי לנכס מגורים?', a: 'נכס מסחרי מיועד לשימוש עסקי (משרד, חנות, מחסן) ופועל תחת חוקי תכנון ובנייה שונים, ארנונה גבוהה יותר ורישוי עסק לפי שימוש. תהליך המימון שונה — ערבויות גבוהות יותר ואחוז מימון נמוך יותר מהבנק. אנחנו מתמחים בשניהם.' },
   ],
   en: [
     { q: 'How much is the brokerage fee for a commercial property?', a: 'For commercial rental deals, the standard fee is one month\'s rent plus VAT. For sales, it\'s a percentage of the deal price (typically 1%–2% plus VAT). The exact fee is agreed upfront and signed in a brokerage order before work begins.' },
@@ -45,6 +53,12 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'I\'m a property owner — how do I list with you?', a: 'Simply contact us by phone at 055-2702800 or via the website form. We\'ll visit the property, gather details and photos, sign a brokerage order — and the property will go live on the site.' },
     { q: 'Which areas do you cover?', a: 'Our main activity is in central Israel — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv, Hod HaSharon, Kfar Saba, Bikat Ono, Or Yehuda, Yehud, and Herzliya. We also handle properties across the entire country when there is a special request.' },
     { q: 'Do you work with other brokers?', a: 'Absolutely. We work in full cooperation with other brokers and real estate companies. Collaboration between brokers gives the client more options and speeds up finding the right property.' },
+    { q: 'What is a load factor in commercial real estate?', a: 'The load factor is the ratio between gross area and net area. In older buildings it\'s around 8%; in modern towers it can reach 20% or more. Since rent is charged on gross area, you\'re paying for common spaces too. Always compare the cost per net sqm between properties — not gross.' },
+    { q: 'Do I need a lawyer for a commercial property deal?', a: 'Yes, strongly recommended. Your own lawyer — not the landlord\'s — reviews the contract, checks for liens or encumbrances, and protects your interests. For purchase transactions, legal representation is essential.' },
+    { q: 'What is a brokerage order (brokerage agreement)?', a: 'A brokerage order is a legal document defining the fee and scope of work. Under Israeli law, a broker is not entitled to any fee without a signed brokerage order. We sign it at the start of every engagement — full transparency from day one.' },
+    { q: 'How much is office municipal tax (arnona) in Israel?', a: 'Office municipal tax varies by city and property classification — roughly ₪250 per sqm per year in industrial zones to over ₪400 in Tel Aviv city center. Always request the actual municipal tax bill for the property, not an estimate.' },
+    { q: 'What are management fees and what do they cover?', a: 'Management fees are a monthly charge on top of rent, covering cleaning, security, building maintenance, and common area lighting. Typical range: ₪15–₪30 per sqm per month. On a 200 sqm office that\'s an extra ₪3,000–₪6,000/month — always factor this in.' },
+    { q: 'How much equity do I need to buy commercial property in Israel?', a: 'Bank financing for commercial properties is more conservative than for apartments — banks typically require 30%–50% equity. On a ₪4 million property that\'s ₪1.2–₪2 million of your own funds. Plan ahead with a mortgage advisor and accountant.' },
   ],
   fr: [
     { q: 'Combien coûtent les honoraires de courtage pour un bien commercial ?', a: 'Pour les locations commerciales, les honoraires standards sont d\'un mois de loyer plus TVA. Pour les ventes, il s\'agit d\'un pourcentage du prix (généralement 1 % à 2 % plus TVA). Le montant exact est convenu à l\'avance et signé dans un mandat de courtage avant le début du travail.' },
@@ -56,6 +70,11 @@ const FAQS: Record<string, FAQ[]> = {
     { q: 'Je suis propriétaire — comment publier mon bien chez vous ?', a: 'Contactez-nous par téléphone au 055-2702800 ou via le formulaire du site. Nous visiterons le bien, collecterons les informations et photos, signerons un mandat — et le bien sera publié sur le site.' },
     { q: 'Dans quelles zones intervenez-vous ?', a: 'Notre activité principale se situe en Israël central — Petah Tikva, Rosh HaAyin, Bnei Brak, Tel Aviv, Hod HaSharon, Kfar Saba, Bikat Ono, Or Yehuda, Yehud et Herzliya. Nous intervenons également dans tout le pays lorsqu\'il y a une demande particulière.' },
     { q: 'Travaillez-vous avec d\'autres agents immobiliers ?', a: 'Absolument. Nous travaillons en pleine collaboration avec d\'autres agents et sociétés immobilières. La coopération entre professionnels offre au client plus d\'options et accélère la recherche du bien idéal.' },
+    { q: 'Qu\'est-ce que le coefficient de surface en immobilier commercial ?', a: 'Le coefficient de surface est le rapport entre la surface brute et la surface nette. Dans les bâtiments anciens il est d\'environ 8% ; dans les tours modernes il peut atteindre 20% ou plus. Comme le loyer est calculé sur la surface brute, vous payez aussi pour les parties communes. Comparez toujours le coût au m² net.' },
+    { q: 'Ai-je besoin d\'un avocat pour une transaction immobilière commerciale ?', a: 'Oui, fortement recommandé. Votre propre avocat — pas celui du propriétaire — examine le contrat, vérifie l\'absence de charges ou hypothèques, et protège vos intérêts. Pour les transactions d\'achat, la représentation juridique est indispensable.' },
+    { q: 'Qu\'est-ce qu\'un mandat de courtage ?', a: 'Le mandat de courtage est un document légal définissant les honoraires et le périmètre de la mission. Selon la loi israélienne, un agent n\'a droit à aucune commission sans mandat signé. Nous le signons au début de chaque collaboration — transparence totale dès le premier jour.' },
+    { q: 'Combien faut-il d\'apport pour acheter un bien commercial en Israël ?', a: 'Le financement bancaire pour les biens commerciaux est plus conservateur que pour les appartements — les banques exigent généralement 30 à 50% d\'apport. Sur un bien à 4 millions ₪, c\'est 1,2 à 2 millions ₪ de fonds propres. Planifiez à l\'avance avec un conseiller en crédit et un expert-comptable.' },
+    { q: 'Quelles sont les charges de copropriété et que couvrent-elles ?', a: 'Les charges de copropriété sont un paiement mensuel en sus du loyer, couvrant le nettoyage, la sécurité, l\'entretien du bâtiment et l\'éclairage des parties communes. Fourchette typique : 15 à 30 ₪ par m² par mois. Pour un bureau de 200 m², cela représente 3 000 à 6 000 ₪ supplémentaires par mois.' },
   ],
 }
 

@@ -34,6 +34,25 @@ export const metadata: Metadata = {
     url: BASE,
   },
   robots: { index: true, follow: true },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LS נדל"ן — נכסים מסחריים ומגורים',
+    description: 'תיווך נדל"ן מסחרי ומגורים — משרדים, חנויות, מחסנים, קרקעות ודירות',
+  },
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'LS נדל"ן',
+  alternateName: 'LS Real Estate',
+  url: BASE,
+  inLanguage: ['he', 'en', 'fr'],
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${BASE}/he/properties?city={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
 }
 
 const orgJsonLd = {
@@ -77,6 +96,10 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className="min-h-screen flex flex-col">
