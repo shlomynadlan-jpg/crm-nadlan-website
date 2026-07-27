@@ -5,7 +5,7 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { articles, getArticle, AUTHOR, type ArticleBlock } from '@/lib/articles'
+import { articles, getLocalizedArticle, getLocalizedArticles, AUTHOR, type ArticleBlock } from '@/lib/articles'
 
 const BASE = 'https://www.nadlannow.co.il'
 
@@ -13,10 +13,10 @@ export function generateStaticParams() {
   return articles.map(a => ({ slug: a.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: string }> }): Promise<Metadata> {
   const t = await getTranslations('blog')
-  const { slug } = await params
-  const article = getArticle(slug)
+  const { slug, locale } = await params
+  const article = getLocalizedArticle(slug, locale)
   if (!article) return { title: t('notFound') }
   return {
     title: article.title,
@@ -56,14 +56,14 @@ function Block({ block }: { block: ArticleBlock }) {
   }
 }
 
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const t = await getTranslations('blog')
   const tNav = await getTranslations('nav')
-  const { slug } = await params
-  const article = getArticle(slug)
+  const { slug, locale } = await params
+  const article = getLocalizedArticle(slug, locale)
   if (!article) notFound()
 
-  const others = articles.filter(a => a.slug !== article.slug).slice(0, 2)
+  const others = getLocalizedArticles(locale).filter(a => a.slug !== article.slug).slice(0, 2)
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -108,7 +108,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </nav>
               <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{article.title}</h1>
               <p className="text-blue-100 text-sm">
-                {AUTHOR} · {new Date(article.date).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })} · {t('readingMinutes', { n: article.readingMinutes })}
+                {AUTHOR} · {new Date(article.date).toLocaleDateString(locale === 'en' ? 'en-US' : locale === 'fr' ? 'fr-FR' : 'he-IL', { day: 'numeric', month: 'long', year: 'numeric' })} · {t('readingMinutes', { n: article.readingMinutes })}
               </p>
             </div>
           </div>

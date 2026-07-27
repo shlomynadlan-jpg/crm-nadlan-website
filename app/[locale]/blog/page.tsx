@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { articles, AUTHOR } from '@/lib/articles'
+import { getLocalizedArticles, AUTHOR } from '@/lib/articles'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('blog')
@@ -16,13 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
+function formatDate(iso: string, locale = 'he') {
+  const map: Record<string, string> = { he: 'he-IL', en: 'en-US', fr: 'fr-FR' }
+  return new Date(iso).toLocaleDateString(map[locale] ?? 'he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-export default async function BlogPage() {
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const t = await getTranslations('blog')
-  const [featured, ...rest] = articles
+  const [featured, ...rest] = getLocalizedArticles(locale)
 
   return (
     <>
@@ -60,7 +62,7 @@ export default async function BlogPage() {
               </div>
               <div className="p-8 lg:p-10 flex flex-col justify-center">
                 <p className="text-sm text-slate-400 mb-3">
-                  {formatDate(featured.date)} · {t('readingMinutes', { n: featured.readingMinutes })} · {AUTHOR}
+                  {formatDate(featured.date, locale)} · {t('readingMinutes', { n: featured.readingMinutes })} · {AUTHOR}
                 </p>
                 <h2 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors">
                   {featured.title}
@@ -87,7 +89,7 @@ export default async function BlogPage() {
                   </div>
                   <div className="p-7 flex flex-col flex-1">
                     <p className="text-sm text-slate-400 mb-2">
-                      {formatDate(a.date)} · {t('readingMinutes', { n: a.readingMinutes })}
+                      {formatDate(a.date, locale)} · {t('readingMinutes', { n: a.readingMinutes })}
                     </p>
                     <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
                       {a.title}
