@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50" style={{ direction: 'rtl' }}>
       <nav
-        className="px-6 md:px-10 py-4 flex items-center justify-between"
+        className="px-6 md:px-10 py-0 flex items-center justify-between"
         style={{
           background: 'rgba(4,10,24,0.82)',
           borderBottom: '1px solid rgba(201,168,76,0.28)',
@@ -36,9 +36,9 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="LS נדל״ן"
-            width={120}
-            height={120}
-            className="h-16 w-auto drop-shadow-lg"
+            width={200}
+            height={200}
+            className="h-20 w-auto drop-shadow-lg"
             priority
           />
         </Link>
