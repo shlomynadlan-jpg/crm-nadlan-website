@@ -34,7 +34,6 @@ type ContentMap = {
   contactTitle: string
   contactPara: string
   contactPhone: string
-  contactPhone2: string
   contactEmail: string
   contactForm: string
   contactHours: string
@@ -45,7 +44,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'אודות LS נדל"ן',
     subtitle: 'מי אנחנו ואיך אנחנו עובדים',
     whoTitle: 'מי אנחנו',
-    whoPara: 'LS נדל״ן נוסדה בשנת 2019 על ידי שלומי לימור (רישיון תיווך מס׳ 3151306) ולימור קטיעי חיון (רישיון תיווך מס׳ 31927308). החברה מתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ, ומלווה בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
+    whoPara: 'LS נדל״ן נוסדה בשנת 2019 על ידי שלומי לימור (רישיון תיווך מס׳ 3151306). החברה מתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ, ומלווה בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
     specTitle: 'במה אנחנו מתמחים',
     specItems: [
       { bold: 'משרדים', text: ' — השכרה ומכירה של שטחי משרדים, ממשרדי בוטיק ועד קומות שלמות במגדלים.' },
@@ -66,7 +65,6 @@ const CONTENT: Record<string, ContentMap> = {
     contactTitle: 'יצירת קשר',
     contactPara: 'מחפשים נכס או רוצים לשווק נכס שבבעלותכם? נשמח לדבר:',
     contactPhone: 'שלומי לימור',
-    contactPhone2: 'לימור קטיעי חיון',
     contactEmail: 'דוא״ל',
     contactForm: 'טופס יצירת קשר באתר',
     contactHours: 'שעות פעילות: א׳–ה׳ 09:00–18:00, ו׳ 09:00–13:00.',
@@ -75,7 +73,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'About LS Real Estate',
     subtitle: 'Who we are and how we work',
     whoTitle: 'Who We Are',
-    whoPara: 'LS Real Estate was founded in 2019 by Shlomi Limor (broker license no. 3151306) and Limor Katia Hayon (broker license no. 31927308). The company specializes in commercial and residential properties across central Israel, guiding property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
+    whoPara: 'LS Real Estate was founded in 2019 by Shlomi Limor (broker license no. 3151306). The company specializes in commercial and residential properties across central Israel, guiding property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
     specTitle: 'Our Specialties',
     specItems: [
       { bold: 'Offices', text: ' — Rental and sale of office spaces, from boutique offices to full floors in towers.' },
@@ -96,7 +94,6 @@ const CONTENT: Record<string, ContentMap> = {
     contactTitle: 'Contact Us',
     contactPara: 'Looking for a property or want to list one you own? We\'d love to talk:',
     contactPhone: 'Shlomi Limor',
-    contactPhone2: 'Limor Katia Hayon',
     contactEmail: 'Email',
     contactForm: 'Online contact form',
     contactHours: 'Business hours: Sun–Thu 09:00–18:00, Fri 09:00–13:00.',
@@ -105,7 +102,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'À Propos de LS Immobilier',
     subtitle: 'Qui sommes-nous et comment nous travaillons',
     whoTitle: 'Qui Sommes-Nous',
-    whoPara: 'LS Immobilier a été fondée en 2019 par Shlomi Limor (licence d\'agent n° 3151306) et Limor Katia Hayon (licence d\'agent n° 31927308). L\'agence est spécialisée dans les biens commerciaux et résidentiels en Israël et accompagne propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
+    whoPara: 'LS Immobilier a été fondée en 2019 par Shlomi Limor (licence d\'agent n° 3151306). L\'agence est spécialisée dans les biens commerciaux et résidentiels en Israël et accompagne propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
     specTitle: 'Nos Spécialités',
     specItems: [
       { bold: 'Bureaux', text: ' — Location et vente de bureaux, des petits espaces aux étages entiers en tour.' },
@@ -126,7 +123,6 @@ const CONTENT: Record<string, ContentMap> = {
     contactTitle: 'Contactez-Nous',
     contactPara: 'Vous cherchez un bien ou souhaitez en vendre un ? Nous serions ravis d\'échanger :',
     contactPhone: 'Shlomi Limor',
-    contactPhone2: 'Limor Katia Hayon',
     contactEmail: 'E-mail',
     contactForm: 'Formulaire de contact en ligne',
     contactHours: 'Horaires : Dim–Jeu 09:00–18:00, Ven 09:00–13:00.',
@@ -162,7 +158,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <p>{c.contactPara}</p>
       <ul>
         <li>{c.contactPhone}: <a href="tel:0552702800">055-2702800</a></li>
-        <li>{c.contactPhone2}: <a href="tel:0529200190">052-9200190</a></li>
         <li>{c.contactEmail}: <a href={`mailto:${email}`}>{email}</a></li>
         <li><Link href="/contact">{c.contactForm}</Link></li>
       </ul>

@@ -10,6 +10,10 @@ import CookieNotice from '@/components/CookieNotice'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import '../globals.css'
 
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }))
+}
+
 type Locale = 'he' | 'en' | 'fr'
 
 const BASE = 'https://www.nadlannow.co.il'
