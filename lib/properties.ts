@@ -48,7 +48,18 @@ export async function getProperties(filters?: PropertyFilters): Promise<Property
     .order('created_at', { ascending: false })
 
   if (filters?.city) query = query.ilike('city', `%${filters.city}%`)
-  if (filters?.deal_type) query = query.ilike('deal_type', `%${filters.deal_type}%`)
+  if (filters?.deal_type) {
+    const dt = filters.deal_type
+    if (dt.includes('מכירה') && !dt.includes('השכרה')) {
+      // sale only or both
+      query = query.or('deal_type.eq.מכירה,deal_type.eq.מכירה והשכרה')
+    } else if (dt.includes('השכרה') && !dt.includes('מכירה')) {
+      // rent only or both
+      query = query.or('deal_type.eq.השכרה,deal_type.eq.מכירה והשכרה')
+    } else {
+      query = query.ilike('deal_type', `%${dt}%`)
+    }
+  }
   if (filters?.price_max) query = query.lte('price', filters.price_max)
   if (filters?.size_min) query = query.gte('gross_size', filters.size_min)
   if (filters?.size_max) query = query.lte('gross_size', filters.size_max)
