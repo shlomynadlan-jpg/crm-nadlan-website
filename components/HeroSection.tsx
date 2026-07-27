@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { Link, useRouter } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import RotatingWord from '@/components/RotatingWord'
@@ -143,8 +144,9 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
             borderBottom: '1px solid rgba(201,168,76,0.28)',
           }}
         >
-          <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
-            LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
+          <Link href="/" className="shrink-0">
+            <Image src="/logo.png" alt="LS נדל״ן" width={300} height={300} quality={100} priority
+              style={{ height: 'calc(90px - 6px)', width: 'auto' }} />
           </Link>
 
           <div className="hidden lg:flex items-center gap-6">

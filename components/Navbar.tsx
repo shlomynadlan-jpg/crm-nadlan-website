@@ -39,6 +39,7 @@ export default function Navbar() {
             alt="LS נדל״ן"
             width={300}
             height={300}
+            quality={100}
             className="w-auto drop-shadow-lg"
             style={{ height: 'calc(90px - 6px)' }}
             priority
