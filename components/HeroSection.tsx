@@ -261,21 +261,21 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
                     key={p.id}
                     href={`/properties/${p.id}`}
                     style={{
-                      width: 220,
-                      background: 'rgba(4,10,24,0.82)',
+                      width: 270,
+                      background: 'rgba(4,10,24,0.85)',
                       backdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      borderRadius: 14,
+                      border: '1px solid rgba(255,255,255,0.15)',
+                      borderRadius: 16,
                       overflow: 'hidden',
                       display: 'block',
                       textDecoration: 'none',
                       transform: `translateY(${cardVisible ? 0 : (i === 0 ? -12 : 12)}px)`,
                       transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+                      boxShadow: '0 12px 40px rgba(0,0,0,0.6)',
                     }}
                   >
                     {/* image */}
-                    <div style={{ position: 'relative', height: 88, overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', height: 120, overflow: 'hidden' }}>
                       <img
                         src={img}
                         alt={`${types} ב${p.city}`}
@@ -293,21 +293,21 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
                       </span>
                     </div>
                     {/* info */}
-                    <div style={{ padding: '10px 12px' }}>
-                      <p style={{ fontSize: 10, color: '#C9A84C', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 2 }}>
+                    <div style={{ padding: '12px 14px' }}>
+                      <p style={{ fontSize: 11, color: '#C9A84C', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 3 }}>
                         {types}
                       </p>
-                      <p style={{ fontSize: 13, color: '#fff', fontWeight: 700, marginBottom: 4 }}>
+                      <p style={{ fontSize: 14, color: '#fff', fontWeight: 700, marginBottom: 5 }}>
                         {p.city}
-                        {p.gross_size ? <span style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 400, fontSize: 11 }}> · {p.gross_size} מ״ר</span> : null}
+                        {p.gross_size ? <span style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 400, fontSize: 12 }}> · {p.gross_size} מ״ר</span> : null}
                       </p>
                       {price ? (
-                        <p style={{ fontSize: 13, color: '#C9A84C', fontWeight: 800 }}>
+                        <p style={{ fontSize: 15, color: '#C9A84C', fontWeight: 800 }}>
                           {formatPrice(price)}
-                          {isRent ? <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> /מ</span> : null}
+                          {isRent ? <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> /מ</span> : null}
                         </p>
                       ) : (
-                        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>{t('deal.priceOnRequest')}</p>
+                        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>{t('deal.priceOnRequest')}</p>
                       )}
                     </div>
                   </Link>
@@ -345,11 +345,10 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
 
             <h1
               className="font-black leading-tight mb-6"
-              style={{ fontSize: 'clamp(48px, 6.5vw, 86px)', color: '#fff', letterSpacing: '-2px', textShadow: '0 4px 32px rgba(0,0,0,0.7)' }}
+              style={{ fontSize: 'clamp(48px, 6.5vw, 86px)', color: '#fff', letterSpacing: '-2px', textShadow: '0 4px 32px rgba(0,0,0,0.7)', minHeight: 'clamp(180px, 27vw, 325px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
             >
-              {t('hero.title1')}
-              <br />
-              <RotatingWord words={rotatingWords} />
+              <span>{t('hero.title1')}</span>
+              <span><RotatingWord words={rotatingWords} /></span>
             </h1>
 
             <p
