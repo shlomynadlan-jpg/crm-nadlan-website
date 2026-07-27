@@ -24,21 +24,23 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50" style={{ direction: 'rtl' }}>
       <nav
-        className="px-6 md:px-10 py-0 flex items-center justify-between"
+        className="px-6 md:px-10 flex items-center justify-between"
         style={{
+          height: '90px',
           background: 'rgba(4,10,24,0.82)',
           borderBottom: '1px solid rgba(201,168,76,0.28)',
           backdropFilter: 'blur(12px)',
         }}
       >
         {/* Logo */}
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="shrink-0 h-full flex items-center" style={{ margin: '3px 0' }}>
           <Image
             src="/logo.png"
             alt="LS נדל״ן"
-            width={200}
-            height={200}
-            className="h-20 w-auto drop-shadow-lg"
+            width={300}
+            height={300}
+            className="w-auto drop-shadow-lg"
+            style={{ height: 'calc(90px - 6px)' }}
             priority
           />
         </Link>
