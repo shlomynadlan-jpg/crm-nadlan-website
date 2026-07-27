@@ -34,6 +34,7 @@ export default async function HomePage() {
           forSale={forSale}
           forRent={forRent}
           wantedCount={wantedRequests.length}
+          featuredProperties={allProperties.slice(0, 8)}
         />
 
         {/* ── Specialties Marquee ── */}
