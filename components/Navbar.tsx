@@ -1,12 +1,14 @@
 'use client'
 import { useState } from 'react'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const t = useTranslations('nav')
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const LINKS = [
     { href: '/properties', label: t('properties') },
@@ -78,6 +80,20 @@ export default function Navbar() {
           </svg>
         </button>
       </nav>
+
+      {/* Back to home breadcrumb — shown on all non-home pages */}
+      {!isHome && (
+        <div style={{ background: 'rgba(4,10,24,0.88)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '5px 24px', direction: 'rtl' }}>
+          <Link
+            href="/"
+            style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', display: 'inline-flex', alignItems: 'center', gap: 5, transition: 'color 0.2s' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
+          >
+            ← {t('home')}
+          </Link>
+        </div>
+      )}
 
       {/* Mobile menu */}
       {open && (
