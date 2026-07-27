@@ -60,8 +60,8 @@ export default function Navbar() {
 
         {/* CTA + phone */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          <a href="tel:0552702800" className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            055 <span style={{ color: '#C9A84C' }}>270 2800</span>
+          <a href="tel:0552702800" className="text-sm font-medium whitespace-nowrap" style={{ color: '#fff' }}>
+            055-<span style={{ color: '#C9A84C' }}>2702800</span>
           </a>
           <LanguageSwitcher />
           <Link
