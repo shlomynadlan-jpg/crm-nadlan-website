@@ -30,22 +30,24 @@ export default function Navbar() {
           backdropFilter: 'blur(12px)',
         }}
       >
-        {/* Logo */}
-        <Link href="/" className="font-black text-xl tracking-widest uppercase shrink-0" style={{ color: '#fff' }}>
-          LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
-        </Link>
-
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-6">
+        {/* Logo + back to home */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="font-black text-xl tracking-widest uppercase" style={{ color: '#fff' }}>
+            LS<span style={{ color: '#C9A84C' }}>.</span>נדל״ן
+          </Link>
           {!isHome && (
             <Link
               href="/"
-              className="text-sm font-medium transition-all"
-              style={{ color: '#C9A84C', borderBottom: '1px solid rgba(201,168,76,0.4)', paddingBottom: 1 }}
+              className="hidden lg:inline-flex items-center text-xs font-bold px-2 py-1 rounded-lg"
+              style={{ background: 'rgba(201,168,76,0.12)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}
             >
               ← {t('home')}
             </Link>
           )}
+        </div>
+
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-6">
           {LINKS.map(({ href, label }) => (
             <Link
               key={href}
