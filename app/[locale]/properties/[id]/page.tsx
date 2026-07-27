@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
+import PropertyGallery from '@/components/PropertyGallery'
 import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
 import { getTranslations } from 'next-intl/server'
 import { buildAlternates } from '@/lib/alternates'
@@ -151,41 +152,24 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           <div className="lg:col-span-2">
 
             {/* Gallery */}
-            <div className="rounded-2xl overflow-hidden mb-6 bg-slate-100">
-              <div className="relative h-80 md:h-[420px]">
-                <Image
-                  src={images[0]}
-                  alt={`${types} ב${property.city}`}
-                  fill className="object-cover" priority
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                />
-                <div className="absolute top-4 right-4">
-                  <span className="text-sm font-semibold px-4 py-1.5 rounded-full text-white shadow-lg"
-                    style={{ background: badgeColor }}>
-                    {badgeText}
-                  </span>
-                </div>
-                {isAI && (
-                  <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-3">
-                    <span
-                      className="text-xs px-4 py-1.5 rounded-full"
-                      style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
-                    >
-                      {t('card.aiDisclaimer')}
-                    </span>
-                  </div>
-                )}
-              </div>
-              {images.length > 1 && (
-                <div className="flex gap-2 p-3 overflow-x-auto">
-                  {images.slice(1).map((src, i) => (
-                    <div key={i} className="relative shrink-0 w-20 h-16 rounded-lg overflow-hidden">
-                      <Image src={src} alt={`${types} ב${property.city} — תמונה ${i + 2}`} fill className="object-cover" sizes="80px" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <PropertyGallery
+              images={images}
+              alt={`${types} ב${property.city}`}
+              badge={
+                <span className="text-sm font-semibold px-4 py-1.5 rounded-full text-white shadow-lg"
+                  style={{ background: badgeColor }}>
+                  {badgeText}
+                </span>
+              }
+              aiDisclaimer={isAI ? (
+                <span
+                  className="text-xs px-4 py-1.5 rounded-full"
+                  style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
+                >
+                  {t('card.aiDisclaimer')}
+                </span>
+              ) : undefined}
+            />
 
             {/* Title & price */}
             <div className="mb-6">
