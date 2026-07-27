@@ -179,7 +179,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               {images.length > 1 && (
                 <div className="flex gap-2 p-3 overflow-x-auto">
                   {images.slice(1).map((src, i) => (
-                    <div key={i} className="relative flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden">
+                    <div key={i} className="relative shrink-0 w-20 h-16 rounded-lg overflow-hidden">
                       <Image src={src} alt={`${types} ב${property.city} — תמונה ${i + 2}`} fill className="object-cover" sizes="80px" />
                     </div>
                   ))}
@@ -195,24 +195,30 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               <p className="text-slate-500 text-lg mb-4">📍 {property.city}</p>
 
               <div className="flex flex-wrap gap-4 items-baseline">
-                {salePrice && (
-                  <div>
-                    <p className="text-xs text-slate-400 mb-0.5">{t('deal.salePrice')}</p>
-                    <p className="text-3xl font-extrabold" style={{ color: '#C9A84C' }}>
-                      {formatPrice(salePrice)}
-                    </p>
-                  </div>
-                )}
-                {rentPrice && (
-                  <div>
-                    <p className="text-xs text-slate-400 mb-0.5">{t('deal.rentPrice')}</p>
-                    <p className="text-3xl font-extrabold" style={{ color: '#0077B6' }}>
-                      {formatPrice(rentPrice)}
-                    </p>
-                  </div>
-                )}
-                {!salePrice && !rentPrice && (
+                {property.hide_price ? (
                   <p className="text-2xl font-bold text-slate-400">{t('deal.priceOnRequest')}</p>
+                ) : (
+                  <>
+                    {salePrice && (
+                      <div>
+                        <p className="text-xs text-slate-400 mb-0.5">{t('deal.salePrice')}</p>
+                        <p className="text-3xl font-extrabold" style={{ color: '#C9A84C' }}>
+                          {formatPrice(salePrice)}
+                        </p>
+                      </div>
+                    )}
+                    {rentPrice && (
+                      <div>
+                        <p className="text-xs text-slate-400 mb-0.5">{t('deal.rentPrice')}</p>
+                        <p className="text-3xl font-extrabold" style={{ color: '#0077B6' }}>
+                          {formatPrice(rentPrice)}
+                        </p>
+                      </div>
+                    )}
+                    {!salePrice && !rentPrice && (
+                      <p className="text-2xl font-bold text-slate-400">{t('deal.priceOnRequest')}</p>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -250,7 +256,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
                   <p className="text-xs text-slate-400 mb-3 font-medium">{t('propertyPage.agent')}</p>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0"
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0"
                       style={{ background: 'linear-gradient(135deg, #0077B6, #023E8A)' }}>
                       {agent.full_name.charAt(0)}
                     </div>

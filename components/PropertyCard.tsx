@@ -101,7 +101,9 @@ export default function PropertyCard({ p }: { p: Property }) {
           {/* Price */}
           <div className="mt-auto pt-3 border-t border-slate-100 flex items-end justify-between">
             <div className="flex flex-col gap-1">
-              {isBoth ? (
+              {p.hide_price ? (
+                <p className="font-bold text-base text-slate-400">{t('deal.priceOnRequest')}</p>
+              ) : isBoth ? (
                 <>
                   <div>
                     <p className="text-xs text-slate-400">{t('deal.salePrice')}</p>
