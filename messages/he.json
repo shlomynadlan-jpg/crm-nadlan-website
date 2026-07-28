@@ -58,7 +58,33 @@
     "sqm": "מ\"ר",
     "rooms": "חד׳",
     "floor": "קומה",
-    "aiDisclaimer": "התמונה להמחשה בלבד"
+    "aiDisclaimer": "התמונה להמחשה בלבד",
+    "exclusive": "🔒 בבלעדיות"
+  },
+  "cookie": {
+    "message": "האתר משתמש בעוגיות חיוניות לתפעולו, ובכפוף להסכמתכם — גם בעוגיות למדידת שימוש ושיפור השירות. פרטים ב",
+    "privacyLink": "מדיניות הפרטיות",
+    "essential": "רק הכרחי",
+    "acceptAll": "מאשר/ת",
+    "ariaLabel": "הודעה על שימוש בעוגיות"
+  },
+  "a11y": {
+    "menu": "תפריט נגישות",
+    "open": "פתיחת תפריט נגישות",
+    "close": "סגירת תפריט נגישות",
+    "textSize": "גודל טקסט",
+    "decrease": "א-",
+    "increase": "א+",
+    "decreaseLabel": "הקטנת גודל טקסט",
+    "increaseLabel": "הגדלת גודל טקסט",
+    "contrastDark": "ניגודיות כהה",
+    "grayscale": "גווני אפור",
+    "highlightLinks": "הדגשת קישורים",
+    "readableFont": "פונט קריא",
+    "noMotion": "עצירת אנימציות",
+    "bigCursor": "סמן עכבר גדול",
+    "reset": "איפוס הגדרות",
+    "statement": "הצהרת נגישות"
   },
   "home": {
     "featuredLabel": "✦ נבחרו במיוחד",
@@ -210,6 +236,7 @@
     "specsTitle": "פרטי הנכס",
     "descTitle": "תיאור",
     "notFound": "נכס לא נמצא",
+    "imageLabel": "תמונה {n}",
     "address": "כתובת",
     "specLabels": {
       "type": "סוג נכס",
