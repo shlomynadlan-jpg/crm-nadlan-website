@@ -32,8 +32,8 @@ export default function PropertyCard({ p }: { p: Property }) {
           />
           {/* Watermark — only on real uploaded images */}
           {!isAI && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <Image src="/logo.png" alt="" width={120} height={120} style={{ opacity: 0.30, width: 120, height: 'auto', filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.3))' }} />
+            <div className="absolute top-2 left-2 pointer-events-none">
+              <Image src="/logo.png" alt="" width={56} height={56} style={{ width: 56, height: 'auto', filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.4))' }} />
             </div>
           )}
           {/* Badge */}

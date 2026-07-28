@@ -55,8 +55,8 @@ export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Pr
           />
           {/* Watermark — only on real uploaded images */}
           {!aiDisclaimer && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <Image src="/logo.png" alt="" width={180} height={180} style={{ opacity: 0.30, width: 180, height: 'auto', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.3))' }} />
+            <div className="absolute top-3 left-3 pointer-events-none">
+              <Image src="/logo.png" alt="" width={80} height={80} style={{ width: 80, height: 'auto', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.4))' }} />
             </div>
           )}
           {/* Zoom icon on hover */}
