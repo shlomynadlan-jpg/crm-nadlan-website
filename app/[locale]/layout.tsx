@@ -111,8 +111,8 @@ export default async function LocaleLayout({
           {children}
           <CookieNotice />
           <WhatsAppFloat />
+          <AccessibilityWidget />
         </NextIntlClientProvider>
-        <AccessibilityWidget />
         <Analytics />
       </body>
     </html>
