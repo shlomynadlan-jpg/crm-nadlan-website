@@ -118,6 +118,11 @@ export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Pr
                 className="object-contain"
                 sizes="100vw"
               />
+              {!aiDisclaimer && (
+                <div className="absolute top-3 left-3 pointer-events-none">
+                  <Image src="/logo.png" alt="" width={100} height={100} style={{ width: 100, height: 'auto', filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.4))' }} />
+                </div>
+              )}
             </div>
 
             {/* Counter */}
