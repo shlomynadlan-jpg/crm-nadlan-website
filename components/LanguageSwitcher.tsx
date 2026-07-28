@@ -20,12 +20,8 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
         <button
           key={loc}
           onClick={() => switchLocale(loc)}
-          className="text-lg px-1.5 py-0.5 rounded transition-all leading-none"
-          style={{
-            background: loc === locale ? '#C9A84C' : 'transparent',
-            border: loc === locale ? 'none' : '1px solid rgba(255,255,255,0.2)',
-            opacity: loc === locale ? 1 : 0.6,
-          }}
+          className="text-2xl transition-all leading-none"
+          style={{ opacity: loc === locale ? 1 : 0.4 }}
         >
           {LABELS[loc]}
         </button>
