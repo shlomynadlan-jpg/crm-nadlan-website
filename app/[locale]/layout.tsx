@@ -14,7 +14,7 @@ export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
 }
 
-type Locale = 'he' | 'en' | 'fr'
+type Locale = 'he' | 'en' | 'fr' | 'ru'
 
 const BASE = 'https://www.nadlannow.co.il'
 
