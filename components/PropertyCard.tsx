@@ -76,9 +76,12 @@ export default function PropertyCard({ p }: { p: Property }) {
 
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
-          <h3 className="font-semibold text-slate-900 text-base mb-1 line-clamp-1">
-            {p.city}
-          </h3>
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-semibold text-slate-900 text-base line-clamp-1">
+              {p.city}
+            </h3>
+            <span className="text-xs text-slate-400 font-mono shrink-0 mr-2">#{p.id}</span>
+          </div>
 
           {/* Specs row */}
           <div className="flex items-center gap-4 text-slate-500 text-sm my-3">
