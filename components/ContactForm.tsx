@@ -51,7 +51,7 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
 
   // WhatsApp message with property context
   const waText = encodeURIComponent(
-    `שלום${agentName ? ` ${agentName}` : ''},\nאני מעוניין/ת לשמוע פרטים על הנכס${propertyCity ? ` ב${propertyCity}` : ''}${propertyType ? ` (${propertyType})` : ''}.`
+    `שלום${agentName ? ` ${agentName}` : ''},\nאני מעוניין/ת לשמוע פרטים על הנכס${propertyId ? ` מספר ${propertyId}` : ''}${propertyType ? ` — ${propertyType}` : ''}${propertyCity ? ` ב${propertyCity}` : ''}.`
   )
   const waHref = `https://wa.me/${waPhone}?text=${waText}`
 
