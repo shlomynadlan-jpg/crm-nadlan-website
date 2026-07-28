@@ -43,13 +43,12 @@ export default function PropertyCard({ p }: { p: Property }) {
               {badgeText}
             </span>
           </div>
-          {types && (
-            <div className="absolute top-3 left-3">
-              <span className="text-xs font-medium px-3 py-1 rounded-full bg-white/90 text-slate-700 shadow-sm">
-                {types}
-              </span>
-            </div>
-          )}
+          {/* Property ID — bottom left on image */}
+          <div className="absolute bottom-2 left-3">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-full" style={{ background: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(4px)' }}>
+              #{p.id}
+            </span>
+          </div>
           {/* Exclusivity badge — show only if active (no expiry or future expiry) */}
           {p.exclusivity && (!p.exclusivity_until || new Date(p.exclusivity_until) >= new Date()) && (
             <div className="absolute bottom-2 right-3">
@@ -76,12 +75,12 @@ export default function PropertyCard({ p }: { p: Property }) {
 
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
-          <div className="flex items-center justify-between mb-1">
-            <h3 className="font-semibold text-slate-900 text-base line-clamp-1">
-              {p.city}
-            </h3>
-            <span className="text-xs text-slate-400 font-mono shrink-0 mr-2">#{p.id}</span>
-          </div>
+          <h3 className="font-semibold text-slate-900 text-base line-clamp-1 mb-1">
+            {p.city}
+          </h3>
+          {types && (
+            <span className="text-xs font-medium text-slate-500 mb-1">{types}</span>
+          )}
 
           {/* Specs row */}
           <div className="flex items-center gap-4 text-slate-500 text-sm my-3">
