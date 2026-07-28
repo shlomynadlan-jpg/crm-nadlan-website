@@ -72,7 +72,7 @@ export default function Navbar() {
         {/* CTA + phone */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
           <div className="flex items-center gap-2">
-            <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+            <a href="tel:0552702800" className="text-base font-bold whitespace-nowrap" style={{ color: '#fff' }}>
               055-<span style={{ color: '#C9A84C' }}>2702800</span>
             </a>
             <LanguageSwitcher />
@@ -88,7 +88,7 @@ export default function Navbar() {
 
         {/* Mobile: phone + flags + burger */}
         <div className="flex lg:hidden items-center gap-3">
-          <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+          <a href="tel:0552702800" className="text-base font-bold whitespace-nowrap" style={{ color: '#fff' }}>
             055-<span style={{ color: '#C9A84C' }}>2702800</span>
           </a>
           <LanguageSwitcher />
@@ -97,7 +97,7 @@ export default function Navbar() {
             onClick={() => setOpen(!open)}
             aria-label={open ? t('closeMenu') : t('openMenu')}
             aria-expanded={open}
-            style={{ color: 'rgba(255,255,255,0.8)' }}
+            style={{ color: 'rgba(255,255,255,0.8)', marginTop: 14 }}
           >
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               {open
