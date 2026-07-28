@@ -22,6 +22,10 @@ export interface Article {
   title_fr: string
   description_fr: string
   blocks_fr: ArticleBlock[]
+  // Russian (optional — falls back to English)
+  title_ru?: string
+  description_ru?: string
+  blocks_ru?: ArticleBlock[]
 }
 
 export interface LocalizedArticle {
@@ -38,6 +42,7 @@ export interface LocalizedArticle {
 export function localizeArticle(article: Article, locale: string): LocalizedArticle {
   if (locale === 'en') return { slug: article.slug, date: article.date, readingMinutes: article.readingMinutes, image: article.image, title: article.title_en, description: article.description_en, imageAlt: article.imageAlt, blocks: article.blocks_en }
   if (locale === 'fr') return { slug: article.slug, date: article.date, readingMinutes: article.readingMinutes, image: article.image, title: article.title_fr, description: article.description_fr, imageAlt: article.imageAlt, blocks: article.blocks_fr }
+  if (locale === 'ru') return { slug: article.slug, date: article.date, readingMinutes: article.readingMinutes, image: article.image, title: article.title_ru ?? article.title_en, description: article.description_ru ?? article.description_en, imageAlt: article.imageAlt, blocks: article.blocks_ru ?? article.blocks_en }
   return { slug: article.slug, date: article.date, readingMinutes: article.readingMinutes, image: article.image, title: article.title, description: article.description, imageAlt: article.imageAlt, blocks: article.blocks }
 }
 
@@ -61,6 +66,8 @@ export const articles: Article[] = [
     description_en: 'Valuation, confidentiality, buyer screening, and lease transfer — the complete guide to selling a live business, from real field experience.',
     title_fr: 'Vous vendez une entreprise active ? Comment bien s\'y prendre — sans la détruire en chemin',
     description_fr: 'Évaluation, confidentialité, sélection des acheteurs et transfert de bail — le guide complet pour vendre une entreprise active, tiré de l\'expérience terrain.',
+    title_ru: 'Продажа действующего бизнеса? Как сделать это правильно — не разрушив его по пути',
+    description_ru: 'Оценка стоимости, конфиденциальность, отбор покупателей и передача аренды — полный гид по продаже действующего бизнеса из реального опыта.',
     date: '2026-07-14',
     readingMinutes: 7,
     image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80',
@@ -135,6 +142,8 @@ export const articles: Article[] = [
     description_en: 'Management fees, load factor, AC hours, exit options — the complete checklist that will save you from expensive surprises in your next office lease.',
     title_fr: '10 choses à vérifier absolument avant de signer un bail de bureau',
     description_fr: 'Charges de copropriété, coefficient de surface, horaires de climatisation, options de sortie — la checklist complète qui vous évitera de coûteuses surprises.',
+    title_ru: '10 вещей, которые нужно проверить перед подписанием договора аренды офиса',
+    description_ru: 'Расходы на управление, коэффициент загрузки, часы работы кондиционера, опции выхода — полный чеклист, который защитит вас от дорогих сюрпризов.',
     date: '2026-07-13',
     readingMinutes: 6,
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80',
@@ -223,6 +232,8 @@ export const articles: Article[] = [
     description_en: 'Rent is just the start. A complete and detailed calculation — with a real numerical example — of everything an office for rent truly costs your business per month.',
     title_fr: 'Brut, net et ce qui se passe entre les deux : comment calculer le coût réel d\'un bureau',
     description_fr: 'Le loyer n\'est que le début. Calcul complet et détaillé — avec un exemple chiffré réel — de tout ce que coûte vraiment un bureau en location à votre entreprise chaque mois.',
+    title_ru: 'Брутто, нетто и что между ними: как рассчитать реальную стоимость офиса',
+    description_ru: 'Аренда — это только начало. Полный расчёт с реальным примером — всё, что офис в аренду действительно стоит вашему бизнесу в месяц.',
     date: '2026-07-13',
     readingMinutes: 5,
     image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80',
@@ -289,6 +300,8 @@ export const articles: Article[] = [
     description_en: 'The biggest financial decision for most business owners: when leasing is the smart move, when buying builds real wealth — and how to run the numbers.',
     title_fr: 'Louer ou acheter un bien commercial pour votre entreprise ? Comment décider correctement',
     description_fr: 'La plus grande décision financière de la plupart des chefs d\'entreprise : quand la location est le choix intelligent, quand l\'achat construit un vrai patrimoine — et comment faire les calculs.',
+    title_ru: 'Арендовать или купить коммерческую недвижимость? Как принять правильное решение',
+    description_ru: 'Главное финансовое решение большинства владельцев бизнеса: когда аренда — умный шаг, когда покупка строит реальный актив — и как считать.',
     date: '2026-07-13',
     readingMinutes: 6,
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80',
