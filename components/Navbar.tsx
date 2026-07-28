@@ -71,10 +71,12 @@ export default function Navbar() {
 
         {/* CTA + phone */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
-            055-<span style={{ color: '#C9A84C' }}>2702800</span>
-          </a>
-          <LanguageSwitcher />
+          <div className="flex items-center gap-2">
+            <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+              055-<span style={{ color: '#C9A84C' }}>2702800</span>
+            </a>
+            <LanguageSwitcher />
+          </div>
           <Link
             href="/contact"
             className="text-sm font-black px-4 py-2 rounded-lg"
@@ -84,11 +86,12 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile: phone + burger */}
-        <div className="flex lg:hidden items-center gap-4">
+        {/* Mobile: phone + flags + burger */}
+        <div className="flex lg:hidden items-center gap-3">
           <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
             055-<span style={{ color: '#C9A84C' }}>2702800</span>
           </a>
+          <LanguageSwitcher />
           <button
             className="p-2 rounded-lg"
             onClick={() => setOpen(!open)}
@@ -141,7 +144,6 @@ export default function Navbar() {
           >
             {t('contact')}
           </Link>
-          <LanguageSwitcher className="mt-2 justify-center" />
         </div>
       )}
     </header>

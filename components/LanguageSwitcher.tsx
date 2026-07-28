@@ -2,67 +2,56 @@
 import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
-import { useState, useRef, useEffect } from 'react'
 
-const FLAGS: Record<string, string> = {
-  he: 'https://flagcdn.com/w40/il.png',
-  en: 'https://flagcdn.com/w40/gb.png',
-  fr: 'https://flagcdn.com/w40/fr.png',
-  ru: 'https://flagcdn.com/w40/ru.png',
+const FLAGS: Record<string, { src: string; label: string }> = {
+  he: { src: 'https://flagcdn.com/w40/il.png', label: 'עברית' },
+  en: { src: 'https://flagcdn.com/w40/gb.png', label: 'English' },
+  fr: { src: 'https://flagcdn.com/w40/fr.png', label: 'Français' },
+  ru: { src: 'https://flagcdn.com/w40/ru.png', label: 'Русский' },
 }
-const NAMES: Record<string, string> = { he: 'עברית', en: 'English', fr: 'Français', ru: 'Русский' }
 
 export default function LanguageSwitcher({ className = '' }: { className?: string }) {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [open])
 
   function switchLocale(next: string) {
-    setOpen(false)
     router.replace(pathname, { locale: next })
   }
 
   return (
-    <div ref={ref} className={`relative ${className}`}>
-      <button
-        onClick={() => setOpen(o => !o)}
-        aria-label="Change language"
-        className="flex items-center gap-1.5 hover:opacity-80 transition-opacity cursor-pointer"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={FLAGS[locale]} alt={NAMES[locale]} width={28} height={20} className="rounded-sm shadow-sm object-cover" style={{ width: 28, height: 20 }} />
-      </button>
-
-      {open && (
-        <div
-          className="absolute top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-100 py-1 min-w-[150px] z-50"
-          style={{ [locale === 'he' ? 'right' : 'left']: 0 }}
-        >
-          {routing.locales.map(loc => (
-            <button
-              key={loc}
-              onClick={() => switchLocale(loc)}
-              className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 transition-colors text-sm text-slate-700 cursor-pointer"
-              style={{ fontWeight: loc === locale ? 700 : 400 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={FLAGS[loc]} alt={NAMES[loc]} width={24} height={17} className="rounded-sm shadow-sm object-cover" style={{ width: 24, height: 17 }} />
-              <span>{NAMES[loc]}</span>
-            </button>
-          ))}
-        </div>
-      )}
+    <div className={`flex items-center gap-1.5 ${className}`}>
+      {routing.locales.map(loc => {
+        const flag = FLAGS[loc]
+        const isActive = loc === locale
+        return (
+          <button
+            key={loc}
+            onClick={() => switchLocale(loc)}
+            aria-label={flag.label}
+            title={flag.label}
+            className="cursor-pointer transition-all"
+            style={{
+              opacity: isActive ? 1 : 0.45,
+              transform: isActive ? 'scale(1.15)' : 'scale(1)',
+              filter: isActive ? 'drop-shadow(0 1px 4px rgba(201,168,76,0.7))' : 'none',
+              border: 'none',
+              background: 'none',
+              padding: 0,
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={flag.src}
+              alt={flag.label}
+              width={26}
+              height={18}
+              className="rounded-sm block"
+              style={{ width: 26, height: 18, objectFit: 'cover' }}
+            />
+          </button>
+        )
+      })}
     </div>
   )
 }
