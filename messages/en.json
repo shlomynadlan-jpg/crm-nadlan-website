@@ -58,7 +58,33 @@
     "sqm": "sqm",
     "rooms": "rooms",
     "floor": "Floor",
-    "aiDisclaimer": "Image for illustration only"
+    "aiDisclaimer": "Image for illustration only",
+    "exclusive": "🔒 Exclusive"
+  },
+  "cookie": {
+    "message": "This site uses essential cookies for operation, and with your consent — also cookies for usage analytics and service improvement. Details in the",
+    "privacyLink": "Privacy Policy",
+    "essential": "Essential only",
+    "acceptAll": "Accept all",
+    "ariaLabel": "Cookie usage notice"
+  },
+  "a11y": {
+    "menu": "Accessibility Menu",
+    "open": "Open accessibility menu",
+    "close": "Close accessibility menu",
+    "textSize": "Text Size",
+    "decrease": "A-",
+    "increase": "A+",
+    "decreaseLabel": "Decrease text size",
+    "increaseLabel": "Increase text size",
+    "contrastDark": "Dark Contrast",
+    "grayscale": "Grayscale",
+    "highlightLinks": "Highlight Links",
+    "readableFont": "Readable Font",
+    "noMotion": "Stop Animations",
+    "bigCursor": "Large Cursor",
+    "reset": "Reset Settings",
+    "statement": "Accessibility Statement"
   },
   "home": {
     "featuredLabel": "✦ Hand-Picked",
@@ -210,6 +236,7 @@
     "specsTitle": "Property Details",
     "descTitle": "Description",
     "notFound": "Property Not Found",
+    "imageLabel": "Image {n}",
     "address": "Address",
     "specLabels": {
       "type": "Property Type",

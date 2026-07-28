@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 const STORAGE_KEY = 'cookie-consent' // 'all' | 'essential'
 const LEGACY_KEY = 'cookie-notice-ack'
@@ -22,6 +23,7 @@ function loadGA(id: string) {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export default function CookieNotice() {
+  const t = useTranslations('cookie')
   const [visible, setVisible] = useState(false)
   const gaId = process.env.NEXT_PUBLIC_GA_ID
 
@@ -60,28 +62,26 @@ export default function CookieNotice() {
   return (
     <div
       role="region"
-      aria-label="הודעה על שימוש בעוגיות"
+      aria-label={t('ariaLabel')}
       className="fixed bottom-0 left-0 right-0 z-[9998] px-4 pb-4 pointer-events-none"
-      style={{ direction: 'rtl' }}
     >
       <div className="pointer-events-auto max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 md:px-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 md:ml-20">
         <p className="text-sm text-slate-700 leading-relaxed flex-1">
-          האתר משתמש בעוגיות חיוניות לתפעולו, ובכפוף להסכמתכם — גם בעוגיות למדידת
-          שימוש ושיפור השירות. פרטים ב
-          <Link href="/privacy" className="text-blue-600 underline hover:text-blue-800">מדיניות הפרטיות</Link>.
+          {t('message')}{' '}
+          <Link href="/privacy" className="text-blue-600 underline hover:text-blue-800">{t('privacyLink')}</Link>.
         </p>
         <div className="flex gap-2 self-end sm:self-auto">
           <button
             onClick={() => choose('essential')}
             className="text-sm py-2.5 px-4 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 whitespace-nowrap cursor-pointer"
           >
-            רק הכרחי
+            {t('essential')}
           </button>
           <button
             onClick={() => choose('all')}
             className="btn-primary text-sm py-2.5 px-6 whitespace-nowrap cursor-pointer"
           >
-            מאשר/ת
+            {t('acceptAll')}
           </button>
         </div>
       </div>

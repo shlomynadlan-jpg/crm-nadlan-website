@@ -57,7 +57,7 @@ export default function PropertyCard({ p }: { p: Property }) {
                 className="text-xs font-bold px-2.5 py-1 rounded-full shadow-md"
                 style={{ background: '#DC2626', color: '#fff' }}
               >
-                🔒 בבלעדיות
+                {t('card.exclusive')}
               </span>
             </div>
           )}

@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 interface Prefs {
   fontScale: number // 100 | 110 | 125 | 140
@@ -36,6 +37,7 @@ function applyPrefs(p: Prefs) {
 }
 
 export default function AccessibilityWidget() {
+  const t = useTranslations('a11y')
   const [open, setOpen] = useState(false)
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -92,12 +94,12 @@ export default function AccessibilityWidget() {
   }, [open])
 
   const toggles: { key: keyof Prefs; label: string }[] = [
-    { key: 'invert', label: 'ניגודיות כהה' },
-    { key: 'grayscale', label: 'גווני אפור' },
-    { key: 'links', label: 'הדגשת קישורים' },
-    { key: 'readableFont', label: 'פונט קריא' },
-    { key: 'noMotion', label: 'עצירת אנימציות' },
-    { key: 'bigCursor', label: 'סמן עכבר גדול' },
+    { key: 'invert', label: t('contrastDark') },
+    { key: 'grayscale', label: t('grayscale') },
+    { key: 'links', label: t('highlightLinks') },
+    { key: 'readableFont', label: t('readableFont') },
+    { key: 'noMotion', label: t('noMotion') },
+    { key: 'bigCursor', label: t('bigCursor') },
   ]
 
   return (
@@ -106,14 +108,14 @@ export default function AccessibilityWidget() {
         <div
           ref={panelRef}
           role="dialog"
-          aria-label="תפריט נגישות"
+          aria-label={t('menu')}
           className="mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 max-h-[calc(100vh-6rem)] overflow-y-auto"
         >
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-slate-900 text-base">תפריט נגישות</h2>
+            <h2 className="font-bold text-slate-900 text-base">{t('menu')}</h2>
             <button
               onClick={() => { setOpen(false); buttonRef.current?.focus() }}
-              aria-label="סגירת תפריט נגישות"
+              aria-label={t('close')}
               className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 cursor-pointer"
             >
               <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -124,24 +126,24 @@ export default function AccessibilityWidget() {
 
           {/* Font size */}
           <div className="flex items-center justify-between py-2 border-b border-slate-100">
-            <span className="text-sm text-slate-700 font-medium">גודל טקסט</span>
+            <span className="text-sm text-slate-700 font-medium">{t('textSize')}</span>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => update(p => ({ fontScale: Math.max(100, p.fontScale - 10) }))}
                 disabled={prefs.fontScale <= 100}
-                aria-label="הקטנת גודל טקסט"
+                aria-label={t('decreaseLabel')}
                 className="w-11 h-11 rounded-lg border border-slate-200 font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer disabled:cursor-default"
               >
-                א-
+                {t('decrease')}
               </button>
               <span className="text-sm text-slate-500 w-10 text-center" aria-live="polite">{prefs.fontScale}%</span>
               <button
                 onClick={() => update(p => ({ fontScale: Math.min(140, p.fontScale + 10) }))}
                 disabled={prefs.fontScale >= 140}
-                aria-label="הגדלת גודל טקסט"
+                aria-label={t('increaseLabel')}
                 className="w-11 h-11 rounded-lg border border-slate-200 font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-40 cursor-pointer disabled:cursor-default"
               >
-                א+
+                {t('increase')}
               </button>
             </div>
           </div>
@@ -173,10 +175,10 @@ export default function AccessibilityWidget() {
 
           <div className="flex items-center justify-between pt-2 border-t border-slate-100">
             <button onClick={reset} className="text-sm text-slate-500 hover:text-slate-800 underline">
-              איפוס הגדרות
+              {t('reset')}
             </button>
             <Link href="/accessibility" className="text-sm text-blue-600 hover:underline" onClick={() => setOpen(false)}>
-              הצהרת נגישות
+              {t('statement')}
             </Link>
           </div>
         </div>
@@ -185,10 +187,10 @@ export default function AccessibilityWidget() {
       <button
         ref={buttonRef}
         onClick={() => setOpen(!open)}
-        aria-label="פתיחת תפריט נגישות"
+        aria-label={t('open')}
         aria-expanded={open}
         aria-haspopup="dialog"
-        title="תפריט נגישות"
+        title={t('menu')}
         className="w-12 h-12 rounded-full shadow-xl flex items-center justify-center text-white hover:opacity-90 transition-opacity cursor-pointer"
         style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}
       >

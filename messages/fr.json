@@ -58,7 +58,33 @@
     "sqm": "m²",
     "rooms": "pièces",
     "floor": "Étage",
-    "aiDisclaimer": "Image à titre illustratif"
+    "aiDisclaimer": "Image à titre illustratif",
+    "exclusive": "🔒 Exclusivité"
+  },
+  "cookie": {
+    "message": "Ce site utilise des cookies essentiels à son fonctionnement, et avec votre accord — des cookies d'analyse pour améliorer le service. Détails dans la",
+    "privacyLink": "Politique de confidentialité",
+    "essential": "Essentiel seulement",
+    "acceptAll": "Tout accepter",
+    "ariaLabel": "Avis sur l'utilisation des cookies"
+  },
+  "a11y": {
+    "menu": "Menu d'accessibilité",
+    "open": "Ouvrir le menu d'accessibilité",
+    "close": "Fermer le menu d'accessibilité",
+    "textSize": "Taille du texte",
+    "decrease": "A-",
+    "increase": "A+",
+    "decreaseLabel": "Réduire la taille du texte",
+    "increaseLabel": "Augmenter la taille du texte",
+    "contrastDark": "Contraste foncé",
+    "grayscale": "Niveaux de gris",
+    "highlightLinks": "Mettre les liens en évidence",
+    "readableFont": "Police lisible",
+    "noMotion": "Arrêter les animations",
+    "bigCursor": "Grand curseur",
+    "reset": "Réinitialiser",
+    "statement": "Déclaration d'accessibilité"
   },
   "home": {
     "featuredLabel": "✦ Sélection",
@@ -210,6 +236,7 @@
     "specsTitle": "Détails du bien",
     "descTitle": "Description",
     "notFound": "Bien introuvable",
+    "imageLabel": "Image {n}",
     "address": "Adresse",
     "specLabels": {
       "type": "Type de bien",

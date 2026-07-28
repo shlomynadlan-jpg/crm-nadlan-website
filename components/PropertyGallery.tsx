@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   images: string[]
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Props) {
+  const t = useTranslations('propertyPage')
   const [active, setActive] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
 
@@ -92,7 +94,7 @@ export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Pr
                   i === active ? 'border-blue-600 shadow-md scale-105' : 'border-transparent hover:border-slate-300'
                 }`}
               >
-                <Image src={src} alt={`${alt} — תמונה ${i + 1}`} fill className="object-cover" sizes="80px" />
+                <Image src={src} alt={`${alt} — ${t('imageLabel', { n: i + 1 })}`} fill className="object-cover" sizes="80px" />
               </button>
             ))}
           </div>
@@ -113,7 +115,7 @@ export default function PropertyGallery({ images, alt, badge, aiDisclaimer }: Pr
             <div className="relative w-full h-[80vh]">
               <Image
                 src={images[lightbox]}
-                alt={`${alt} — תמונה ${lightbox + 1}`}
+                alt={`${alt} — ${t('imageLabel', { n: lightbox + 1 })}`}
                 fill
                 className="object-contain"
                 sizes="100vw"
