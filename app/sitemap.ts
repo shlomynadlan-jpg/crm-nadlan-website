@@ -3,6 +3,8 @@ import { getProperties, getCities } from '@/lib/properties'
 import { articles } from '@/lib/articles'
 import { citySlug } from '@/lib/cities'
 
+export const revalidate = 3600
+
 const BASE = 'https://www.nadlannow.co.il'
 const LOCALES = ['he', 'en', 'fr']
 

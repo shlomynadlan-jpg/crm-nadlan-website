@@ -36,8 +36,8 @@ export default async function Footer() {
             <ul className="space-y-2 text-slate-400 text-sm">
               <li><Link href="/" className="hover:text-white transition-colors">{t('footer.home')}</Link></li>
               <li><Link href="/properties" className="hover:text-white transition-colors">{t('nav.properties')}</Link></li>
-              <li><Link href="/properties?deal_type=sale" className="hover:text-white transition-colors">{t('nav.forSale')}</Link></li>
-              <li><Link href="/properties?deal_type=rent" className="hover:text-white transition-colors">{t('nav.forRent')}</Link></li>
+              <li><Link href="/properties?deal_type=מכירה" className="hover:text-white transition-colors">{t('nav.forSale')}</Link></li>
+              <li><Link href="/properties?deal_type=השכרה" className="hover:text-white transition-colors">{t('nav.forRent')}</Link></li>
               <li><Link href="/blog" className="hover:text-white transition-colors">{t('nav.blog')}</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">{t('nav.faq')}</Link></li>

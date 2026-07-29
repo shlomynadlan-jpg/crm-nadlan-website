@@ -114,8 +114,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     } : {}),
     offers: {
       '@type': 'Offer',
-      price: (isRent ? rentPrice : salePrice) || undefined,
-      priceCurrency: 'ILS',
+      ...((isRent ? rentPrice : salePrice) ? {
+        price: isRent ? rentPrice : salePrice,
+        priceCurrency: 'ILS',
+      } : {}),
       availability: 'https://schema.org/InStock',
       seller: { '@type': 'RealEstateAgent', name: 'LS נדל"ן', telephone: '+972-55-2702800' },
     },
