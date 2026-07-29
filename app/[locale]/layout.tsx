@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     url: BASE,
   },
   robots: { index: true, follow: true },
+  verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
   twitter: {
     card: 'summary_large_image',
     title: 'LS נדל"ן — נכסים מסחריים ומגורים',
