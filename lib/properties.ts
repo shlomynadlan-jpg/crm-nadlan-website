@@ -72,8 +72,28 @@ export async function getCities(): Promise<string[]> {
     .eq('show_on_website', true)
 
   if (!data) return []
-  const cities = [...new Set(data.map(d => d.city).filter(Boolean))] as string[]
+  const cities = [...new Set(data.map((d: { city: string }) => d.city).filter(Boolean))] as string[]
   return cities.sort()
+}
+
+export async function getAvailablePropertyTypes(): Promise<string[]> {
+  const { data } = await supabase
+    .from('properties')
+    .select('property_type')
+    .eq('show_on_website', true)
+    .eq('status', 'active')
+
+  if (!data) return []
+  const typesSet = new Set<string>()
+  data.forEach(row => {
+    if (!row.property_type) return
+    const raw = Array.isArray(row.property_type) ? row.property_type.join('/') : row.property_type
+    raw.split('/').forEach((t: string) => {
+      const trimmed = t.trim()
+      if (trimmed) typesSet.add(trimmed)
+    })
+  })
+  return Array.from(typesSet).sort()
 }
 
 export function getPropertyImage(p: Property): string {

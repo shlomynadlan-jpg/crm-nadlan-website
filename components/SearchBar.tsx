@@ -1,19 +1,19 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getCities } from '@/lib/properties'
-
-const PROPERTY_TYPES = ['משרד', 'חנות', 'מחסן', 'דירה', 'פנטהאוז', 'מסחרי', 'תעשייתי', 'קרקע']
+import { getCities, getAvailablePropertyTypes } from '@/lib/properties'
 
 export default function SearchBar({ inline = false }: { inline?: boolean }) {
   const router = useRouter()
   const [cities, setCities] = useState<string[]>([])
+  const [propertyTypes, setPropertyTypes] = useState<string[]>([])
   const [city, setCity] = useState('')
   const [type, setType] = useState('')
   const [dealType, setDealType] = useState('')
 
   useEffect(() => {
     getCities().then(setCities)
+    getAvailablePropertyTypes().then(setPropertyTypes)
   }, [])
 
   const handleSearch = () => {
@@ -35,7 +35,7 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
         </select>
         <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
           <option value="">כל סוגי הנכסים</option>
-          {PROPERTY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+          {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
         <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
           <option value="">מכירה / השכרה</option>
@@ -58,7 +58,7 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
         </select>
         <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
           <option value="">🏢 סוג נכס</option>
-          {PROPERTY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+          {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
         <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
           <option value="">💼 עסקה</option>
