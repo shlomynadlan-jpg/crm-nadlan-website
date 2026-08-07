@@ -1,58 +1,149 @@
 'use client'
 import { useState } from 'react'
-import Link from 'next/link'
+import Image from 'next/image'
+import { Link, usePathname } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || 'LS נדל"ן'
+  const t = useTranslations('nav')
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
+  const LINKS = [
+    { href: '/properties', label: t('properties') },
+    { href: '/properties?deal_type=מכירה', label: t('forSale') },
+    { href: '/properties?deal_type=השכרה', label: t('forRent') },
+    { href: '/wanted', label: t('wanted') },
+    { href: '/blog', label: t('blog') },
+    { href: '/about', label: t('about') },
+    { href: '/faq', label: t('faq') },
+  ]
 
   return (
     <header className="fixed top-0 w-full z-50" style={{ direction: 'rtl' }}>
-      <nav className="glass mx-4 mt-3 rounded-2xl px-6 py-3 flex items-center justify-between shadow-lg">
+      <nav
+        className="px-6 md:px-10 flex items-center justify-between"
+        style={{
+          height: '90px',
+          background: 'rgba(4,10,24,0.82)',
+          borderBottom: '1px solid rgba(201,168,76,0.28)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md"
-            style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}>
-            LS
-          </div>
-          <span className="font-bold text-xl" style={{ color: '#0F172A' }}>{companyName}</span>
+        <Link href="/" className="shrink-0 h-full flex items-center" style={{ margin: '3px 0' }}>
+          <Image
+            src="/logo.png"
+            alt="LS נדל״ן"
+            width={300}
+            height={300}
+            quality={100}
+            className="w-auto drop-shadow-lg"
+            style={{ height: 'calc(90px - 6px)' }}
+            priority
+          />
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">דף הבית</Link>
-          <Link href="/properties" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">נכסים</Link>
-          <Link href="/properties?deal_type=sale" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">למכירה</Link>
-          <Link href="/properties?deal_type=rent" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">להשכרה</Link>
-          <Link href="/contact" className="font-medium text-slate-600 hover:text-blue-600 transition-colors">צור קשר</Link>
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-6">
+          {!isHome && (
+            <Link
+              href="/"
+              className="text-sm font-semibold tracking-wide transition-colors hover:text-white"
+              style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+              {t('home')}
+            </Link>
+          )}
+          {LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-sm font-semibold tracking-wide transition-colors hover:text-white"
+              style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
-        {/* CTA */}
-        <div className="hidden md:block">
-          <Link href="/contact" className="btn-primary text-sm py-2 px-5">
-            📞 דבר איתנו
+        {/* CTA + phone */}
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2">
+            <a href="tel:0552702800" className="text-base font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+              055-<span style={{ color: '#C9A84C' }}>2702800</span>
+            </a>
+            <LanguageSwitcher />
+          </div>
+          <Link
+            href="/contact"
+            className="text-sm font-black px-4 py-2 rounded-lg"
+            style={{ background: '#C9A84C', color: '#0a1e3d' }}
+          >
+            {t('contact')}
           </Link>
         </div>
 
-        {/* Mobile burger */}
-        <button className="md:hidden p-2 rounded-lg text-slate-600" onClick={() => setOpen(!open)}>
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open
-              ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
-              : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>
-            }
-          </svg>
-        </button>
+        {/* Mobile: phone + flags + burger */}
+        <div className="flex lg:hidden items-center gap-3">
+          <a href="tel:0552702800" className="text-base font-bold whitespace-nowrap" style={{ color: '#fff' }}>
+            055-<span style={{ color: '#C9A84C' }}>2702800</span>
+          </a>
+          <LanguageSwitcher />
+          <button
+            className="p-2 rounded-lg"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? t('closeMenu') : t('openMenu')}
+            aria-expanded={open}
+            style={{ color: 'rgba(255,255,255,0.8)', marginTop: 14 }}
+          >
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              {open
+                ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
+                : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>
+              }
+            </svg>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       {open && (
-        <div className="glass mx-4 mt-2 rounded-2xl p-4 flex flex-col gap-3 shadow-xl md:hidden">
-          <Link href="/" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>דף הבית</Link>
-          <Link href="/properties" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>כל הנכסים</Link>
-          <Link href="/properties?deal_type=sale" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>למכירה</Link>
-          <Link href="/properties?deal_type=rent" className="font-medium text-slate-700 py-2 px-3 rounded-lg hover:bg-blue-50" onClick={() => setOpen(false)}>להשכרה</Link>
-          <Link href="/contact" className="btn-primary text-center" onClick={() => setOpen(false)}>צור קשר</Link>
+        <div
+          className="lg:hidden flex flex-col gap-1 px-4 py-3"
+          style={{ background: 'rgba(4,10,24,0.96)', border: '1px solid rgba(201,168,76,0.2)', margin: '0 16px', borderRadius: 16, marginTop: 8 }}
+        >
+          {!isHome && (
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="py-3 px-4 rounded-xl text-base font-semibold"
+              style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+              {t('home')}
+            </Link>
+          )}
+          {LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="py-3 px-4 rounded-xl text-base font-semibold"
+              style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 text-center font-black text-sm py-3 px-4 rounded-xl"
+            style={{ background: '#C9A84C', color: '#0a1e3d' }}
+          >
+            {t('contact')}
+          </Link>
         </div>
       )}
     </header>

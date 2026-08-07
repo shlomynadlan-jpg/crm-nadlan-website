@@ -1,17 +1,21 @@
-import Link from 'next/link'
+'use client'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
-import { Property, getPropertyImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { Property, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { useTranslations } from 'next-intl'
 
 export default function PropertyCard({ p }: { p: Property }) {
+  const t = useTranslations()
   const img = getPropertyImage(p)
+  const isAI = isPlaceholderImage(p)
   const types = getPropertyTypes(p)
   const deal = p.deal_type || ''
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
   const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
   const isSale = deal.includes('מכירה') && !deal.includes('השכרה')
-  const priceLabel = isRent ? 'שכ"ד חודשי' : isBoth ? 'מכירה / שכירות' : 'מחיר מכירה'
+  const priceLabel = isRent ? t('deal.rentPrice') : isBoth ? t('deal.saleOrRent') : t('deal.salePrice')
   const price = isRent ? p.rent_price : p.price
-  const badgeText = isRent ? 'להשכרה' : isBoth ? 'מכירה והשכרה' : 'למכירה'
+  const badgeText = isRent ? t('deal.forRent') : isBoth ? t('deal.both') : t('deal.forSale')
   const badgeColor = isRent ? '#0077B6' : isBoth ? '#7C3AED' : '#C9A84C'
 
   return (
@@ -26,6 +30,12 @@ export default function PropertyCard({ p }: { p: Property }) {
             className="object-cover transition-transform duration-500 hover:scale-105"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
+          {/* Watermark — only on real uploaded images */}
+          {!isAI && (
+            <div className="absolute top-2 left-2 pointer-events-none">
+              <Image src="/logo.png" alt="" width={56} height={56} style={{ width: 56, height: 'auto', filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.4))' }} />
+            </div>
+          )}
           {/* Badge */}
           <div className="absolute top-3 right-3">
             <span className="text-xs font-semibold px-3 py-1 rounded-full text-white shadow-md"
@@ -33,10 +43,31 @@ export default function PropertyCard({ p }: { p: Property }) {
               {badgeText}
             </span>
           </div>
-          {types && (
-            <div className="absolute top-3 left-3">
-              <span className="text-xs font-medium px-3 py-1 rounded-full bg-white/90 text-slate-700 shadow-sm">
-                {types}
+          {/* Property ID — bottom left on image */}
+          <div className="absolute bottom-2 left-3">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-full" style={{ background: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(4px)' }}>
+              #{p.id}
+            </span>
+          </div>
+          {/* Exclusivity badge — show only if active (no expiry or future expiry) */}
+          {p.exclusivity && (!p.exclusivity_until || new Date(p.exclusivity_until) >= new Date()) && (
+            <div className="absolute bottom-2 right-3">
+              <span
+                className="text-xs font-bold px-2.5 py-1 rounded-full shadow-md"
+                style={{ background: '#DC2626', color: '#fff' }}
+              >
+                {t('card.exclusive')}
+              </span>
+            </div>
+          )}
+          {/* AI placeholder label */}
+          {isAI && (
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-2">
+              <span
+                className="text-xs px-3 py-1 rounded-full"
+                style={{ background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(4px)' }}
+              >
+                {t('card.aiDisclaimer')}
               </span>
             </div>
           )}
@@ -44,25 +75,28 @@ export default function PropertyCard({ p }: { p: Property }) {
 
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
-          <h3 className="font-semibold text-slate-900 text-base mb-1 line-clamp-1">
-            {p.property_address && p.city ? `${p.property_address}, ${p.city}` : p.city}
+          <h3 className="font-semibold text-slate-900 text-base line-clamp-1 mb-1">
+            {p.city}
           </h3>
+          {types && (
+            <span className="text-xs font-medium text-slate-500 mb-1">{types}</span>
+          )}
 
           {/* Specs row */}
           <div className="flex items-center gap-4 text-slate-500 text-sm my-3">
             {p.gross_size && (
               <span className="flex items-center gap-1">
-                <span>📐</span> {p.gross_size} מ״ר
+                <span>📐</span> {p.gross_size} {t('card.sqm')}
               </span>
             )}
             {p.rooms && (
               <span className="flex items-center gap-1">
-                <span>🚪</span> {p.rooms} חד׳
+                <span>🚪</span> {p.rooms} {t('card.rooms')}
               </span>
             )}
             {p.floor != null && (
               <span className="flex items-center gap-1">
-                <span>🏢</span> קומה {p.floor}
+                <span>🏢</span> {t('card.floor')} {p.floor}
               </span>
             )}
             {p.parking_count != null && p.parking_count > 0 && (
@@ -74,14 +108,35 @@ export default function PropertyCard({ p }: { p: Property }) {
 
           {/* Price */}
           <div className="mt-auto pt-3 border-t border-slate-100 flex items-end justify-between">
-            <div>
-              <p className="text-xs text-slate-400 mb-0.5">{priceLabel}</p>
-              <p className="font-bold text-lg" style={{ color: '#0077B6' }}>
-                {formatPrice(price)}
-              </p>
+            <div className="flex flex-col gap-1">
+              {p.hide_price ? (
+                <p className="font-bold text-base text-slate-400">{t('deal.priceOnRequest')}</p>
+              ) : isBoth ? (
+                <>
+                  <div>
+                    <p className="text-xs text-slate-400">{t('deal.salePrice')}</p>
+                    <p className="font-bold text-base" style={{ color: '#C9A84C' }}>
+                      {formatPrice(p.price)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">{t('deal.rentPrice')}</p>
+                    <p className="font-bold text-base" style={{ color: '#0077B6' }}>
+                      {formatPrice(p.rent_price)}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <p className="text-xs text-slate-400 mb-0.5">{priceLabel}</p>
+                  <p className="font-bold text-lg" style={{ color: isRent ? '#0077B6' : '#C9A84C' }}>
+                    {formatPrice(price)}
+                  </p>
+                </div>
+              )}
             </div>
             <span className="text-xs font-medium text-blue-600 hover:underline">
-              פרטים ←
+              {t('card.details')}
             </span>
           </div>
         </div>

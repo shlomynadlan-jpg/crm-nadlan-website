@@ -1,24 +1,28 @@
 'use client'
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
 import SearchBar from '@/components/SearchBar'
 import { getProperties, Property } from '@/lib/properties'
 
-function PropertiesContent() {
+export default function PropertiesContent({ initialProperties }: { initialProperties: Property[] }) {
   const params = useSearchParams()
-  const [properties, setProperties] = useState<Property[]>([])
-  const [loading, setLoading] = useState(true)
+  const [properties, setProperties] = useState<Property[]>(initialProperties)
+  const [loading, setLoading] = useState(false)
   const [sizeMin, setSizeMin] = useState('')
   const [sizeMax, setSizeMax] = useState('')
+  const firstRun = useRef(true)
 
   const city = params.get('city') || ''
   const propertyType = params.get('property_type') || ''
   const dealType = params.get('deal_type') || ''
 
   useEffect(() => {
+    // Initial data comes server-rendered for the same URL params — skip the first fetch
+    if (firstRun.current) {
+      firstRun.current = false
+      return
+    }
     setLoading(true)
     getProperties({ city, deal_type: dealType, size_min: sizeMin ? Number(sizeMin) : undefined, size_max: sizeMax ? Number(sizeMax) : undefined })
       .then(data => {
@@ -83,12 +87,12 @@ function PropertiesContent() {
           <SearchBar inline />
           <div className="flex gap-3 mt-3 flex-wrap">
             <input
-              type="number" placeholder="שטח מינימום (מ״ר)"
+              type="number" placeholder="שטח מינימום (מ״ר)" aria-label="שטח מינימום במטרים רבועים"
               value={sizeMin} onChange={e => setSizeMin(e.target.value)}
               className="flex-1 min-w-[160px] px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <input
-              type="number" placeholder="שטח מקסימום (מ״ר)"
+              type="number" placeholder="שטח מקסימום (מ״ר)" aria-label="שטח מקסימום במטרים רבועים"
               value={sizeMax} onChange={e => setSizeMax(e.target.value)}
               className="flex-1 min-w-[160px] px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -128,18 +132,6 @@ function PropertiesContent() {
           </div>
         )}
       </div>
-    </>
-  )
-}
-
-export default function PropertiesPage() {
-  return (
-    <>
-      <Navbar />
-      <Suspense fallback={<div className="pt-28 text-center p-20 text-slate-400">טוען...</div>}>
-        <PropertiesContent />
-      </Suspense>
-      <Footer />
     </>
   )
 }

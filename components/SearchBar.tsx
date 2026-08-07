@@ -1,9 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { getCities, getAvailablePropertyTypes } from '@/lib/properties'
 
 export default function SearchBar({ inline = false }: { inline?: boolean }) {
+  const t = useTranslations('search')
   const router = useRouter()
   const [cities, setCities] = useState<string[]>([])
   const [propertyTypes, setPropertyTypes] = useState<string[]>([])
@@ -29,21 +31,21 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
   if (inline) {
     return (
       <div className="flex flex-wrap gap-3 items-end">
-        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle}>
-          <option value="">כל הערים</option>
+        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle} aria-label={t('cityAriaLabel')}>
+          <option value="">{t('allCities')}</option>
           {cities.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
-          <option value="">כל סוגי הנכסים</option>
-          {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
+        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle} aria-label={t('typeAriaLabel')}>
+          <option value="">{t('allTypes')}</option>
+          {propertyTypes.map(propType => <option key={propType} value={propType}>{propType}</option>)}
         </select>
-        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
-          <option value="">מכירה / השכרה</option>
-          <option value="מכירה">למכירה</option>
-          <option value="השכרה">להשכרה</option>
+        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle} aria-label={t('dealAriaLabel')}>
+          <option value="">{t('allDeals')}</option>
+          <option value="מכירה">{t('forSale')}</option>
+          <option value="השכרה">{t('forRent')}</option>
         </select>
         <button onClick={handleSearch} className="btn-primary text-sm py-3 px-6 whitespace-nowrap">
-          🔍 חפש
+          {t('searchBtn')}
         </button>
       </div>
     )
@@ -52,21 +54,21 @@ export default function SearchBar({ inline = false }: { inline?: boolean }) {
   return (
     <div className="glass rounded-2xl p-5 shadow-xl w-full max-w-3xl mx-auto">
       <div className="flex flex-wrap gap-3 items-end">
-        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle}>
-          <option value="">📍 כל הערים</option>
+        <select value={city} onChange={e => setCity(e.target.value)} className={selectStyle} aria-label={t('cityAriaLabel')}>
+          <option value="">{t('allCities')}</option>
           {cities.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle}>
-          <option value="">🏢 סוג נכס</option>
-          {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
+        <select value={type} onChange={e => setType(e.target.value)} className={selectStyle} aria-label={t('typeAriaLabel')}>
+          <option value="">{t('allTypes')}</option>
+          {propertyTypes.map(propType => <option key={propType} value={propType}>{propType}</option>)}
         </select>
-        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle}>
-          <option value="">💼 עסקה</option>
-          <option value="מכירה">למכירה</option>
-          <option value="השכרה">להשכרה</option>
+        <select value={dealType} onChange={e => setDealType(e.target.value)} className={selectStyle} aria-label={t('dealAriaLabel')}>
+          <option value="">{t('allDeals')}</option>
+          <option value="מכירה">{t('forSale')}</option>
+          <option value="השכרה">{t('forRent')}</option>
         </select>
         <button onClick={handleSearch} className="btn-primary py-3 px-8 text-sm whitespace-nowrap">
-          🔍 חפש נכסים
+          {t('searchPropertiesBtn')}
         </button>
       </div>
     </div>
