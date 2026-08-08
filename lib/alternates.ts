@@ -7,6 +7,7 @@ export function buildAlternates(path: string) {
       'he': `${BASE}/he${path}`,
       'en': `${BASE}/en${path}`,
       'fr': `${BASE}/fr${path}`,
+      'ru': `${BASE}/ru${path}`,
       'x-default': `${BASE}/he${path}`,
     },
   }

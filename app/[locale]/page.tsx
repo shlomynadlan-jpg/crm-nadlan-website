@@ -10,11 +10,12 @@ import { Link } from '@/i18n/navigation'
 import { getProperties, getPropertyRequests } from '@/lib/properties'
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/alternates'
 
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  alternates: { canonical: '/' },
+  alternates: buildAlternates('/'),
 }
 
 export default async function HomePage() {
@@ -102,6 +103,46 @@ export default async function HomePage() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── About + Service Areas (SEO content) ── */}
+        <section className="py-16 px-6" style={{ background: '#fff', borderTop: '1px solid #edf2f8' }}>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
+              {t('home.aboutLabel')}
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black mb-6" style={{ color: '#0a1e3d' }}>
+              {t('home.aboutTitle')}
+            </h2>
+            <p className="text-base md:text-lg leading-relaxed mb-5" style={{ color: '#3d5875' }}>
+              {t('home.aboutP1')}
+            </p>
+            <p className="text-base md:text-lg leading-relaxed mb-12" style={{ color: '#3d5875' }}>
+              {t('home.aboutP2')}
+            </p>
+
+            <p className="text-sm font-bold tracking-widest uppercase mb-2" style={{ color: '#C9A84C' }}>
+              {t('home.areasLabel')}
+            </p>
+            <h3 className="text-2xl md:text-3xl font-black mb-4" style={{ color: '#0a1e3d' }}>
+              {t('home.areasTitle')}
+            </h3>
+            <p className="text-base leading-relaxed mb-6" style={{ color: '#3d5875' }}>
+              {t('home.areasIntro')}
+            </p>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 list-none">
+              {['cityPT','cityRE','cityBB','cityTA','cityHS','cityOno','cityHer','cityRLZ'].map(k => (
+                <li
+                  key={k}
+                  className="flex items-start gap-2 p-3 rounded-lg"
+                  style={{ background: '#f4f8fd', border: '1px solid #e2ecf7', color: '#2d5a80' }}
+                >
+                  <span style={{ color: '#C9A84C' }}>◆</span>
+                  <span className="text-sm font-medium">{t(`home.${k}`)}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

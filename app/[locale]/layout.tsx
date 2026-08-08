@@ -46,9 +46,9 @@ const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'LS נדל"ן',
-  alternateName: 'LS Real Estate',
+  alternateName: ['LS Real Estate', 'LS Nadlan', 'נדלן נאו'],
   url: BASE,
-  inLanguage: ['he', 'en', 'fr'],
+  inLanguage: ['he', 'en', 'fr', 'ru'],
   potentialAction: {
     '@type': 'SearchAction',
     target: `${BASE}/he/properties?city={search_term_string}`,
@@ -56,23 +56,47 @@ const websiteJsonLd = {
   },
 }
 
+const SERVICE_AREAS = [
+  'פתח תקווה', 'ראש העין', 'בני ברק', 'תל אביב', 'הוד השרון',
+  'כפר סבא', 'קריית אונו', 'אור יהודה', 'יהוד', 'הרצליה',
+  'ראשון לציון', 'גבעת שמואל', 'רמת גן',
+]
+
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
+  '@id': `${BASE}/#organization`,
   name: 'LS נדל"ן',
+  alternateName: ['LS Real Estate', 'LS Nadlan'],
   url: BASE,
+  logo: `${BASE}/logo.png`,
+  image: `${BASE}/logo.png`,
   telephone: '+972-55-2702800',
   email: 'info@nadlannow.co.il',
-  areaServed: { '@type': 'Country', name: 'Israel' },
-  knowsLanguage: ['he', 'en', 'fr'],
+  priceRange: '₪₪',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'פתח תקווה',
+    addressRegion: 'מחוז המרכז',
+    addressCountry: 'IL',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'ישראל' },
+    ...SERVICE_AREAS.map(city => ({ '@type': 'City', name: city })),
+  ],
+  knowsLanguage: ['he', 'en', 'fr', 'ru'],
   openingHoursSpecification: [
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '13:00' },
   ],
-  makesOffer: {
-    '@type': 'Offer',
-    itemOffered: { '@type': 'Service', name: 'תיווך נכסים מסחריים ומגורים — מכירה והשכרה' },
-  },
+  makesOffer: [
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך משרדים למכירה ולהשכרה' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך חנויות ושטחי מסחר' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך מחסנים ולוגיסטיקה' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך שטחי תעשייה' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך קרקעות מסחריות' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך דירות מגורים' } },
+  ],
 }
 
 export default async function LocaleLayout({

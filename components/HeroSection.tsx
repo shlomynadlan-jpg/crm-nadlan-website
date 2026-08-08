@@ -349,7 +349,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
               className="font-black leading-tight mb-6"
               style={{ fontSize: 'clamp(48px, 6.5vw, 86px)', color: '#fff', letterSpacing: '-2px', textShadow: '0 4px 32px rgba(0,0,0,0.7)', minHeight: 'clamp(180px, 27vw, 325px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
             >
-              <span>{t('hero.title1')}</span>
+              <span>{t('hero.title1')}</span>{' '}
               <span><RotatingWord words={rotatingWords} /></span>
             </h1>
 

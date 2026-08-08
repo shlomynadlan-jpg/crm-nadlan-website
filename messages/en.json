@@ -99,7 +99,22 @@
     "wantedTitle": "Wanted Properties",
     "wantedSubtitle": "Our clients are searching — do you have a matching property?",
     "wantedViewAll": "All requests →",
-    "wantedViewCount": "View all {count} requests →"
+    "wantedViewCount": "View all {count} requests →",
+    "aboutLabel": "Who we are",
+    "aboutTitle": "LS Real Estate — Commercial Property Brokerage in Central Israel",
+    "aboutP1": "At LS Real Estate we specialize in brokering commercial and residential properties in central Israel — offices, retail, warehouses, industrial spaces and land. After 7+ years and more than 200 closed deals, we've built a deep network with property owners, developers and business owners — and the hands-on know-how to bring clients the right property, not just the available one.",
+    "aboutP2": "Our base is in Petah Tikva, and most of our activity runs along the Petah Tikva–Rosh HaAyin–Bnei Brak–Tel Aviv corridor. We also work in Hod HaSharon, Kfar Saba, Kiryat Ono, Or Yehuda, Yehud, Herzliya, Rishon LeZion, Givat Shmuel and Ramat Gan — and anywhere in the country when the request calls for it. Service is provided in Hebrew, English, French and Russian.",
+    "areasLabel": "Service areas",
+    "areasTitle": "Where we find your next property",
+    "areasIntro": "Most of our inventory concentrates in the following areas — for each one we know the buildings, the price points and the off-market opportunities:",
+    "cityPT": "Petah Tikva — Kiryat Matalon, Segula, Kiryat Aryeh",
+    "cityRE": "Rosh HaAyin — Afek Park and the industrial zone",
+    "cityBB": "Bnei Brak — Jabotinsky axis and BBC towers",
+    "cityTA": "Tel Aviv — north Tel Aviv and office districts",
+    "cityHS": "Hod HaSharon and Kfar Saba — offices and retail",
+    "cityOno": "Bikat Ono — Kiryat Ono, Or Yehuda, Yehud",
+    "cityHer": "Herzliya — Herzliya Pituach and Glilot area",
+    "cityRLZ": "Rishon LeZion and surroundings — retail and industry"
   },
   "why": {
     "profTitle": "Professionalism & Precision",

@@ -99,7 +99,22 @@
     "wantedTitle": "Propriétés Recherchées",
     "wantedSubtitle": "Nos clients cherchent — avez-vous un bien correspondant ?",
     "wantedViewAll": "Toutes les demandes →",
-    "wantedViewCount": "Voir les {count} demandes →"
+    "wantedViewCount": "Voir les {count} demandes →",
+    "aboutLabel": "Qui sommes-nous",
+    "aboutTitle": "LS Immobilier — courtage immobilier commercial au centre d'Israël",
+    "aboutP1": "Chez LS Immobilier, nous sommes spécialisés dans le courtage de biens commerciaux et résidentiels au centre d'Israël — bureaux, commerces, entrepôts, espaces industriels et terrains. Après 7+ ans d'activité et plus de 200 transactions conclues, nous avons construit un réseau étroit avec propriétaires, promoteurs et chefs d'entreprise — et le savoir-faire concret pour apporter au client le bon bien, pas seulement celui disponible.",
+    "aboutP2": "Notre base est à Petah Tikva, et l'essentiel de notre activité se déroule sur l'axe Petah Tikva–Rosh HaAyin–Bnei Brak–Tel-Aviv. Nous intervenons aussi à Hod HaSharon, Kfar Saba, Kiryat Ono, Or Yehuda, Yehud, Herzliya, Rishon LeZion, Givat Shmuel et Ramat Gan — et partout dans le pays si la demande le justifie. Service en hébreu, anglais, français et russe.",
+    "areasLabel": "Zones d'activité",
+    "areasTitle": "Où nous trouvons votre prochain bien",
+    "areasIntro": "L'essentiel de notre portefeuille se concentre dans les zones suivantes — pour chacune nous connaissons les bâtiments, les prix et les opportunités hors marché :",
+    "cityPT": "Petah Tikva — Kiryat Matalon, Segula, Kiryat Aryeh",
+    "cityRE": "Rosh HaAyin — Parc Afek et zone industrielle",
+    "cityBB": "Bnei Brak — axe Jabotinsky et tours BBC",
+    "cityTA": "Tel-Aviv — nord de Tel-Aviv et quartiers de bureaux",
+    "cityHS": "Hod HaSharon et Kfar Saba — bureaux et commerces",
+    "cityOno": "Bikat Ono — Kiryat Ono, Or Yehuda, Yehud",
+    "cityHer": "Herzliya — Herzliya Pituach et zone Glilot",
+    "cityRLZ": "Rishon LeZion et environs — commerce et industrie"
   },
   "why": {
     "profTitle": "Professionnalisme & Précision",
