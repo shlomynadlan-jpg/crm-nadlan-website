@@ -47,7 +47,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'אודות LS נדל"ן',
     subtitle: 'מי אנחנו ואיך אנחנו עובדים',
     whoTitle: 'מי אנחנו',
-    whoPara: 'LS נדל״ן נוסדה בשנת 2019 על ידי שלומי לימור (רישיון תיווך מס׳ 3151306). החברה מתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ, ומלווה בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
+    whoPara: 'LS נדל״ן נוסדה בשנת 2019 על ידי שלומי לימור ולימור קטיעי חיון. החברה מתמחה בנכסים מסחריים ובנכסי מגורים ברחבי מרכז הארץ, ומלווה בעלי נכסים, שוכרים, רוכשים ומשקיעים — מהחיפוש הראשון ועד חתימת ההסכם.',
     specTitle: 'במה אנחנו מתמחים',
     specItems: [
       { bold: 'משרדים', text: ' — השכרה ומכירה של שטחי משרדים, ממשרדי בוטיק ועד קומות שלמות במגדלים.' },
@@ -76,7 +76,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'About LS Real Estate',
     subtitle: 'Who we are and how we work',
     whoTitle: 'Who We Are',
-    whoPara: 'LS Real Estate was founded in 2019 by Shlomi Limor (broker license no. 3151306). The company specializes in commercial and residential properties across central Israel, guiding property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
+    whoPara: 'LS Real Estate was founded in 2019 by Shlomi Limor and Limor Katieh Hiyon. The company specializes in commercial and residential properties across central Israel, guiding property owners, tenants, buyers, and investors — from the first search to signing the agreement.',
     specTitle: 'Our Specialties',
     specItems: [
       { bold: 'Offices', text: ' — Rental and sale of office spaces, from boutique offices to full floors in towers.' },
@@ -105,7 +105,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'О компании LS Недвижимость',
     subtitle: 'Кто мы и как работаем',
     whoTitle: 'Кто мы',
-    whoPara: 'LS Недвижимость основана в 2019 году Шломи Лимором (лицензия брокера №3151306). Компания специализируется на коммерческой и жилой недвижимости по всему центральному Израилю и сопровождает владельцев, арендаторов, покупателей и инвесторов — от первого поиска до подписания договора.',
+    whoPara: 'LS Недвижимость основана в 2019 году Шломи Лимором и Лимор Катье Хийон. Компания специализируется на коммерческой и жилой недвижимости по всему центральному Израилю и сопровождает владельцев, арендаторов, покупателей и инвесторов — от первого поиска до подписания договора.',
     specTitle: 'Наши специализации',
     specItems: [
       { bold: 'Офисы', text: ' — аренда и продажа офисных помещений, от небольших офисов до целых этажей в башнях.' },
@@ -134,7 +134,7 @@ const CONTENT: Record<string, ContentMap> = {
     title: 'À Propos de LS Immobilier',
     subtitle: 'Qui sommes-nous et comment nous travaillons',
     whoTitle: 'Qui Sommes-Nous',
-    whoPara: 'LS Immobilier a été fondée en 2019 par Shlomi Limor (licence d\'agent n° 3151306). L\'agence est spécialisée dans les biens commerciaux et résidentiels en Israël et accompagne propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
+    whoPara: 'LS Immobilier a été fondée en 2019 par Shlomi Limor et Limor Katieh Hiyon. L\'agence est spécialisée dans les biens commerciaux et résidentiels en Israël et accompagne propriétaires, locataires, acheteurs et investisseurs — de la première recherche jusqu\'à la signature du contrat.',
     specTitle: 'Nos Spécialités',
     specItems: [
       { bold: 'Bureaux', text: ' — Location et vente de bureaux, des petits espaces aux étages entiers en tour.' },
