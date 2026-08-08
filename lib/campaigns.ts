@@ -41,8 +41,7 @@ export async function getCampaignBySlug(slug: string): Promise<CampaignWithPrope
     .from('campaigns')
     .update({ views: (data.views || 0) + 1 })
     .eq('id', data.id)
-    .then(() => {})
-    .catch(() => {})
+    .then(() => {}, () => {})
 
   return data as CampaignWithProperty
 }
