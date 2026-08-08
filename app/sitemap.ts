@@ -6,7 +6,7 @@ import { citySlug } from '@/lib/cities'
 export const revalidate = 3600
 
 const BASE = 'https://www.nadlannow.co.il'
-const LOCALES = ['he', 'en', 'fr']
+const LOCALES = ['he', 'en', 'fr', 'ru']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = ['', '/properties', '/wanted', '/about', '/faq', '/contact', '/blog', '/accessibility', '/privacy', '/terms']

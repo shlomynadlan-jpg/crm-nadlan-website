@@ -128,9 +128,20 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
     })),
   }
 
+  const homeLabels: Record<string, string> = { he: 'דף הבית', en: 'Home', fr: 'Accueil', ru: 'Главная' }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: homeLabels[locale] ?? homeLabels.he, item: `https://www.nadlannow.co.il/${locale}` },
+      { '@type': 'ListItem', position: 2, name: title },
+    ],
+  }
+
   return (
     <LegalPage title={title} subtitle={subtitle}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {faqs.map(f => (
         <section key={f.q}>
           <h2>{f.q}</h2>

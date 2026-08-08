@@ -22,13 +22,38 @@ function formatDate(iso: string, locale = 'he') {
   return new Date(iso).toLocaleDateString(map[locale] ?? 'he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
+const BASE_URL = 'https://www.nadlannow.co.il'
+const HOME_LABEL_BLOG: Record<string, string> = { he: 'דף הבית', en: 'Home', fr: 'Accueil', ru: 'Главная' }
+
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = await getTranslations('blog')
   const [featured, ...rest] = getLocalizedArticles(locale)
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: HOME_LABEL_BLOG[locale] ?? HOME_LABEL_BLOG.he, item: `${BASE_URL}/${locale}` },
+      { '@type': 'ListItem', position: 2, name: t('title') },
+    ],
+  }
+
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: [featured, ...rest].map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${BASE_URL}/${locale}/blog/${a.slug}`,
+      name: a.title,
+    })),
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <Navbar />
       <main id="main">
         {/* Header */}

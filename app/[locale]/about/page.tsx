@@ -161,14 +161,28 @@ const CONTENT: Record<string, ContentMap> = {
   },
 }
 
+const BASE = 'https://www.nadlannow.co.il'
+
+const HOME_LABEL: Record<string, string> = { he: 'דף הבית', en: 'Home', fr: 'Accueil', ru: 'Главная' }
+
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const c = CONTENT[locale] ?? CONTENT.he
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: HOME_LABEL[locale] ?? HOME_LABEL.he, item: `${BASE}/${locale}` },
+      { '@type': 'ListItem', position: 2, name: c.title },
+    ],
+  }
+
   return (
     <LegalPage title={c.title} subtitle={c.subtitle}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <h2>{c.whoTitle}</h2>
       <p>{c.whoPara}</p>
 
