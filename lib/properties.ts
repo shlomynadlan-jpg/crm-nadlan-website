@@ -94,6 +94,20 @@ export async function getCities(): Promise<string[]> {
   return cities.sort()
 }
 
+function parsePropertyTypeString(raw: string): string[] {
+  const trimmed = raw.trim()
+  // handle ["משרדים"] or ["א","ב"] format
+  if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+    try {
+      const parsed = JSON.parse(trimmed)
+      if (Array.isArray(parsed)) return parsed.map((s: string) => String(s).trim()).filter(Boolean)
+    } catch {
+      // fall through to slash split
+    }
+  }
+  return trimmed.split('/').map(s => s.trim()).filter(Boolean)
+}
+
 export async function getAvailablePropertyTypes(): Promise<string[]> {
   const { data } = await supabase
     .from('properties')
@@ -105,11 +119,8 @@ export async function getAvailablePropertyTypes(): Promise<string[]> {
   const typesSet = new Set<string>()
   data.forEach(row => {
     if (!row.property_type) return
-    const raw = Array.isArray(row.property_type) ? row.property_type.join('/') : row.property_type
-    raw.split('/').forEach((t: string) => {
-      const trimmed = t.trim()
-      if (trimmed) typesSet.add(trimmed)
-    })
+    const raw = Array.isArray(row.property_type) ? row.property_type.join('/') : String(row.property_type)
+    parsePropertyTypeString(raw).forEach(t => typesSet.add(t))
   })
   return Array.from(typesSet).sort()
 }
