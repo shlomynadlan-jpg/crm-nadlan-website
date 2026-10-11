@@ -7,8 +7,11 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { articles, getLocalizedArticle, getLocalizedArticles, AUTHOR, type ArticleBlock } from '@/lib/articles'
 import { buildAlternates } from '@/lib/alternates'
+import { fetchCmsArticle, mdToHtml } from '@/lib/cms-articles'
 
 const BASE = 'https://www.nadlannow.co.il'
+
+export const dynamicParams = true
 
 export function generateStaticParams() {
   return articles.map(a => ({ slug: a.slug }))
@@ -17,6 +20,26 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: string }> }): Promise<Metadata> {
   const t = await getTranslations('blog')
   const { slug, locale } = await params
+
+  if (slug.startsWith('cms-')) {
+    const cmsSlug = slug.slice(4)
+    const cmsArticle = await fetchCmsArticle(cmsSlug)
+    if (!cmsArticle) return { title: t('notFound') }
+    return {
+      title: cmsArticle.title,
+      description: cmsArticle.excerpt ?? undefined,
+      alternates: buildAlternates(`/blog/${slug}`),
+      openGraph: {
+        title: cmsArticle.title,
+        description: cmsArticle.excerpt ?? undefined,
+        type: 'article',
+        publishedTime: cmsArticle.published_at ?? cmsArticle.created_at,
+        authors: [AUTHOR],
+        locale: 'he_IL',
+      },
+    }
+  }
+
   const article = getLocalizedArticle(slug, locale)
   if (!article) return { title: t('notFound') }
   return {
@@ -61,6 +84,60 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const t = await getTranslations('blog')
   const tNav = await getTranslations('nav')
   const { slug, locale } = await params
+
+  // CMS (dynamic) article
+  if (slug.startsWith('cms-')) {
+    const cmsSlug = slug.slice(4)
+    const cmsArticle = await fetchCmsArticle(cmsSlug)
+    if (!cmsArticle) notFound()
+    const publishedDate = new Date(cmsArticle.published_at ?? cmsArticle.created_at)
+      .toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
+    return (
+      <>
+        <Navbar />
+        <main id="main">
+          <div className="pt-28 pb-10 px-6" style={{ background: 'linear-gradient(135deg, #0F172A, #0077B6)' }}>
+            <div className="max-w-3xl mx-auto text-white">
+              <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center gap-2">
+                <Link href="/" className="hover:text-white">{tNav('home')}</Link>
+                <span aria-hidden="true">›</span>
+                <Link href="/blog" className="hover:text-white">{t('breadcrumbBlog')}</Link>
+              </nav>
+              <div className="flex gap-2 flex-wrap mb-4">
+                {cmsArticle.tags?.slice(0, 4).map(tag => (
+                  <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
+                ))}
+              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
+              <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
+            </div>
+          </div>
+          <article className="max-w-3xl mx-auto px-6 py-14">
+            <div
+              dir="rtl"
+              className="prose-article"
+              dangerouslySetInnerHTML={{ __html: mdToHtml(cmsArticle.content) }}
+            />
+            <div className="mt-14 bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-center gap-5">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-xl shrink-0"
+                style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }}>
+                של
+              </div>
+              <div>
+                <p className="font-bold text-slate-900">{AUTHOR}</p>
+                <p className="text-sm text-slate-500">
+                  {t('authorBio')}{' '}
+                  <Link href="/contact" className="text-blue-600 hover:underline">{t('talkToMe')}</Link>
+                </p>
+              </div>
+            </div>
+          </article>
+        </main>
+        <Footer />
+      </>
+    )
+  }
+
   const article = getLocalizedArticle(slug, locale)
   if (!article) notFound()
 

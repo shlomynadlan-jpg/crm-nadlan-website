@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getLocalizedArticles, AUTHOR } from '@/lib/articles'
 import { buildAlternates } from '@/lib/alternates'
+import { fetchCmsArticles, type CmsArticle } from '@/lib/cms-articles'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('blog')
@@ -29,6 +30,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = await getTranslations('blog')
   const [featured, ...rest] = getLocalizedArticles(locale)
+  const cmsArticles = await fetchCmsArticles()
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -127,6 +129,38 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </Link>
             ))}
           </div>
+
+          {/* Dynamic CMS articles from BlogPilot */}
+          {cmsArticles.length > 0 && (
+            <div className="mt-14">
+              <h2 className="text-2xl font-bold text-slate-900 mb-8">מאמרים חדשים</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {cmsArticles.map((a: CmsArticle) => (
+                  <Link key={a.slug} href={`/blog/cms-${a.slug}`} className="group block">
+                    <article className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover h-full flex flex-col p-7">
+                      <div className="flex gap-2 flex-wrap mb-3">
+                        {a.tags?.slice(0, 3).map(tag => (
+                          <span key={tag} className="text-[11px] bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full">{tag}</span>
+                        ))}
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors flex-1">
+                        {a.title}
+                      </h3>
+                      {a.excerpt && (
+                        <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">{a.excerpt}</p>
+                      )}
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="text-sm text-slate-400">
+                          {new Date(a.published_at ?? a.created_at).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </span>
+                        <span className="text-blue-600 font-semibold text-sm">{t('readMore')}</span>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* CTA */}
           <div className="mt-16 rounded-3xl p-10 text-center text-white"
