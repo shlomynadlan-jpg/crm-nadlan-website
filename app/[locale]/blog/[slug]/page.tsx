@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         publishedTime: cmsArticle.published_at ?? cmsArticle.created_at,
         authors: [AUTHOR],
         locale: 'he_IL',
+        ...(cmsArticle.image_url ? { images: [{ url: cmsArticle.image_url, width: 1792, height: 1024 }] } : {}),
       },
     }
   }
@@ -96,22 +97,45 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <>
         <Navbar />
         <main id="main">
-          <div className="pt-28 pb-10 px-6" style={{ background: 'linear-gradient(135deg, #0F172A, #0077B6)' }}>
-            <div className="max-w-3xl mx-auto text-white">
-              <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center gap-2">
-                <Link href="/" className="hover:text-white">{tNav('home')}</Link>
-                <span aria-hidden="true">›</span>
-                <Link href="/blog" className="hover:text-white">{t('breadcrumbBlog')}</Link>
-              </nav>
-              <div className="flex gap-2 flex-wrap mb-4">
-                {cmsArticle.tags?.slice(0, 4).map(tag => (
-                  <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
-                ))}
+          {cmsArticle.image_url ? (
+            <div className="relative h-[420px] md:h-[480px]">
+              <Image src={cmsArticle.image_url} alt={cmsArticle.title} fill className="object-cover" priority sizes="100vw" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.35) 60%, rgba(15,23,42,0.45) 100%)' }} />
+              <div className="absolute bottom-0 right-0 left-0 pb-10 px-6">
+                <div className="max-w-3xl mx-auto text-white">
+                  <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center gap-2">
+                    <Link href="/" className="hover:text-white">{tNav('home')}</Link>
+                    <span aria-hidden="true">›</span>
+                    <Link href="/blog" className="hover:text-white">{t('breadcrumbBlog')}</Link>
+                  </nav>
+                  <div className="flex gap-2 flex-wrap mb-4">
+                    {cmsArticle.tags?.slice(0, 4).map(tag => (
+                      <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
+                    ))}
+                  </div>
+                  <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
+                  <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
+                </div>
               </div>
-              <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
-              <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
             </div>
-          </div>
+          ) : (
+            <div className="pt-28 pb-10 px-6" style={{ background: 'linear-gradient(135deg, #0F172A, #0077B6)' }}>
+              <div className="max-w-3xl mx-auto text-white">
+                <nav aria-label="ניווט משני" className="text-sm text-blue-200 mb-4 flex items-center gap-2">
+                  <Link href="/" className="hover:text-white">{tNav('home')}</Link>
+                  <span aria-hidden="true">›</span>
+                  <Link href="/blog" className="hover:text-white">{t('breadcrumbBlog')}</Link>
+                </nav>
+                <div className="flex gap-2 flex-wrap mb-4">
+                  {cmsArticle.tags?.slice(0, 4).map(tag => (
+                    <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
+                  ))}
+                </div>
+                <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
+                <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
+              </div>
+            </div>
+          )}
           <article className="max-w-3xl mx-auto px-6 py-14">
             <div
               dir="rtl"

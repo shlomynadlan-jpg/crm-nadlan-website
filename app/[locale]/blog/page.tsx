@@ -137,23 +137,36 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {cmsArticles.map((a: CmsArticle) => (
                   <Link key={a.slug} href={`/blog/cms-${a.slug}`} className="group block">
-                    <article className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover h-full flex flex-col p-7">
-                      <div className="flex gap-2 flex-wrap mb-3">
-                        {a.tags?.slice(0, 3).map(tag => (
-                          <span key={tag} className="text-[11px] bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full">{tag}</span>
-                        ))}
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors flex-1">
-                        {a.title}
-                      </h3>
-                      {a.excerpt && (
-                        <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">{a.excerpt}</p>
+                    <article className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover h-full flex flex-col">
+                      {a.image_url && (
+                        <div className="relative h-48 overflow-hidden">
+                          <Image
+                            src={a.image_url}
+                            alt={a.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
                       )}
-                      <div className="flex items-center justify-between mt-auto">
-                        <span className="text-sm text-slate-400">
-                          {new Date(a.published_at ?? a.created_at).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                        </span>
-                        <span className="text-blue-600 font-semibold text-sm">{t('readMore')}</span>
+                      <div className="p-7 flex flex-col flex-1">
+                        <div className="flex gap-2 flex-wrap mb-3">
+                          {a.tags?.slice(0, 3).map(tag => (
+                            <span key={tag} className="text-[11px] bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full">{tag}</span>
+                          ))}
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors flex-1">
+                          {a.title}
+                        </h3>
+                        {a.excerpt && (
+                          <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3">{a.excerpt}</p>
+                        )}
+                        <div className="flex items-center justify-between mt-auto">
+                          <span className="text-sm text-slate-400">
+                            {new Date(a.published_at ?? a.created_at).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                          </span>
+                          <span className="text-blue-600 font-semibold text-sm">{t('readMore')}</span>
+                        </div>
                       </div>
                     </article>
                   </Link>

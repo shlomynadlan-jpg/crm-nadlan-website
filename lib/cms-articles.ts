@@ -12,6 +12,7 @@ export interface CmsArticle {
   excerpt: string | null;
   content: string;
   tags: string[];
+  image_url: string | null;
   published_at: string | null;
   created_at: string;
 }
