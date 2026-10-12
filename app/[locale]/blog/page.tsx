@@ -71,69 +71,10 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         </div>
 
         <div className="max-w-6xl mx-auto px-6 py-14">
-          {/* Featured article */}
-          <Link href={`/blog/${featured.slug}`} className="group block mb-12">
-            <article className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 card-hover">
-              <div className="relative h-64 lg:h-auto lg:min-h-[320px]">
-                <Image
-                  src={featured.image}
-                  alt={featured.imageAlt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                />
-                <span className="absolute top-4 right-4 text-xs font-bold px-3 py-1.5 rounded-full text-white shadow-md"
-                  style={{ background: '#C9A84C' }}>
-                  {t('featured')}
-                </span>
-              </div>
-              <div className="p-8 lg:p-10 flex flex-col justify-center">
-                <p className="text-sm text-slate-400 mb-3">
-                  {formatDate(featured.date, locale)} · {t('readingMinutes', { n: featured.readingMinutes })} · {AUTHOR}
-                </p>
-                <h2 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors">
-                  {featured.title}
-                </h2>
-                <p className="text-slate-500 leading-relaxed mb-6">{featured.description}</p>
-                <span className="text-blue-600 font-semibold">{t('readMore')}</span>
-              </div>
-            </article>
-          </Link>
 
-          {/* Rest */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {rest.map(a => (
-              <Link key={a.slug} href={`/blog/${a.slug}`} className="group block">
-                <article className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover h-full flex flex-col">
-                  <div className="relative h-56">
-                    <Image
-                      src={a.image}
-                      alt={a.imageAlt}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div className="p-7 flex flex-col flex-1">
-                    <p className="text-sm text-slate-400 mb-2">
-                      {formatDate(a.date, locale)} · {t('readingMinutes', { n: a.readingMinutes })}
-                    </p>
-                    <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
-                      {a.title}
-                    </h2>
-                    <p className="text-slate-500 text-sm leading-relaxed flex-1">{a.description}</p>
-                    <span className="text-blue-600 font-semibold text-sm mt-5">{t('readMore')}</span>
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
-
-          {/* Dynamic CMS articles from BlogPilot */}
+          {/* Dynamic CMS articles from BlogPilot — newest first */}
           {cmsArticles.length > 0 && (
-            <div className="mt-14">
-              <h2 className="text-2xl font-bold text-slate-900 mb-8">מאמרים חדשים</h2>
+            <div className="mb-14">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {cmsArticles.map((a: CmsArticle) => (
                   <Link key={a.slug} href={`/blog/cms-${a.slug}`} className="group block">
@@ -174,6 +115,65 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
           )}
+
+          {/* Featured article */}
+          <Link href={`/blog/${featured.slug}`} className="group block mb-12">
+            <article className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 card-hover">
+              <div className="relative h-64 lg:h-auto lg:min-h-[320px]">
+                <Image
+                  src={featured.image}
+                  alt={featured.imageAlt}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+                <span className="absolute top-4 right-4 text-xs font-bold px-3 py-1.5 rounded-full text-white shadow-md"
+                  style={{ background: '#C9A84C' }}>
+                  {t('featured')}
+                </span>
+              </div>
+              <div className="p-8 lg:p-10 flex flex-col justify-center">
+                <p className="text-sm text-slate-400 mb-3">
+                  {formatDate(featured.date, locale)} · {t('readingMinutes', { n: featured.readingMinutes })} · {AUTHOR}
+                </p>
+                <h2 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors">
+                  {featured.title}
+                </h2>
+                <p className="text-slate-500 leading-relaxed mb-6">{featured.description}</p>
+                <span className="text-blue-600 font-semibold">{t('readMore')}</span>
+              </div>
+            </article>
+          </Link>
+
+          {/* Rest of static articles */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {rest.map(a => (
+              <Link key={a.slug} href={`/blog/${a.slug}`} className="group block">
+                <article className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover h-full flex flex-col">
+                  <div className="relative h-56">
+                    <Image
+                      src={a.image}
+                      alt={a.imageAlt}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div className="p-7 flex flex-col flex-1">
+                    <p className="text-sm text-slate-400 mb-2">
+                      {formatDate(a.date, locale)} · {t('readingMinutes', { n: a.readingMinutes })}
+                    </p>
+                    <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
+                      {a.title}
+                    </h2>
+                    <p className="text-slate-500 text-sm leading-relaxed flex-1">{a.description}</p>
+                    <span className="text-blue-600 font-semibold text-sm mt-5">{t('readMore')}</span>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
 
           {/* CTA */}
           <div className="mt-16 rounded-3xl p-10 text-center text-white"
