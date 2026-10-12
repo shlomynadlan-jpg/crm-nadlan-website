@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
+
+const LOCALES = ['he', 'en', 'fr', 'ru'];
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.PROPSTORY_API_KEY ?? '';
@@ -9,6 +11,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  revalidateTag('cms-articles');
+  for (const locale of LOCALES) {
+    revalidatePath(`/${locale}/blog`, 'layout');
+  }
   return NextResponse.json({ revalidated: true, ts: Date.now() });
 }
