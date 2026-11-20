@@ -7,4 +7,6 @@
 - מיתוג (מקומי, לא נפרס): שם ליד הלוגו (Navbar + header של עמוד הבית), שורה ב-hero, שורה בפוטר, וכותרות גוגל בכל 4 השפות (`... | שלומי לימור מבית LS נדל"ן`). תוקנה גם כפילות "| LS נדל"ן | LS נדל"ן" בנגישות/פרטיות/תקנון.
 - נבדק: npm test, tsc, build, seo-check מקומי, תצוגה בדסקטופ ו-375px.
 
-**פתוח:** commit + deploy למיתוג; Search Console אחרי פריסה; מיגרציית תרגום (`docs/translation-migration.sql`) ממתינה לאישור.
+- מיתוג **נפרס** (commit `6e2c96a`), seo-check מול הלייב עבר. דוח לבדיקה חיצונית: `docs/seo-report-2026-11-20.md`.
+
+**פתוח:** Search Console אחרי פריסה; מיגרציית תרגום (`docs/translation-migration.sql`) ממתינה לאישור.

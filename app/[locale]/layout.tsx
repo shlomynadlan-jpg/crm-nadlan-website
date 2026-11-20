@@ -50,8 +50,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'LS נדל"ן',
-  alternateName: ['LS Real Estate', 'LS Nadlan', 'נדלן נאו'],
+  // Google uses this as the site name shown above search results
+  name: 'שלומי לימור מבית LS נדל"ן',
+  alternateName: ['Shlomy Limor of LS Real Estate', 'LS נדל"ן', 'LS Real Estate', 'LS Nadlan', 'נדלן נאו'],
   url: BASE,
   inLanguage: ['he', 'en', 'fr', 'ru'],
   potentialAction: {
@@ -72,7 +73,7 @@ const orgJsonLd = {
   '@type': 'RealEstateAgent',
   '@id': `${BASE}/#organization`,
   name: 'LS נדל"ן',
-  alternateName: ['LS Real Estate', 'LS Nadlan'],
+  alternateName: ['שלומי לימור מבית LS נדל"ן', 'Shlomy Limor of LS Real Estate', 'LS Real Estate', 'LS Nadlan'],
   url: BASE,
   logo: `${BASE}/logo.png`,
   image: `${BASE}/logo.png`,
