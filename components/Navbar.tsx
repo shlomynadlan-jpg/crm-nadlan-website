@@ -45,8 +45,9 @@ export default function Navbar() {
             style={{ height: 'calc(90px - 6px)' }}
             priority
           />
-          <span className="flex flex-col leading-tight ms-3 whitespace-nowrap">
-            <span className="font-bold text-white text-sm sm:text-base">{tMeta('brandName')}</span>
+          {/* hidden below sm: no room next to phone + flags + menu button */}
+          <span className="hidden sm:flex flex-col leading-tight ms-3 whitespace-nowrap">
+            <span className="font-bold text-white text-base">{tMeta('brandName')}</span>
             <span className="text-xs" style={{ color: 'rgba(201,168,76,0.9)' }}>{tMeta('brandOf')}</span>
           </span>
         </Link>
@@ -92,11 +93,12 @@ export default function Navbar() {
         </div>
 
         {/* Mobile: phone + flags + burger */}
-        <div className="flex lg:hidden items-center gap-3">
+        <div className="flex lg:hidden items-center gap-3 shrink-0">
           <a href="tel:0552702800" className="text-base font-bold whitespace-nowrap" style={{ color: '#fff' }}>
             055-<span style={{ color: '#C9A84C' }}>2702800</span>
           </a>
-          <LanguageSwitcher />
+          {/* narrow phones: flags move into the menu so the menu button fits */}
+          <div className="hidden sm:block"><LanguageSwitcher /></div>
           <button
             className="p-2 rounded-lg"
             onClick={() => setOpen(!open)}
@@ -141,6 +143,7 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <div className="sm:hidden py-3 px-4"><LanguageSwitcher /></div>
           <Link
             href="/contact"
             onClick={() => setOpen(false)}

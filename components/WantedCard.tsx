@@ -79,7 +79,7 @@ export default async function WantedCard({ r }: { r: PropertyRequest }) {
       {/* CTA */}
       <div className="mt-auto pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <a
-          href={`https://wa.me/9720552702800?text=${encodeURIComponent(`שלום, יש לי נכס מתאים לבקשה: ${r.property_type}${r.city ? ` ב${r.city}` : ''}`)}`}
+          href={`https://wa.me/972552702800?text=${encodeURIComponent(`שלום, יש לי נכס מתאים לבקשה: ${r.property_type}${r.city ? ` ב${r.city}` : ''}`)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90"

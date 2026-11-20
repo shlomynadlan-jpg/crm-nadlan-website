@@ -9,4 +9,8 @@
 
 - מיתוג **נפרס** (commit `6e2c96a`), seo-check מול הלייב עבר. דוח לבדיקה חיצונית: `docs/seo-report-2026-11-20.md`.
 
-**פתוח:** Search Console אחרי פריסה; מיגרציית תרגום (`docs/translation-migration.sql`) ממתינה לאישור.
+- שם האתר לגוגל (WebSite JSON-LD, og:site_name) ותיאור ברירת מחדל עם השם — **נפרס** (commit `f59694d`), seo-check מול הלייב עבר.
+
+- **ביקורת עומק (קריאה בלבד):** `docs/audit-2026-11-20.md`. קריטי: כפתור תפריט נייד נדחק מהמסך ב-≤360px (רגרסיה מהמיתוג). גבוה: WhatsApp שבור בכרטיסי דרושים, `/api/debug-env` פתוח, GA לא פעיל, טופס לידים בלי הגנת ספאם.
+
+**פתוח:** תיקוני P0 מהביקורת (ממתין לאישור); Request indexing ב-Search Console לעמוד הבית ולדפי מפתח; Search Console אחרי פריסה; מיגרציית תרגום (`docs/translation-migration.sql`) ממתינה לאישור.

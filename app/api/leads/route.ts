@@ -42,8 +42,17 @@ export async function POST(req: NextRequest) {
   try {
     const { name, phone, message, property_id, property_city, property_type, privacy_consent, marketing_consent } = await req.json();
 
-    if (!name?.trim() || !phone?.trim()) {
+    if (typeof name !== 'string' || typeof phone !== 'string' || !name.trim() || !phone.trim()) {
       return NextResponse.json({ error: 'שם וטלפון הם שדות חובה' }, { status: 400 });
+    }
+    const digits = phone.replace(/\D/g, '');
+    const tooLong = (v: unknown, max: number) => v != null && String(v).length > max;
+    if (digits.length < 9 || digits.length > 15 || name.length > 100 || phone.length > 30
+      || tooLong(message, 2000) || tooLong(property_city, 100) || tooLong(property_type, 200) || tooLong(property_id, 50)) {
+      return NextResponse.json({ error: 'פרטים לא תקינים' }, { status: 400 });
+    }
+    if (privacy_consent !== true) {
+      return NextResponse.json({ error: 'נדרש אישור מדיניות פרטיות' }, { status: 400 });
     }
 
     const consentDate = new Date().toISOString();
@@ -82,10 +91,11 @@ export async function POST(req: NextRequest) {
       sendWhatsApp(notifText),
       sendEmail(`🔴 ליד חדש מאתר nadlannow.co.il — ${name.trim()}`, notifText),
     ]);
+    console.log('lead email:', emailResult);
 
-    return NextResponse.json({ ok: true, debug_email: emailResult });
+    return NextResponse.json({ ok: true });
   } catch (err: any) {
     console.error('leads error:', err);
-    return NextResponse.json({ error: err.message || 'שגיאה' }, { status: 500 });
+    return NextResponse.json({ error: 'שגיאה' }, { status: 500 });
   }
 }

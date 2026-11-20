@@ -147,8 +147,9 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
           <Link href="/" className="shrink-0 flex items-center">
             <Image src="/logo.png" alt="LS נדל״ן" width={300} height={300} quality={100} priority
               style={{ height: 'calc(90px - 6px)', width: 'auto' }} />
-            <span className="flex flex-col leading-tight ms-3 whitespace-nowrap">
-              <span className="font-bold text-white text-sm sm:text-base">{t('meta.brandName')}</span>
+            {/* hidden below sm: no room next to phone + flags + menu button */}
+            <span className="hidden sm:flex flex-col leading-tight ms-3 whitespace-nowrap">
+              <span className="font-bold text-white text-base">{t('meta.brandName')}</span>
               <span className="text-xs" style={{ color: 'rgba(201,168,76,0.9)' }}>{t('meta.brandOf')}</span>
             </span>
           </Link>
@@ -188,7 +189,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
             </Link>
           </div>
 
-          <div className="flex lg:hidden items-center gap-4">
+          <div className="flex lg:hidden items-center gap-4 shrink-0">
             <a href="tel:0552702800" className="text-sm font-bold whitespace-nowrap" style={{ color: '#fff' }}>
               055-<span style={{ color: '#C9A84C' }}>2702800</span>
             </a>
