@@ -144,9 +144,13 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
             borderBottom: '1px solid rgba(201,168,76,0.28)',
           }}
         >
-          <Link href="/" className="shrink-0">
+          <Link href="/" className="shrink-0 flex items-center">
             <Image src="/logo.png" alt="LS נדל״ן" width={300} height={300} quality={100} priority
               style={{ height: 'calc(90px - 6px)', width: 'auto' }} />
+            <span className="flex flex-col leading-tight ms-3 whitespace-nowrap">
+              <span className="font-bold text-white text-sm sm:text-base">{t('meta.brandName')}</span>
+              <span className="text-xs" style={{ color: 'rgba(201,168,76,0.9)' }}>{t('meta.brandOf')}</span>
+            </span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-6">
@@ -342,7 +346,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
               className="text-sm font-bold tracking-widest uppercase mb-5"
               style={{ color: 'rgba(201,168,76,0.85)' }}
             >
-              {t('hero.tagline')}
+              {t('meta.brandName')} {t('meta.brandOf')} · {t('hero.tagline')}
             </p>
 
             <h1

@@ -5,9 +5,9 @@ import { buildSeo, INDEXED } from '@/lib/alternates'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const titles: Record<string, string> = {
-    he: 'הצהרת נגישות | LS נדל"ן',
-    en: 'Accessibility Statement | LS Real Estate',
-    fr: 'Déclaration d\'accessibilité | LS Immobilier',
+    he: 'הצהרת נגישות',
+    en: 'Accessibility Statement',
+    fr: 'Déclaration d\'accessibilité',
   }
   const descs: Record<string, string> = {
     he: 'הצהרת הנגישות של אתר LS נדל"ן — מה עשינו לנגישות ואיך יוצרים קשר',

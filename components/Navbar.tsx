@@ -8,6 +8,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const t = useTranslations('nav')
+  const tMeta = useTranslations('meta')
   const pathname = usePathname()
   const isHome = pathname === '/'
 
@@ -44,6 +45,10 @@ export default function Navbar() {
             style={{ height: 'calc(90px - 6px)' }}
             priority
           />
+          <span className="flex flex-col leading-tight ms-3 whitespace-nowrap">
+            <span className="font-bold text-white text-sm sm:text-base">{tMeta('brandName')}</span>
+            <span className="text-xs" style={{ color: 'rgba(201,168,76,0.9)' }}>{tMeta('brandOf')}</span>
+          </span>
         </Link>
 
         {/* Desktop links */}

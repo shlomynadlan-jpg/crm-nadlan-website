@@ -26,6 +26,9 @@ export default async function Footer() {
               </div>
               <span className="font-bold text-xl">{companyName}</span>
             </div>
+            <p className="font-semibold mb-2" style={{ color: '#C9A84C' }}>
+              {t('meta.brandName')} {t('meta.brandOf')}
+            </p>
             <p className="text-slate-400 text-sm leading-relaxed">
               {t('footer.brandDesc')}
             </p>

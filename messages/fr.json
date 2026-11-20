@@ -340,8 +340,10 @@
     "lastUpdated": "Dernière mise à jour : {date}"
   },
   "meta": {
+    "brandName": "Shlomy Limor",
+    "brandOf": "de LS Immobilier",
     "siteName": "LS Immobilier",
-    "siteTitle": "LS Immobilier — Biens commerciaux et résidentiels à vendre et à louer",
+    "siteTitle": "Shlomy Limor de LS Immobilier — Biens commerciaux et résidentiels à vendre et à louer",
     "siteDesc": "LS Immobilier — courtage de biens commerciaux et résidentiels : bureaux, commerces, entrepôts, industrie, terrains et appartements à vendre et à louer. Un accompagnement personnel de la recherche à la signature.",
     "ogDesc": "Bureaux, commerces, entrepôts, industrie, terrains et appartements à vendre et à louer",
     "skipLink": "Aller au contenu principal",

@@ -22,12 +22,11 @@ const BASE = 'https://www.nadlannow.co.il'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'meta' })
-  const he = locale === 'he'
   return {
     metadataBase: new URL(BASE),
     title: {
       default: t('siteTitle'),
-      template: `%s | ${t('siteName')}`,
+      template: `%s | ${t('brandName')} ${t('brandOf')}`,
     },
     description: t('siteDesc'),
     openGraph: {
@@ -42,8 +41,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
     twitter: {
       card: 'summary_large_image',
-      title: he ? 'LS נדל"ן — נכסים מסחריים ומגורים' : t('siteTitle'),
-      description: he ? 'תיווך נדל"ן מסחרי ומגורים — משרדים, חנויות, מחסנים, קרקעות ודירות' : t('ogDesc'),
+      title: t('siteTitle'),
+      description: t('ogDesc'),
     },
   }
 }

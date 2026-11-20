@@ -16,10 +16,9 @@ export const revalidate = 60
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  if (locale === 'he') return buildSeo('/', locale) // keep the indexed Hebrew title as-is
-  // The root layout's Hebrew title template would otherwise be appended to the default title
+  // absolute: siteTitle already starts with the brand line; skip the root layout's title template
   const t = await getTranslations({ locale, namespace: 'meta' })
-  return { title: { absolute: `${t('siteTitle')} | ${t('siteName')}` }, ...buildSeo('/', locale) }
+  return { title: { absolute: t('siteTitle') }, ...buildSeo('/', locale) }
 }
 
 export default async function HomePage() {
