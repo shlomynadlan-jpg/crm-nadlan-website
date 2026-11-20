@@ -102,7 +102,7 @@
     "wantedViewCount": "Voir les {count} demandes →",
     "aboutLabel": "Qui sommes-nous",
     "aboutTitle": "LS Immobilier — courtage immobilier commercial au centre d'Israël",
-    "aboutP1": "Chez LS Immobilier, nous sommes spécialisés dans le courtage de biens commerciaux et résidentiels au centre d'Israël — bureaux, commerces, entrepôts, espaces industriels et terrains. Après 7+ ans d'activité et plus de 200 transactions conclues, nous avons construit un réseau étroit avec propriétaires, promoteurs et chefs d'entreprise — et le savoir-faire concret pour apporter au client le bon bien, pas seulement celui disponible.",
+    "aboutP1": "Chez LS Immobilier, nous sommes spécialisés dans le courtage de biens commerciaux et résidentiels au centre d'Israël — bureaux, commerces, entrepôts, espaces industriels et terrains. Après 7+ ans d'activité et 130 transactions conclues, nous avons construit un réseau étroit avec propriétaires, promoteurs et chefs d'entreprise — et le savoir-faire concret pour apporter au client le bon bien, pas seulement celui disponible.",
     "aboutP2": "Notre base est à Petah Tikva, et l'essentiel de notre activité se déroule sur l'axe Petah Tikva–Rosh HaAyin–Bnei Brak–Tel-Aviv. Nous intervenons aussi à Hod HaSharon, Kfar Saba, Kiryat Ono, Or Yehuda, Yehud, Herzliya, Rishon LeZion, Givat Shmuel et Ramat Gan — et partout dans le pays si la demande le justifie. Service en hébreu, anglais, français et russe.",
     "areasLabel": "Zones d'activité",
     "areasTitle": "Où nous trouvons votre prochain bien",
@@ -338,5 +338,18 @@
   },
   "legal": {
     "lastUpdated": "Dernière mise à jour : {date}"
+  },
+  "meta": {
+    "siteName": "LS Immobilier",
+    "siteTitle": "LS Immobilier — Biens commerciaux et résidentiels à vendre et à louer",
+    "siteDesc": "LS Immobilier — courtage de biens commerciaux et résidentiels : bureaux, commerces, entrepôts, industrie, terrains et appartements à vendre et à louer. Un accompagnement personnel de la recherche à la signature.",
+    "ogDesc": "Bureaux, commerces, entrepôts, industrie, terrains et appartements à vendre et à louer",
+    "skipLink": "Aller au contenu principal",
+    "breadcrumbNav": "Fil d'Ariane",
+    "propertiesIn": "{deal} à {city}",
+    "propertiesDesc": "{title} — bureaux, commerces, entrepôts, industrie, terrains et appartements. Toutes les annonces actuelles de LS Immobilier en un seul endroit.",
+    "propertyTitle": "{types}{size} {deal} à {city}",
+    "propertyDesc": "{title} — détails complets, photos et contact sur le site LS Immobilier.",
+    "descOriginal": "Description originale en hébreu"
   }
 }

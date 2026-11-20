@@ -43,18 +43,130 @@ export async function fetchCmsArticle(slug: string): Promise<CmsArticle | null> 
   }
 }
 
-// Convert plain markdown from BlogPilot to simple HTML for rendering
+const SITE_HOST = 'https://www.nadlannow.co.il';
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Markdown tables (| a | b |) -> HTML table
+function mdTables(md: string, store: string[]): string {
+  return md.replace(/(?:^\|.*\|[ \t]*\n?)+/gm, (block) => {
+    const rows = block.trim().split('\n').map(r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+    const body = rows.filter(r => !r.every(c => /^:?-{2,}:?$/.test(c)));
+    if (body.length < 2) return block;
+    // Placeholder: tables are swapped back after paragraph wrapping so they never sit inside <p>
+    const [head, ...rest] = body;
+    const th = head.map(c => `<th class="border border-slate-200 bg-blue-50 text-blue-900 px-3 py-2 text-start font-bold">${inline(c)}</th>`).join('');
+    const tr = rest.map(r => `<tr>${r.map(c => `<td class="border border-slate-200 px-3 py-2">${inline(c)}</td>`).join('')}</tr>`).join('');
+    store.push(`<div class="overflow-x-auto my-6"><table class="w-full text-sm text-slate-700"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table></div>`);
+    return `\n\n@@BLOCK${store.length - 1}@@\n\n`;
+  });
+}
+
+// [text](https://...) -> <a>. Internal links stay in the tab; external open in a new tab (followed, with credit).
+function mdLinks(md: string): string {
+  return md.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_m, text, url) => {
+    const external = !url.startsWith(SITE_HOST);
+    const attrs = external ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${escapeHtml(url)}"${attrs} class="text-blue-700 underline underline-offset-2 hover:text-blue-900">${text}</a>`;
+  });
+}
+
+// Inline markdown: links, bold, italic
+function inline(s: string): string {
+  return mdLinks(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+}
+
+const H2_CLASS = 'text-2xl font-extrabold text-slate-900 mt-12 mb-4 border-s-4 border-amber-400 ps-4 scroll-mt-24'
+
+// Mid-article CTA: invites the reader to book a meeting on WhatsApp
+function midCtaHtml(): string {
+  const phone = (process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800').replace(/\D/g, '').replace(/^0/, '')
+  const text = encodeURIComponent('שלום שלומי, קראתי מאמר באתר ואשמח לתאם פגישה')
+  const href = `https://wa.me/972${phone}?text=${text}`
+  return `<aside class="my-10 rounded-2xl p-6 md:p-7 text-white border-t-4 border-t-amber-300" style="background:linear-gradient(180deg,#1b3560,#132a4e)"><p class="text-xl font-extrabold mb-1">רוצים לשמוע עוד על השירותים של שלומי לימור?</p><p class="text-blue-100 mb-5">נשמח להכיר את הצורך שלכם ולתאם פגישה, בלי התחייבות.</p><a href="${href}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-xl px-6 py-3 font-bold no-underline hover:brightness-110" style="background:#25D366;color:#fff"><span aria-hidden="true">💬</span>לתיאום פגישה בוואטסאפ</a></aside>`
+}
+
+// "בקצרה" key-takeaways box
+function mdSummaryBox(md: string, store: string[]): string {
+  return md.replace(/^## בקצרה[^\n]*\n+((?:[-*] .*\n?)+)/m, (_m, list: string) => {
+    const items = list.trim().split('\n').map(l => `<li class="mb-1.5">${inline(l.replace(/^[-*] /, ''))}</li>`).join('')
+    store.push(`<div class="my-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 border-s-4 border-s-amber-400"><p class="font-extrabold text-slate-900 mb-3">בקצרה</p><ul class="list-disc list-inside text-slate-700">${items}</ul></div>`)
+    return `\n\n@@BLOCK${store.length - 1}@@\n\n`
+  })
+}
+
+// FAQ section -> accordion (details/summary with + / -)
+function mdFaq(md: string, store: string[]): { md: string; hasFaq: boolean } {
+  const re = /^## שאלות ותשובות[^\n]*\n([\s\S]*?)(?=^## |(?![\s\S]))/m
+  const m = md.match(re)
+  if (!m) return { md, hasFaq: false }
+  // Placeholders (e.g. the disclaimer) that landed inside the FAQ text stay outside the accordion
+  const stray = m[1].match(/@@BLOCK\d+@@/g) ?? []
+  const parts = m[1].replace(/@@BLOCK\d+@@/g, '').split(/^### /m).slice(1)
+  const items = parts.map(p => {
+    const [q, ...a] = p.split('\n')
+    const answer = a.join('\n').trim().split(/\n\n+/).map(x => `<p class="mb-2">${inline(x.trim())}</p>`).join('')
+    return `<details class="group rounded-xl border border-slate-200 bg-white px-5 mb-3"><summary class="flex items-center justify-between gap-3 cursor-pointer list-none py-4 font-bold text-slate-900 [&::-webkit-details-marker]:hidden"><span>${inline(q.trim())}</span><span class="text-2xl leading-none text-blue-700 group-open:hidden" aria-hidden="true">+</span><span class="text-2xl leading-none text-blue-700 hidden group-open:inline" aria-hidden="true">−</span></summary><div class="pb-4 text-slate-700 leading-relaxed">${answer}</div></details>`
+  }).join('')
+  store.push(`<section id="faq" class="scroll-mt-24"><h2 class="${H2_CLASS}">שאלות ותשובות</h2>${items}</section>`)
+  return { md: md.replace(re, `\n\n@@BLOCK${store.length - 1}@@\n\n${stray.join('\n\n')}\n\n`), hasFaq: true }
+}
+
+// Disclaimer line -> quiet boxed note
+function mdDisclaimer(md: string, store: string[]): string {
+  return md.replace(/^מידע כללי[^\n]*$/m, (line) => {
+    store.push(`<p class="mt-10 rounded-xl border border-slate-200 border-s-4 border-s-slate-400 bg-slate-50 px-5 py-4 text-sm text-slate-600">${inline(line)}</p>`)
+    return `\n\n@@BLOCK${store.length - 1}@@\n\n`
+  })
+}
+
+// Convert markdown from BlogPilot to HTML: gold-accent sections, summary box,
+// collapsible table of contents, + / - FAQ accordion, tables, credited links.
 export function mdToHtml(md: string): string {
-  return md
+  const blocks: string[] = []
+  // The page header already shows the title and author, so drop the leading "# title" and "מאת ..." line
+  let src = mdDisclaimer(md.replace(/^\s*# [^\n]+\n+(?:מאת [^\n]+\n+)?/, ''), blocks)
+  src = mdSummaryBox(src, blocks)
+  const faq = mdFaq(src, blocks)
+  src = mdTables(faq.md, blocks)
+
+  const toc: { id: string; title: string }[] = []
+  let n = 0
+  let html = mdLinks(src)
     .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-slate-900 mt-8 mb-3">$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">$1</h2>')
+    .replace(/^## (.+)$/gm, (_m, t: string) => {
+      const id = `sec-${++n}`
+      toc.push({ id, title: t.replace(/<[^>]+>/g, '') })
+      return `<h2 id="${id}" class="${H2_CLASS}">${t}</h2>`
+    })
     .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-black text-slate-900 mt-0 mb-6">$1</h1>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/^[-*] (.+)$/gm, '<li class="mb-1">$1</li>')
+    .replace(/^[-*] (.+)$/gm, '<li class="mb-1.5">$1</li>')
     .replace(/(<li[^>]*>.*<\/li>\n?)+/g, (m) => `<ul class="list-disc list-inside space-y-1 my-4 text-slate-700">${m}</ul>`)
     .replace(/\n\n(?!<[hul])/g, '</p><p class="text-slate-700 leading-relaxed mb-5">')
     .replace(/^(?!<[hul])/, '<p class="text-slate-700 leading-relaxed mb-5">')
     .replace(/$/, '</p>')
-    .replace(/<p[^>]*>\s*<\/p>/g, '');
+    .replace(/<p[^>]*>\s*<\/p>/g, '')
+
+  // Mid-article call to action (WhatsApp), placed before the middle section
+  const h2Positions = [...html.matchAll(/<h2 /g)].map(m => m.index as number)
+  if (h2Positions.length >= 3) {
+    const at = h2Positions[Math.floor(h2Positions.length / 2)]
+    html = html.slice(0, at) + midCtaHtml() + html.slice(at)
+  }
+
+  if (faq.hasFaq) toc.push({ id: 'faq', title: 'שאלות ותשובות' })
+  if (toc.length >= 3) {
+    const items = toc.map(t => `<li class="mb-1"><a href="#${t.id}" class="text-blue-800 hover:underline">${t.title}</a></li>`).join('')
+    const tocHtml = `<details class="my-8 rounded-2xl border border-slate-200 bg-blue-50/60 px-5 border-s-4 border-s-amber-400" open><summary class="cursor-pointer list-none py-3 font-extrabold text-blue-900 [&::-webkit-details-marker]:hidden">תוכן העניינים</summary><ol class="list-decimal list-inside pb-4 text-slate-700">${items}</ol></details>`
+    const first = html.search(/<h2 /)
+    if (first >= 0) html = html.slice(0, first) + tocHtml + html.slice(first)
+  }
+
+  return html.replace(/(?:<p[^>]*>\s*)?@@BLOCK(\d+)@@(?:\s*<\/p>)?/g, (_m, i) => blocks[Number(i)] ?? '')
 }

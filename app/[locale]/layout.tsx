@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, getTranslations } from 'next-intl/server'
+import { OG_LOCALE } from '@/lib/alternates'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import AccessibilityWidget from '@/components/AccessibilityWidget'
@@ -18,28 +19,33 @@ type Locale = 'he' | 'en' | 'fr' | 'ru'
 
 const BASE = 'https://www.nadlannow.co.il'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(BASE),
-  title: {
-    default: 'LS נדל"ן — נכסים מסחריים ומגורים למכירה ולהשכרה',
-    template: '%s | LS נדל"ן',
-  },
-  description: 'LS נדל"ן — תיווך נכסים מסחריים ומגורים: משרדים, חנויות, מחסנים, תעשייה, קרקעות ודירות למכירה ולהשכרה. ליווי אישי מהחיפוש ועד החתימה.',
-  openGraph: {
-    type: 'website',
-    siteName: 'LS נדל"ן',
-    title: 'LS נדל"ן — נכסים מסחריים ומגורים למכירה ולהשכרה',
-    description: 'משרדים, חנויות, מחסנים, תעשייה, קרקעות ודירות למכירה ולהשכרה',
-    locale: 'he_IL',
-    url: BASE,
-  },
-  robots: { index: true, follow: true },
-  verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'LS נדל"ן — נכסים מסחריים ומגורים',
-    description: 'תיווך נדל"ן מסחרי ומגורים — משרדים, חנויות, מחסנים, קרקעות ודירות',
-  },
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'meta' })
+  const he = locale === 'he'
+  return {
+    metadataBase: new URL(BASE),
+    title: {
+      default: t('siteTitle'),
+      template: `%s | ${t('siteName')}`,
+    },
+    description: t('siteDesc'),
+    openGraph: {
+      type: 'website',
+      siteName: t('siteName'),
+      title: t('siteTitle'),
+      description: t('ogDesc'),
+      locale: OG_LOCALE[locale],
+      url: BASE,
+    },
+    robots: { index: true, follow: true },
+    verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
+    twitter: {
+      card: 'summary_large_image',
+      title: he ? 'LS נדל"ן — נכסים מסחריים ומגורים' : t('siteTitle'),
+      description: he ? 'תיווך נדל"ן מסחרי ומגורים — משרדים, חנויות, מחסנים, קרקעות ודירות' : t('ogDesc'),
+    },
+  }
 }
 
 const websiteJsonLd = {
@@ -164,7 +170,7 @@ export default async function LocaleLayout({
         <Script id="js-flag" strategy="beforeInteractive">
           {"document.documentElement.classList.add('js')"}
         </Script>
-        <a href="#main" className="skip-link">דלגו לתוכן הראשי</a>
+        <a href="#main" className="skip-link">{(await getTranslations({ locale, namespace: 'meta' }))('skipLink')}</a>
         <NextIntlClientProvider messages={messages}>
           {children}
           <CookieNotice />

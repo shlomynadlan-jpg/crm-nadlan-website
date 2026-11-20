@@ -2,13 +2,16 @@
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import { Property, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
+import { tr, trList } from '@/lib/terms'
 
 export default function PropertyCard({ p }: { p: Property }) {
   const t = useTranslations()
   const img = getPropertyImage(p)
   const isAI = isPlaceholderImage(p)
-  const types = getPropertyTypes(p)
+  const locale = useLocale()
+  const types = trList(getPropertyTypes(p), locale)
+  const city = tr(p.city, locale)
   const deal = p.deal_type || ''
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
   const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
@@ -25,7 +28,7 @@ export default function PropertyCard({ p }: { p: Property }) {
         <div className="relative h-52 overflow-hidden">
           <Image
             src={img}
-            alt={`${types} ב${p.city}`}
+            alt={locale === 'he' ? `${types} ב${p.city}` : `${types} — ${city}`}
             fill
             className="object-cover transition-transform duration-500 hover:scale-105"
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -76,7 +79,7 @@ export default function PropertyCard({ p }: { p: Property }) {
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
           <h3 className="font-semibold text-slate-900 text-base line-clamp-1 mb-1">
-            {p.city}
+            {city}
           </h3>
           {types && (
             <span className="text-xs font-medium text-slate-500 mb-1">{types}</span>

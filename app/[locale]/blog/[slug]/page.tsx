@@ -6,7 +6,7 @@ import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { articles, getLocalizedArticle, getLocalizedArticles, AUTHOR, type ArticleBlock } from '@/lib/articles'
-import { buildAlternates } from '@/lib/alternates'
+import { buildSeo, INDEXED, OG_LOCALE } from '@/lib/alternates'
 import { fetchCmsArticle, mdToHtml } from '@/lib/cms-articles'
 
 const BASE = 'https://www.nadlannow.co.il'
@@ -28,14 +28,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
       title: cmsArticle.title,
       description: cmsArticle.excerpt ?? undefined,
-      alternates: buildAlternates(`/blog/${slug}`),
+      ...buildSeo(`/blog/${slug}`, locale, INDEXED.heOnly),
       openGraph: {
         title: cmsArticle.title,
         description: cmsArticle.excerpt ?? undefined,
         type: 'article',
         publishedTime: cmsArticle.published_at ?? cmsArticle.created_at,
         authors: [AUTHOR],
-        locale: 'he_IL',
+        locale: OG_LOCALE[locale],
         ...(cmsArticle.image_url ? { images: [{ url: cmsArticle.image_url, width: 1792, height: 1024 }] } : {}),
       },
     }
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: article.title,
     description: article.description,
-    alternates: buildAlternates(`/blog/${article.slug}`),
+    ...buildSeo(`/blog/${article.slug}`, locale, INDEXED.article),
     openGraph: {
       title: article.title,
       description: article.description,
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: article.date,
       authors: [AUTHOR],
       images: [{ url: article.image, width: 1200, height: 630 }],
-      locale: 'he_IL',
+      locale: OG_LOCALE[locale],
     },
   }
 }
@@ -93,6 +93,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     if (!cmsArticle) notFound()
     const publishedDate = new Date(cmsArticle.published_at ?? cmsArticle.created_at)
       .toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
+    const readingMinutes = Math.max(1, Math.round(cmsArticle.content.split(/\s+/).length / 200))
     return (
       <>
         <Navbar />
@@ -113,8 +114,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                       <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
                     ))}
                   </div>
-                  <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
-                  <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6">{cmsArticle.title}</h1>
+                  <div className="flex items-center gap-3">
+                    <span className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shrink-0 border-2 border-white/40" style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }} aria-hidden="true">של</span>
+                    <p className="text-base md:text-lg text-blue-100 leading-snug">
+                      מאת <strong className="text-white font-extrabold">{AUTHOR}</strong>
+                      <span className="block text-sm text-blue-200">מתווך נדל"ן מסחרי · {publishedDate} · {readingMinutes} דקות קריאה</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,8 +138,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <span key={tag} className="text-[11px] bg-white/10 text-blue-200 border border-white/20 px-2.5 py-0.5 rounded-full">{tag}</span>
                   ))}
                 </div>
-                <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">{cmsArticle.title}</h1>
-                <p className="text-blue-100 text-sm">{AUTHOR} · {publishedDate}</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6">{cmsArticle.title}</h1>
+                <div className="flex items-center gap-3">
+                  <span className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shrink-0 border-2 border-white/40" style={{ background: 'linear-gradient(135deg, #0077B6, #005A8E)' }} aria-hidden="true">של</span>
+                  <p className="text-base md:text-lg text-blue-100 leading-snug">
+                    מאת <strong className="text-white font-extrabold">{AUTHOR}</strong>
+                    <span className="block text-sm text-blue-200">מתווך נדל"ן מסחרי · {publishedDate} · {readingMinutes} דקות קריאה</span>
+                  </p>
+                </div>
               </div>
             </div>
           )}

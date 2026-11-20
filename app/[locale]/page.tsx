@@ -10,12 +10,16 @@ import { Link } from '@/i18n/navigation'
 import { getProperties, getPropertyRequests } from '@/lib/properties'
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
-import { buildAlternates } from '@/lib/alternates'
+import { buildSeo } from '@/lib/alternates'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  alternates: buildAlternates('/'),
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  if (locale === 'he') return buildSeo('/', locale) // keep the indexed Hebrew title as-is
+  // The root layout's Hebrew title template would otherwise be appended to the default title
+  const t = await getTranslations({ locale, namespace: 'meta' })
+  return { title: { absolute: `${t('siteTitle')} | ${t('siteName')}` }, ...buildSeo('/', locale) }
 }
 
 export default async function HomePage() {

@@ -4,8 +4,22 @@
     {
       "name": "website",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3105
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3507
+    },
+    {
+      "name": "website-prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "start",
+        "-p",
+        "3508"
+      ],
+      "port": 3508
     }
   ]
 }

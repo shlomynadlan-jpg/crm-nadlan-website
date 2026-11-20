@@ -416,7 +416,7 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
           <div className="flex justify-center items-center flex-wrap gap-0 mb-8">
             {[
               { id: 'years',  value: 7,           label: t('stats.years'),            suffix: '' },
-              { id: 'deals',  value: 200,         label: t('stats.deals'),            suffix: '+' },
+              { id: 'deals',  value: 130,         label: t('stats.deals'),            suffix: '' },
               { id: 'total',  value: totalCount,  label: t('stats.activeProperties'), suffix: '+' },
               { id: 'rent',   value: forRent,     label: t('stats.forRent'),          suffix: '' },
               { id: 'sale',   value: forSale,     label: t('stats.forSale'),          suffix: '' },

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
+import { buildSeo } from '@/lib/alternates'
+import { tr } from '@/lib/terms'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PropertiesContent from '@/components/PropertiesContent'
@@ -14,11 +16,14 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   const dealText = deal_type?.includes('מכירה') || deal_type === 'sale' ? t('forSale')
     : deal_type?.includes('השכרה') || deal_type === 'rent' ? t('forRent')
     : t('properties')
-  const title = city ? `${dealText} ב${city}` : dealText
+  const locale = await getLocale()
+  const tMeta = await getTranslations('meta')
+  const title = city ? tMeta('propertiesIn', { deal: dealText, city: tr(city, locale) }) : dealText
   return {
     title,
-    description: `${title} — משרדים, חנויות, מחסנים, תעשייה, קרקעות ודירות. כל הנכסים המעודכנים של LS נדל"ן במקום אחד.`,
-    alternates: { canonical: '/properties' },
+    description: tMeta('propertiesDesc', { title }),
+    // Filtered views (?city=, ?deal_type=) all point to the main listing
+    ...buildSeo('/properties', locale),
   }
 }
 

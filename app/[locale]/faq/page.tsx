@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Link } from '@/i18n/navigation'
 import LegalPage from '@/components/LegalPage'
-import { buildAlternates } from '@/lib/alternates'
+import { buildSeo } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: titles[locale] ?? titles.he,
     description: descs[locale] ?? descs.he,
-    alternates: buildAlternates('/faq'),
+    ...buildSeo('/faq', locale),
   }
 }
 

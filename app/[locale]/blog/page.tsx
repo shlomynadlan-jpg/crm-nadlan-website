@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getLocalizedArticles, AUTHOR } from '@/lib/articles'
-import { buildAlternates } from '@/lib/alternates'
+import { buildSeo } from '@/lib/alternates'
 import { fetchCmsArticles, type CmsArticle } from '@/lib/cms-articles'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('title'),
     description: t('subtitle'),
-    alternates: buildAlternates('/blog'),
+    ...buildSeo('/blog', await getLocale()),
   }
 }
 

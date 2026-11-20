@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3105",
+    "dev": "next dev -p 3507",
     "build": "next build",
-    "start": "next start -p 3105",
-    "lint": "eslint"
+    "start": "next start -p 3507",
+    "lint": "eslint",
+    "test": "node --test lib/",
+    "seo-check": "node scripts/seo-check.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",

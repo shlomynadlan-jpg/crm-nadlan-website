@@ -102,7 +102,7 @@
     "wantedViewCount": "View all {count} requests →",
     "aboutLabel": "Who we are",
     "aboutTitle": "LS Real Estate — Commercial Property Brokerage in Central Israel",
-    "aboutP1": "At LS Real Estate we specialize in brokering commercial and residential properties in central Israel — offices, retail, warehouses, industrial spaces and land. After 7+ years and more than 200 closed deals, we've built a deep network with property owners, developers and business owners — and the hands-on know-how to bring clients the right property, not just the available one.",
+    "aboutP1": "At LS Real Estate we specialize in brokering commercial and residential properties in central Israel — offices, retail, warehouses, industrial spaces and land. After 7+ years and 130 closed deals, we've built a deep network with property owners, developers and business owners — and the hands-on know-how to bring clients the right property, not just the available one.",
     "aboutP2": "Our base is in Petah Tikva, and most of our activity runs along the Petah Tikva–Rosh HaAyin–Bnei Brak–Tel Aviv corridor. We also work in Hod HaSharon, Kfar Saba, Kiryat Ono, Or Yehuda, Yehud, Herzliya, Rishon LeZion, Givat Shmuel and Ramat Gan — and anywhere in the country when the request calls for it. Service is provided in Hebrew, English, French and Russian.",
     "areasLabel": "Service areas",
     "areasTitle": "Where we find your next property",
@@ -338,5 +338,18 @@
   },
   "legal": {
     "lastUpdated": "Last updated: {date}"
+  },
+  "meta": {
+    "siteName": "LS Real Estate",
+    "siteTitle": "LS Real Estate — Commercial & Residential Properties for Sale and Rent",
+    "siteDesc": "LS Real Estate — brokerage of commercial and residential properties: offices, shops, warehouses, industrial, land and apartments for sale and rent. Personal guidance from search to signing.",
+    "ogDesc": "Offices, shops, warehouses, industrial, land and apartments for sale and rent",
+    "skipLink": "Skip to main content",
+    "breadcrumbNav": "Breadcrumb",
+    "propertiesIn": "{deal} in {city}",
+    "propertiesDesc": "{title} — offices, shops, warehouses, industrial, land and apartments. All current LS Real Estate listings in one place.",
+    "propertyTitle": "{types}{size} {deal} in {city}",
+    "propertyDesc": "{title} — full details, photos and contact on the LS Real Estate website.",
+    "descOriginal": "Original description in Hebrew"
   }
 }

@@ -6,9 +6,10 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 import PropertyGallery from '@/components/PropertyGallery'
-import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes } from '@/lib/properties'
+import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes, type Property } from '@/lib/properties'
 import { getTranslations } from 'next-intl/server'
-import { buildAlternates } from '@/lib/alternates'
+import { buildSeo, propertyLocales, OG_LOCALE, BASE } from '@/lib/alternates'
+import { tr, trList } from '@/lib/terms'
 
 export const revalidate = 60
 
@@ -21,27 +22,45 @@ function propertyTitle(types: string, p: { gross_size: number | null; city: stri
   return `${types || 'נכס'}${size} ${dealText}${p.city ? ` ב${p.city}` : ''}`
 }
 
+// Hebrew keeps the exact title already indexed; other locales use the dictionary + template.
+async function localizedTitle(p: Property, locale: string): Promise<string> {
+  const types = getPropertyTypes(p)
+  if (locale === 'he') return propertyTitle(types, p)
+  const t = await getTranslations({ locale })
+  const deal = p.deal_type || ''
+  const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
+  const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
+  return t('meta.propertyTitle', {
+    types: trList(types, locale) || t('propertyPage.properties'),
+    size: p.gross_size ? ` ${p.gross_size} ${t('propertyPage.specLabels.sqm')}` : '',
+    deal: isRent ? t('deal.forRent') : isBoth ? t('deal.both') : t('deal.forSale'),
+    city: tr(p.city, locale),
+  })
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
-  const { id } = await params
+  const { id, locale } = await params
   const t = await getTranslations()
   const property = await getProperty(id)
   if (!property) return { title: t('propertyPage.notFound') }
 
-  const types = getPropertyTypes(property)
-  const title = propertyTitle(types, property)
-  const description = (property.description || '').slice(0, 155) ||
-    `${title} — פרטים מלאים, תמונות ויצירת קשר באתר LS נדל"ן.`
+  const title = await localizedTitle(property, locale)
+  const ownText = locale === 'he' ? property.description
+    : locale === 'en' ? property.description_en
+    : locale === 'fr' ? property.description_fr
+    : null
+  const description = (ownText || '').slice(0, 155) || t('meta.propertyDesc', { title })
   const image = getPropertyImage(property)
 
   return {
     title,
     description,
-    alternates: buildAlternates(`/properties/${property.id}`),
+    ...buildSeo(`/properties/${property.id}`, locale, propertyLocales()),
     openGraph: {
       title,
       description,
       images: [{ url: image, width: 1200, height: 630 }],
-      locale: 'he_IL',
+      locale: OG_LOCALE[locale],
       type: 'website',
     },
   }
@@ -57,7 +76,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const isAI = isPlaceholderImage(property)
   if (images.length === 0) images.push(getPropertyImage(property))
 
-  const types = getPropertyTypes(property)
+  const types = trList(getPropertyTypes(property), locale)
+  const city = tr(property.city, locale)
+  const title = await localizedTitle(property, locale)
   const deal = property.deal_type || ''
   const isRent = deal.includes('השכרה') && !deal.includes('מכירה')
   const isBoth = deal.includes('מכירה') && deal.includes('השכרה')
@@ -72,6 +93,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     : locale === 'fr'
     ? (property.description_fr || property.description)
     : property.description
+  // No approved translation yet: show the Hebrew original, marked as such (never machine-invented)
+  const descIsHebrew = locale !== 'he' && description === property.description
 
   const projectName = locale === 'en'
     ? (property.project_name_en || property.project_name)
@@ -81,15 +104,15 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
   const specs = [
     { label: t('propertyPage.specLabels.type'), value: types },
-    { label: t('propertyPage.specLabels.city'), value: property.city },
+    { label: t('propertyPage.specLabels.city'), value: city },
     { label: t('propertyPage.address'), value: null },
     { label: t('propertyPage.specLabels.gross'), value: property.gross_size ? `${property.gross_size} ${t('propertyPage.specLabels.sqm')}` : null },
     { label: t('propertyPage.specLabels.net'), value: property.net_size ? `${property.net_size} ${t('propertyPage.specLabels.sqm')}` : null },
     { label: t('propertyPage.specLabels.rooms'), value: property.rooms ? String(property.rooms) : null },
     { label: t('propertyPage.specLabels.floor'), value: property.floor != null ? String(property.floor) : null },
-    { label: t('propertyPage.specLabels.parking'), value: property.parking_count ? t('propertyPage.specLabels.parkingSpots', { n: property.parking_count }) : null },
+    { label: t('propertyPage.specLabels.parking'), value: property.parking_count ? (/^d/.test(String(property.parking_count)) ? t('propertyPage.specLabels.parkingSpots', { n: property.parking_count }) : tr(String(property.parking_count), locale)) : null },
     { label: t('propertyPage.specLabels.ceiling'), value: property.ceiling_height ? `${property.ceiling_height} ${t('propertyPage.specLabels.meters')}` : null },
-    { label: t('propertyPage.specLabels.entry'), value: property.entry_date || null },
+    { label: t('propertyPage.specLabels.entry'), value: tr(property.entry_date, locale) || null },
     { label: t('propertyPage.specLabels.ac'), value: property.ac ? t('propertyPage.specLabels.yes') : null },
     { label: t('propertyPage.specLabels.elevator'), value: property.elevator ? t('propertyPage.specLabels.yes') : null },
     { label: t('propertyPage.specLabels.furniture'), value: property.furniture ? t('propertyPage.specLabels.yes') : null },
@@ -99,8 +122,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const listingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'RealEstateListing',
-    name: propertyTitle(types, property),
-    url: `https://www.nadlannow.co.il/properties/${property.id}`,
+    name: title,
+    url: `${BASE}/${locale}/properties/${property.id}`,
     image: images[0],
     description: property.description || undefined,
     address: {
@@ -127,9 +150,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('propertyPage.home'), item: 'https://www.nadlannow.co.il' },
-      { '@type': 'ListItem', position: 2, name: t('propertyPage.properties'), item: 'https://www.nadlannow.co.il/properties' },
-      { '@type': 'ListItem', position: 3, name: propertyTitle(types, property) },
+      { '@type': 'ListItem', position: 1, name: t('propertyPage.home'), item: `${BASE}/${locale}` },
+      { '@type': 'ListItem', position: 2, name: t('propertyPage.properties'), item: `${BASE}/${locale}/properties` },
+      { '@type': 'ListItem', position: 3, name: title },
     ],
   }
 
@@ -141,12 +164,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
       <main id="main" className="max-w-6xl mx-auto px-6 pt-28 pb-16 w-full">
 
         {/* Breadcrumb */}
-        <nav aria-label="ניווט משני" className="text-sm text-slate-400 mb-6 flex items-center gap-2">
+        <nav aria-label={t('meta.breadcrumbNav')} className="text-sm text-slate-400 mb-6 flex items-center gap-2">
           <Link href="/" className="hover:text-blue-600">{t('propertyPage.home')}</Link>
           <span>›</span>
           <Link href="/properties" className="hover:text-blue-600">{t('propertyPage.properties')}</Link>
           <span>›</span>
-          <span className="text-slate-600">{property.city}</span>
+          <span className="text-slate-600">{city}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -156,7 +179,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             {/* Gallery */}
             <PropertyGallery
               images={images}
-              alt={`${types} ב${property.city}`}
+              alt={locale === 'he' ? `${types} ב${property.city}` : title}
               badge={
                 <span className="text-sm font-semibold px-4 py-1.5 rounded-full text-white shadow-lg"
                   style={{ background: badgeColor }}>
@@ -178,7 +201,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">
                 {types}
               </h1>
-              <p className="text-slate-500 text-lg mb-4">📍 {property.city}</p>
+              <p className="text-slate-500 text-lg mb-4">📍 {city}</p>
 
               <div className="flex flex-wrap gap-4 items-baseline">
                 {property.hide_price ? (
@@ -213,7 +236,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             {description && (
               <div className="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
                 <h2 className="font-bold text-slate-900 text-lg mb-3">{t('propertyPage.descTitle')}</h2>
-                <p className="text-slate-600 leading-relaxed whitespace-pre-line">{description}</p>
+                {descIsHebrew && <p className="text-xs text-slate-400 mb-2">{t('meta.descOriginal')}</p>}
+                <p className="text-slate-600 leading-relaxed whitespace-pre-line" lang={descIsHebrew ? 'he' : undefined} dir={descIsHebrew ? 'rtl' : undefined}>{description}</p>
               </div>
             )}
 
@@ -268,7 +292,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               <ContactForm
                 propertyId={property.id}
                 propertyCity={property.city}
-                propertyType={types}
+                propertyType={getPropertyTypes(property)}
                 agentPhone={agent?.phone}
                 agentName={agent?.full_name}
               />

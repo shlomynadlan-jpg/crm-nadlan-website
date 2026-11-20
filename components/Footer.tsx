@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation'
 import CookieSettingsLink from '@/components/CookieSettingsLink'
 import { getCities } from '@/lib/properties'
 import { citySlug } from '@/lib/cities'
+import { SERVICES } from '@/lib/services'
 
 export default async function Footer() {
   const t = await getTranslations()
@@ -38,6 +39,9 @@ export default async function Footer() {
               <li><Link href="/properties" className="hover:text-white transition-colors">{t('nav.properties')}</Link></li>
               <li><Link href="/properties?deal_type=מכירה" className="hover:text-white transition-colors">{t('nav.forSale')}</Link></li>
               <li><Link href="/properties?deal_type=השכרה" className="hover:text-white transition-colors">{t('nav.forRent')}</Link></li>
+              {SERVICES.map(sv => (
+                <li key={sv.slug}><Link href={`/services/${sv.slug}`} className="hover:text-white transition-colors">{sv.title}</Link></li>
+              ))}
               <li><Link href="/blog" className="hover:text-white transition-colors">{t('nav.blog')}</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">{t('nav.faq')}</Link></li>
