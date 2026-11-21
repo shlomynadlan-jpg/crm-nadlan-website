@@ -1,10 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useState, useId } from 'react'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 
 export default function WantedContactForm() {
   const t = useTranslations()
+  const formId = useId()
   const [form, setForm] = useState({ name: '', phone: '', message: '' })
+  const [privacyConsent, setPrivacyConsent] = useState(false)
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -13,7 +16,8 @@ export default function WantedContactForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.name.trim() || !form.phone.trim()) return
+    if (!form.name.trim() || !form.phone.trim() || !privacyConsent || status === 'sending') return
+    const website = new FormData(e.currentTarget as HTMLFormElement).get('website')
     setStatus('sending')
     try {
       const res = await fetch('/api/leads', {
@@ -24,17 +28,21 @@ export default function WantedContactForm() {
           phone: form.phone,
           message: form.message,
           property_type: 'פנייה מדף דרושים',
-          privacy_consent: true,
+          privacy_consent: privacyConsent,
           marketing_consent: false,
+          website,
         }),
       })
       if (!res.ok) throw new Error()
       setStatus('ok')
       setForm({ name: '', phone: '', message: '' })
+      setPrivacyConsent(false)
     } catch {
       setStatus('error')
     }
   }
+
+  const consent = t('contactForm.privacyConsent').split('{link}')
 
   return (
     <div
@@ -66,31 +74,36 @@ export default function WantedContactForm() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {/* honeypot: hidden from people and screen readers, bots fill it */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <label htmlFor={`${formId}-name`} className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   {t('contact.name')} *
                 </label>
                 <input
+                  id={`${formId}-name`}
                   name="name"
                   value={form.name}
                   onChange={handleChange}
                   required
-                  placeholder="ישראל ישראלי"
+                  autoComplete="name"
                   className="w-full px-4 py-3 rounded-xl text-sm outline-none"
                   style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff' }}
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <label htmlFor={`${formId}-phone`} className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   {t('contact.phone')} *
                 </label>
                 <input
+                  id={`${formId}-phone`}
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
                   required
                   type="tel"
+                  autoComplete="tel"
                   placeholder="05X-XXXXXXX"
                   className="w-full px-4 py-3 rounded-xl text-sm outline-none"
                   style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', color: '#fff' }}
@@ -99,10 +112,11 @@ export default function WantedContactForm() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <label htmlFor={`${formId}-message`} className="block text-xs font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 {t('wanted.formPropertyDetails')}
               </label>
               <textarea
+                id={`${formId}-message`}
                 name="message"
                 value={form.message}
                 onChange={handleChange}
@@ -113,8 +127,22 @@ export default function WantedContactForm() {
               />
             </div>
 
+            <label className="flex items-start gap-2 text-xs leading-relaxed cursor-pointer" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              <input
+                type="checkbox" required checked={privacyConsent}
+                onChange={e => setPrivacyConsent(e.target.checked)}
+                className="mt-0.5 w-4 h-4 shrink-0 cursor-pointer"
+                style={{ accentColor: '#C9A84C' }}
+              />
+              <span>
+                {consent[0]}
+                <Link href="/privacy" className="underline" style={{ color: '#C9A84C' }}>{t('contactForm.privacyLink')}</Link>
+                {consent[1]} <span style={{ color: '#f87171' }}>*</span>
+              </span>
+            </label>
+
             {status === 'error' && (
-              <p className="text-sm text-center" style={{ color: '#f87171' }}>{t('contact.error')}</p>
+              <p role="alert" className="text-sm text-center" style={{ color: '#f87171' }}>{t('contact.error')}</p>
             )}
 
             <button

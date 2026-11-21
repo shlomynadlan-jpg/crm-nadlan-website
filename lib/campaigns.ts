@@ -27,14 +27,26 @@ export interface CampaignWithProperty extends Campaign {
 }
 
 export async function getCampaignBySlug(slug: string): Promise<CampaignWithProperty | null> {
+  // explicit public columns only: the result is passed to a client component (owner/contact/internal fields must not reach the browser).
+  // Two queries: there is no FK campaigns→properties in the DB, so an embedded `properties(...)` select fails (PGRST200).
   const { data, error } = await supabase
     .from('campaigns')
-    .select('*, properties(*)')
+    .select('id,title,slug,status,template,property_id,custom_data,theme,utm_source,views,created_at')
     .eq('slug', slug)
     .eq('status', 'active')
     .single()
 
   if (error || !data) return null
+
+  let properties = null
+  if (data.property_id) {
+    const res = await supabase
+      .from('properties')
+      .select('ac,bars,ceiling_height,city,deal_type,description,dock_leveler,elevator,entry_date,floor,furniture,gallery,gallery_size,gross_size,image_urls,meeting_room,net_size,parking_count,price,property_type,rent_price,rooms,underground_parking')
+      .eq('id', data.property_id)
+      .maybeSingle()
+    properties = res.data
+  }
 
   // Increment view count (fire and forget)
   supabase
@@ -43,7 +55,7 @@ export async function getCampaignBySlug(slug: string): Promise<CampaignWithPrope
     .eq('id', data.id)
     .then(() => {}, () => {})
 
-  return data as CampaignWithProperty
+  return { ...data, properties } as CampaignWithProperty
 }
 
 export async function getAgentSettingsForCampaign() {

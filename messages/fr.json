@@ -213,8 +213,8 @@
     "labelWhatsapp": "WhatsApp",
     "whatsappSend": "Envoyer un message",
     "hoursTitle": "Horaires d'ouverture",
-    "hoursSunThu": "Dim–Jeu: 09:00–18:00",
-    "hoursFri": "Ven: 09:00–13:00"
+    "hoursSunThu": "Dim–Jeu: 09:00–19:00",
+    "hoursFri": "Ven: 09:00–12:00"
   },
   "contactForm": {
     "title": "Intéressé par un bien ?",
@@ -272,7 +272,28 @@
       "sqm": "m²",
       "meters": "m",
       "spots": "places"
-    }
+    },
+    "costs": {
+      "title": "Coûts mensuels",
+      "perMonth": "par mois",
+      "rent": "Loyer",
+      "management_fee": "Frais de gestion",
+      "arnona": "Taxe municipale (Arnona)",
+      "vaad": "Charges d’immeuble",
+      "perSqm": "{n} par m²",
+      "bySize": "selon la surface",
+      "onRequest": "sur demande",
+      "total": "Total mensuel estimé",
+      "totalNote": "Loyer + coûts connus, hors TVA",
+      "emptyNote": "Taxe municipale, frais de gestion et charges : nous vous enverrons un détail complet et précis.",
+      "ask": "Demander les coûts"
+    },
+    "share": {
+      "title": "Partager :",
+      "email": "E-mail"
+    },
+    "similarTitle": "Biens similaires",
+    "allProperties": "Tous les biens →"
   },
   "wanted": {
     "pageLabel": "Pour les propriétaires",

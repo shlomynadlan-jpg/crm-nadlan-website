@@ -6,7 +6,11 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 import PropertyGallery from '@/components/PropertyGallery'
-import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes, type Property } from '@/lib/properties'
+import PropertyCosts from '@/components/PropertyCosts'
+import ShareButtons from '@/components/ShareButtons'
+import PropertyCard from '@/components/PropertyCard'
+import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes, getPropertyCosts, getSimilarProperties, type Property } from '@/lib/properties'
+import { buildCosts } from '@/lib/costs'
 import { getTranslations } from 'next-intl/server'
 import { buildSeo, propertyLocales, OG_LOCALE, BASE } from '@/lib/alternates'
 import { tr, trList } from '@/lib/terms'
@@ -69,8 +73,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PropertyPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
   const { id, locale } = await params
   const t = await getTranslations()
-  const [property, agent] = await Promise.all([getProperty(id), getAgentSettings()])
+  const [property, agent, rawCosts] = await Promise.all([getProperty(id), getAgentSettings(), getPropertyCosts(id)])
   if (!property) notFound()
+  const similar = await getSimilarProperties(property)
 
   const images = (property.image_urls || []).filter(Boolean)
   const isAI = isPlaceholderImage(property)
@@ -87,6 +92,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
   const salePrice = property.price
   const rentPrice = property.rent_price
+  // "Price given privately" hides every cost too (owner decision 2026-11-21) → the card shows its "on request" note
+  const showRent = !property.hide_price && !!rentPrice
+  const costs = buildCosts(property.hide_price ? null : rawCosts, property.gross_size, showRent ? rentPrice : null)
+  // Sale-only listing with no cost data: nothing useful to show
+  const showCosts = costs.hasAnyExtra || isRent || isBoth
 
   const description = locale === 'en'
     ? (property.description_en || property.description)
@@ -232,6 +242,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               </div>
             </div>
 
+            <ShareButtons url={`${BASE}/${locale}/properties/${property.id}`} title={title} />
+
+            {showCosts && <PropertyCosts costs={costs} showRent={showRent} />}
+
             {/* Description */}
             {description && (
               <div className="bg-white rounded-2xl border border-slate-100 p-6 mb-6">
@@ -289,6 +303,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                 </div>
               )}
 
+              <div id="contact" className="scroll-mt-28" />
               <ContactForm
                 propertyId={property.id}
                 propertyCity={property.city}
@@ -299,6 +314,18 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             </div>
           </div>
         </div>
+
+        {similar.length > 0 && (
+          <section className="mt-14">
+            <div className="flex items-baseline justify-between mb-5 gap-3">
+              <h2 className="text-xl font-bold text-slate-900">{t('propertyPage.similarTitle')}</h2>
+              <Link href="/properties" className="text-sm font-semibold text-blue-700 hover:underline">{t('propertyPage.allProperties')}</Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {similar.map(p => <PropertyCard key={p.id} p={p} />)}
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

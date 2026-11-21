@@ -66,7 +66,7 @@ function mdTables(md: string, store: string[]): string {
 
 // [text](https://...) -> <a>. Internal links stay in the tab; external open in a new tab (followed, with credit).
 function mdLinks(md: string): string {
-  return md.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_m, text, url) => {
+  return md.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s"]+)\)/g, (_m, text, url) => {
     const external = !url.startsWith(SITE_HOST);
     const attrs = external ? ' target="_blank" rel="noopener"' : '';
     return `<a href="${escapeHtml(url)}"${attrs} class="text-blue-700 underline underline-offset-2 hover:text-blue-900">${text}</a>`;
@@ -129,7 +129,9 @@ function mdDisclaimer(md: string, store: string[]): string {
 export function mdToHtml(md: string): string {
   const blocks: string[] = []
   // The page header already shows the title and author, so drop the leading "# title" and "מאת ..." line
-  let src = mdDisclaimer(md.replace(/^\s*# [^\n]+\n+(?:מאת [^\n]+\n+)?/, ''), blocks)
+  // CMS text is untrusted: neutralize raw HTML before markdown is turned into tags
+  const safe = md.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  let src = mdDisclaimer(safe.replace(/^\s*# [^\n]+\n+(?:מאת [^\n]+\n+)?/, ''), blocks)
   src = mdSummaryBox(src, blocks)
   const faq = mdFaq(src, blocks)
   src = mdTables(faq.md, blocks)

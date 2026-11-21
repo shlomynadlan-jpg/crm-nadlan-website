@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { validateLead, isRateLimited } from '@/lib/leads';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,6 +17,7 @@ async function sendWhatsApp(message: string) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatId: `${myPhone}@c.us`, message }),
+      signal: AbortSignal.timeout(5000), // a hung bridge must not block the lead response
     });
   } catch { /* non-critical */ }
 }
@@ -40,20 +42,16 @@ async function sendEmail(subject: string, body: string): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, phone, message, property_id, property_city, property_type, privacy_consent, marketing_consent } = await req.json();
-
-    if (typeof name !== 'string' || typeof phone !== 'string' || !name.trim() || !phone.trim()) {
-      return NextResponse.json({ error: 'שם וטלפון הם שדות חובה' }, { status: 400 });
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown';
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: 'יותר מדי פניות, נסו שוב מאוחר יותר' }, { status: 429 });
     }
-    const digits = phone.replace(/\D/g, '');
-    const tooLong = (v: unknown, max: number) => v != null && String(v).length > max;
-    if (digits.length < 9 || digits.length > 15 || name.length > 100 || phone.length > 30
-      || tooLong(message, 2000) || tooLong(property_city, 100) || tooLong(property_type, 200) || tooLong(property_id, 50)) {
-      return NextResponse.json({ error: 'פרטים לא תקינים' }, { status: 400 });
+    const check = validateLead(await req.json().catch(() => null));
+    if (!check.ok) {
+      // honeypot hit: pretend success so bots don't adapt
+      return check.spam ? NextResponse.json({ ok: true }) : NextResponse.json({ error: check.error }, { status: check.status });
     }
-    if (privacy_consent !== true) {
-      return NextResponse.json({ error: 'נדרש אישור מדיניות פרטיות' }, { status: 400 });
-    }
+    const { name, phone, message, property_id, property_city, property_type, marketing_consent } = check.lead;
 
     const consentDate = new Date().toISOString();
     const notes = [
@@ -61,14 +59,14 @@ export async function POST(req: NextRequest) {
       property_type && `סוג נכס: ${property_type}`,
       property_city && `עיר: ${property_city}`,
       property_id   && `מזהה נכס: ${property_id}`,
-      message?.trim() && `הודעה: ${message.trim()}`,
-      privacy_consent && `✔ אישר/ה מדיניות פרטיות (אתר, ${consentDate})`,
+      message && `הודעה: ${message}`,
+      `✔ אישר/ה מדיניות פרטיות (אתר, ${consentDate})`,
       `${marketing_consent ? '✔ הסכמה לדיוור שיווקי' : '✖ ללא הסכמה לדיוור שיווקי'} (אתר, ${consentDate})`,
     ].filter(Boolean).join('\n');
 
     const { error } = await supabase.from('clients').insert({
-      full_name: name.trim(),
-      phone: phone.trim(),
+      full_name: name,
+      phone,
       requirements: notes,
       property_type_req: property_type || '',
       required_city: property_city || '',
@@ -80,16 +78,16 @@ export async function POST(req: NextRequest) {
 
     const notifText = [
       `🔴 ליד חדש מהאתר!`,
-      `👤 שם: ${name.trim()}`,
-      `📞 טלפון: ${phone.trim()}`,
+      `👤 שם: ${name}`,
+      `📞 טלפון: ${phone}`,
       property_city && `📍 עיר: ${property_city}`,
       property_type && `🏢 סוג נכס: ${property_type}`,
-      message?.trim() && `💬 הודעה: ${message.trim()}`,
+      message && `💬 הודעה: ${message}`,
     ].filter(Boolean).join('\n');
 
     const [, emailResult] = await Promise.all([
       sendWhatsApp(notifText),
-      sendEmail(`🔴 ליד חדש מאתר nadlannow.co.il — ${name.trim()}`, notifText),
+      sendEmail(`🔴 ליד חדש מאתר nadlannow.co.il — ${name}`, notifText),
     ]);
     console.log('lead email:', emailResult);
 

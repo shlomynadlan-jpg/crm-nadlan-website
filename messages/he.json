@@ -213,8 +213,8 @@
     "labelWhatsapp": "וואטסאפ",
     "whatsappSend": "שלחו הודעה",
     "hoursTitle": "שעות פעילות",
-    "hoursSunThu": "א׳–ה׳: 09:00–18:00",
-    "hoursFri": "ו׳: 09:00–13:00"
+    "hoursSunThu": "א׳–ה׳: 09:00–19:00",
+    "hoursFri": "ו׳: 09:00–12:00"
   },
   "contactForm": {
     "title": "מעוניינים בנכס?",
@@ -272,7 +272,28 @@
       "sqm": "מ״ר",
       "meters": "מ׳",
       "spots": "מקומות"
-    }
+    },
+    "costs": {
+      "title": "עלויות חודשיות",
+      "perMonth": "לחודש",
+      "rent": "שכר דירה",
+      "management_fee": "דמי ניהול",
+      "arnona": "ארנונה",
+      "vaad": "ועד בית",
+      "perSqm": "{n} למ״ר",
+      "bySize": "לפי גודל",
+      "onRequest": "בפנייה",
+      "total": "סה״כ חודשי משוער",
+      "totalNote": "שכירות + העלויות הידועות, לפני מע״מ",
+      "emptyNote": "ארנונה, דמי ניהול וועד בית: נמסור לכם פירוט מלא ומדויק בשיחה.",
+      "ask": "לבירור עלויות"
+    },
+    "share": {
+      "title": "שיתוף:",
+      "email": "מייל"
+    },
+    "similarTitle": "נכסים דומים",
+    "allProperties": "לכל הנכסים ←"
   },
   "wanted": {
     "pageLabel": "לבעלי נכסים",

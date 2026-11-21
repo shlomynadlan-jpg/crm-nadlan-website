@@ -372,16 +372,17 @@ export default function HeroSection({ totalCount, forSale, forRent, wantedCount,
               style={{ background: 'rgba(255,255,255,0.97)', boxShadow: '0 16px 48px rgba(0,0,0,0.45)', maxWidth: 600 }}
             >
               <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 140 }}>
-                <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.cityLabel')}</label>
+                <label htmlFor="hero-city" className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.cityLabel')}</label>
                 <input
+                  id="hero-city"
                   name="city"
                   placeholder={t('hero.cityPlaceholder')}
                   className="w-full text-base text-slate-700 font-medium bg-transparent outline-none"
                 />
               </div>
               <div className="flex-1 px-5 py-4 border-l border-slate-200" style={{ minWidth: 140 }}>
-                <label className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.typeLabel')}</label>
-                <select name="property_type" className="w-full text-base text-slate-700 font-medium bg-transparent outline-none">
+                <label htmlFor="hero-type" className="block text-xs font-bold tracking-widest uppercase text-slate-400 mb-1.5">{t('hero.typeLabel')}</label>
+                <select id="hero-type" name="property_type" className="w-full text-base text-slate-700 font-medium bg-transparent outline-none">
                   <option value="">{t('hero.typeAll')}</option>
                   <option value="משרד">{tTypes('משרד')}</option>
                   <option value="חנות">{tTypes('חנות')}</option>

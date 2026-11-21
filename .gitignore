@@ -42,3 +42,10 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Security audit notes and DB permission migrations: local only (public repo)
+docs/grant-property-costs.sql
+docs/master-audit-2026-11-21.md
+docs/security-catalog-check.sql
+docs/security-plan-2026-11-21.md
+docs/security-rls-migration.sql

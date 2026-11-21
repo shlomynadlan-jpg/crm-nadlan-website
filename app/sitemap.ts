@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getProperties, getCities } from '@/lib/properties'
 import { articles } from '@/lib/articles'
+import { fetchCmsArticles } from '@/lib/cms-articles'
 import { citySlug } from '@/lib/cities'
 import { SERVICES } from '@/lib/services'
 import { BASE, INDEXED, propertyLocales } from '@/lib/alternates'
@@ -39,7 +40,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
-  const [properties, cities] = await Promise.all([getProperties(), getCities()])
+  const [properties, cities, cms] = await Promise.all([getProperties(), getCities(), fetchCmsArticles()])
+
+  // CMS articles are Hebrew-only (INDEXED.heOnly in blog/[slug])
+  const cmsEntries: MetadataRoute.Sitemap = cms.map(a => ({
+    url: `${BASE}/he/blog/cms-${a.slug}`,
+    lastModified: new Date(a.published_at ?? a.created_at),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
 
   const propertyEntries: MetadataRoute.Sitemap = properties.flatMap(p =>
     propertyLocales().map(locale => ({
@@ -60,5 +69,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
-  return [...staticEntries, ...serviceEntries, ...articleEntries, ...cityEntries, ...propertyEntries]
+  return [...staticEntries, ...serviceEntries, ...articleEntries, ...cmsEntries, ...cityEntries, ...propertyEntries]
 }

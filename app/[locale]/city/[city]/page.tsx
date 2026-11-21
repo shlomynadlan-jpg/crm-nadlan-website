@@ -6,7 +6,8 @@ import Footer from '@/components/Footer'
 import PropertyCard from '@/components/PropertyCard'
 import ContactForm from '@/components/ContactForm'
 import { getProperties } from '@/lib/properties'
-import { citySlug, cityFromSlug } from '@/lib/cities'
+import { notFound } from 'next/navigation'
+import { citySlug, cityFromSlug, normalizeCity } from '@/lib/cities'
 import { buildSeo, INDEXED, OG_LOCALE } from '@/lib/alternates'
 import { tr } from '@/lib/terms'
 
@@ -36,7 +37,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const { city: slug, locale } = await params
   const city = cityFromSlug(slug)
   const cityName = tr(city, locale)
-  const properties = await getProperties({ city })
+  // DB filter is a substring match (יבנה ⊂ גן יבנה) — keep exact city matches only; unknown city → real 404
+  const properties = (await getProperties({ city })).filter(p => normalizeCity(p.city ?? '') === normalizeCity(city))
+  if (!properties.length) notFound()
 
   const forSale = properties.filter(p => p.deal_type?.includes('מכירה'))
   const forRent = properties.filter(p => p.deal_type?.includes('השכרה'))

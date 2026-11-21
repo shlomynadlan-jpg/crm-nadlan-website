@@ -213,8 +213,8 @@
     "labelWhatsapp": "WhatsApp",
     "whatsappSend": "Send message",
     "hoursTitle": "Business Hours",
-    "hoursSunThu": "Sun–Thu: 09:00–18:00",
-    "hoursFri": "Fri: 09:00–13:00"
+    "hoursSunThu": "Sun–Thu: 09:00–19:00",
+    "hoursFri": "Fri: 09:00–12:00"
   },
   "contactForm": {
     "title": "Interested in a property?",
@@ -272,7 +272,28 @@
       "sqm": "sqm",
       "meters": "m",
       "spots": "spots"
-    }
+    },
+    "costs": {
+      "title": "Monthly costs",
+      "perMonth": "per month",
+      "rent": "Rent",
+      "management_fee": "Management fee",
+      "arnona": "Municipal tax (Arnona)",
+      "vaad": "Building maintenance",
+      "perSqm": "{n} per m²",
+      "bySize": "by size",
+      "onRequest": "on request",
+      "total": "Estimated monthly total",
+      "totalNote": "Rent + known costs, before VAT",
+      "emptyNote": "Municipal tax, management and maintenance fees: we will send you a full, exact breakdown.",
+      "ask": "Ask about costs"
+    },
+    "share": {
+      "title": "Share:",
+      "email": "Email"
+    },
+    "similarTitle": "Similar properties",
+    "allProperties": "All properties →"
   },
   "wanted": {
     "pageLabel": "For Property Owners",

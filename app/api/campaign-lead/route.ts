@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
     const data = await res.json();
     return NextResponse.json(data, { status: res.status });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    console.error('campaign-lead proxy error:', err);
+    return NextResponse.json({ error: 'שגיאה' }, { status: 500 });
   }
 }

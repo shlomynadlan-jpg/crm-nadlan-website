@@ -45,8 +45,8 @@ export default function Navbar() {
             style={{ height: 'calc(90px - 6px)' }}
             priority
           />
-          {/* hidden below sm: no room next to phone + flags + menu button */}
-          <span className="hidden sm:flex flex-col leading-tight ms-3 whitespace-nowrap">
+          {/* hidden below sm (phone + flags + menu button) and at 1024–1279px (full desktop nav) — no room */}
+          <span className="hidden sm:flex lg:hidden xl:flex flex-col leading-tight ms-3 whitespace-nowrap">
             <span className="font-bold text-white text-base">{tMeta('brandName')}</span>
             <span className="text-xs" style={{ color: 'rgba(201,168,76,0.9)' }}>{tMeta('brandOf')}</span>
           </span>

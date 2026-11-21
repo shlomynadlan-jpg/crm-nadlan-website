@@ -23,7 +23,8 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim() || !phone.trim() || !privacyConsent) return
+    if (!name.trim() || !phone.trim() || !privacyConsent || status === 'sending') return
+    const website = new FormData(e.currentTarget as HTMLFormElement).get('website')
     setStatus('sending')
     try {
       const res = await fetch('/api/leads', {
@@ -34,6 +35,7 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
           property_id: propertyId, property_city: propertyCity, property_type: propertyType,
           privacy_consent: privacyConsent,
           marketing_consent: marketingConsent,
+          website,
         }),
       })
       if (!res.ok) throw new Error()
@@ -74,6 +76,8 @@ export default function ContactForm({ propertyId, propertyCity, propertyType, ag
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-3">
+          {/* honeypot: hidden from people and screen readers, bots fill it */}
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
           <label htmlFor={`${formId}-name`} className="sr-only">{t('nameLabel')}</label>
           <input
             id={`${formId}-name`} name="name"

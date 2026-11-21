@@ -83,6 +83,41 @@ export async function getProperty(id: string): Promise<Property | null> {
   return data
 }
 
+// ₪ per m² per month, as entered in the CRM
+export interface PropertyCosts {
+  management_fee: number | null
+  arnona: number | null
+  vaad: number | null
+}
+
+// Separate query so the page still renders if the anon column grant is missing (42501)
+export async function getPropertyCosts(id: string): Promise<PropertyCosts | null> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('management_fee,arnona,vaad')
+    .eq('id', Number(id))
+    .maybeSingle()
+
+  if (error) { console.error('getPropertyCosts error:', error.message); return null }
+  return data
+}
+
+// Same city first, then same deal type; never the property itself
+export async function getSimilarProperties(p: Property, limit = 3): Promise<Property[]> {
+  const cols = 'id,city,property_address,property_type,gross_size,net_size,price,rent_price,rooms,floor,parking_count,description,deal_type,image_urls,entry_date,ac,elevator,furniture,project_name,status,created_at,ceiling_height,price_per_meter,exclusivity,exclusivity_until,hide_price'
+  const base = () => supabase.from('properties').select(cols)
+    .eq('show_on_website', true).neq('id', Number(p.id))
+    .order('created_at', { ascending: false }).limit(limit)
+
+  const { data: sameCity } = await base().eq('city', p.city)
+  const found = (sameCity || []) as Property[]
+  if (found.length >= limit || !p.deal_type) return found
+
+  const { data: sameDeal } = await base().eq('deal_type', p.deal_type)
+  const ids = new Set(found.map(f => f.id))
+  return [...found, ...((sameDeal || []) as Property[]).filter(s => !ids.has(s.id))].slice(0, limit)
+}
+
 export async function getCities(): Promise<string[]> {
   const { data } = await supabase
     .from('properties')
@@ -198,5 +233,8 @@ export function formatPrice(price: number | null): string {
 
 export function getPropertyTypes(p: Property): string {
   if (Array.isArray(p.property_type)) return p.property_type.join(', ')
-  return p.property_type || ''
+  const raw = (p.property_type || '').trim()
+  // Some CRM rows store a JSON array as text, e.g. '["משרדים"]'; slash lists stay as-is (indexed titles)
+  if (raw.startsWith('[')) return parsePropertyTypeString(raw).join(', ')
+  return raw
 }

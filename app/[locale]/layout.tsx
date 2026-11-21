@@ -37,7 +37,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: OG_LOCALE[locale],
       url: BASE,
     },
-    robots: { index: true, follow: true },
     verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
     twitter: {
       card: 'summary_large_image',
@@ -92,8 +91,8 @@ const orgJsonLd = {
   ],
   knowsLanguage: ['he', 'en', 'fr', 'ru'],
   openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '18:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '13:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '19:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '12:00' },
   ],
   makesOffer: [
     { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'תיווך משרדים למכירה ולהשכרה' } },

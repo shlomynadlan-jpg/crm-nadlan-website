@@ -70,7 +70,7 @@ const CONTENT: Record<string, ContentMap> = {
     contactPhone: 'שלומי לימור',
     contactEmail: 'דוא״ל',
     contactForm: 'טופס יצירת קשר באתר',
-    contactHours: 'שעות פעילות: א׳–ה׳ 09:00–18:00, ו׳ 09:00–13:00.',
+    contactHours: 'שעות פעילות: א׳–ה׳ 09:00–19:00, ו׳ 09:00–12:00.',
   },
   en: {
     title: 'About LS Real Estate',
@@ -99,7 +99,7 @@ const CONTENT: Record<string, ContentMap> = {
     contactPhone: 'Shlomy Limor',
     contactEmail: 'Email',
     contactForm: 'Online contact form',
-    contactHours: 'Business hours: Sun–Thu 09:00–18:00, Fri 09:00–13:00.',
+    contactHours: 'Business hours: Sun–Thu 09:00–19:00, Fri 09:00–12:00.',
   },
   ru: {
     title: 'О компании LS Недвижимость',
@@ -128,7 +128,7 @@ const CONTENT: Record<string, ContentMap> = {
     contactPhone: 'Шломи Лимор',
     contactEmail: 'Email',
     contactForm: 'Онлайн-форма обратной связи',
-    contactHours: 'Часы работы: Вс–Чт 09:00–18:00, Пт 09:00–13:00.',
+    contactHours: 'Часы работы: Вс–Чт 09:00–19:00, Пт 09:00–12:00.',
   },
   fr: {
     title: 'À Propos de LS Immobilier',
@@ -157,7 +157,7 @@ const CONTENT: Record<string, ContentMap> = {
     contactPhone: 'Shlomy Limor',
     contactEmail: 'E-mail',
     contactForm: 'Formulaire de contact en ligne',
-    contactHours: 'Horaires : Dim–Jeu 09:00–18:00, Ven 09:00–13:00.',
+    contactHours: 'Horaires : Dim–Jeu 09:00–19:00, Ven 09:00–12:00.',
   },
 }
 

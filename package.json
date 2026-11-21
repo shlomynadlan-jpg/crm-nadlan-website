@@ -8,7 +8,8 @@
     "start": "next start -p 3507",
     "lint": "eslint",
     "test": "node --test lib/",
-    "seo-check": "node scripts/seo-check.mjs"
+    "seo-check": "node scripts/seo-check.mjs",
+    "anon-check": "node --env-file=.env.local scripts/anon-exposure-check.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",
