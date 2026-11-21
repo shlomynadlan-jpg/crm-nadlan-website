@@ -203,7 +203,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <h2>{c.contactTitle}</h2>
       <p>{c.contactPara}</p>
       <ul>
-        <li>{c.contactPhone}: <a href="tel:0552702800">055-2702800</a></li>
+        <li><Link href="/shlomy-limor" locale="he">{c.contactPhone}</Link>: <a href="tel:0552702800">055-2702800</a></li>
         <li>{c.contactEmail}: <a href={`mailto:${email}`}>{email}</a></li>
         <li><Link href="/contact">{c.contactForm}</Link></li>
       </ul>

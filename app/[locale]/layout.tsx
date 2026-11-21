@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { OG_LOCALE } from '@/lib/alternates'
+import { SERVICE_AREAS } from '@/lib/cities'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import AccessibilityWidget from '@/components/AccessibilityWidget'
@@ -60,12 +61,6 @@ const websiteJsonLd = {
     'query-input': 'required name=search_term_string',
   },
 }
-
-const SERVICE_AREAS = [
-  'פתח תקווה', 'ראש העין', 'בני ברק', 'תל אביב', 'הוד השרון',
-  'כפר סבא', 'קריית אונו', 'אור יהודה', 'יהוד', 'הרצליה',
-  'ראשון לציון', 'גבעת שמואל', 'רמת גן',
-]
 
 const orgJsonLd = {
   '@context': 'https://schema.org',

@@ -31,6 +31,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }))
 
+  // Personal page: Hebrew-only (INDEXED.heOnly in shlomy-limor/page.tsx)
+  const personEntries: MetadataRoute.Sitemap = [{
+    url: `${BASE}/he/shlomy-limor`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }]
+
   const articleEntries: MetadataRoute.Sitemap = INDEXED.article.flatMap(locale =>
     articles.map(a => ({
       url: `${BASE}/${locale}/blog/${a.slug}`,
@@ -69,5 +77,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
-  return [...staticEntries, ...serviceEntries, ...articleEntries, ...cmsEntries, ...cityEntries, ...propertyEntries]
+  return [...staticEntries, ...personEntries, ...serviceEntries, ...articleEntries, ...cmsEntries, ...cityEntries, ...propertyEntries]
 }
