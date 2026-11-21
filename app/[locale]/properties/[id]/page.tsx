@@ -285,7 +285,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                       {agent.full_name.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900">{agent.full_name}</p>
+                      <p className="font-bold text-slate-900">
+                        <Link href="/shlomy-limor" locale="he" className="hover:text-[#0077B6] hover:underline">{agent.full_name}</Link>
+                      </p>
                       {agent.business_name && (
                         <p className="text-xs text-slate-500">{agent.business_name}</p>
                       )}

@@ -47,6 +47,7 @@ export default async function Footer() {
               ))}
               <li><Link href="/blog" className="hover:text-white transition-colors">{t('nav.blog')}</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link></li>
+              <li><Link href="/shlomy-limor" locale="he" className="hover:text-white transition-colors">{t('meta.brandName')}</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">{t('nav.faq')}</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">{t('nav.contact')}</Link></li>
             </ul>
