@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import LegalPage from '@/components/LegalPage'
 import { buildSeo } from '@/lib/alternates'
@@ -107,6 +108,7 @@ const ctaText: Record<string, { text: string; link: string }> = {
 
 export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const faqs = FAQS[locale] ?? FAQS.he
   const cta = ctaText[locale] ?? ctaText.he
 

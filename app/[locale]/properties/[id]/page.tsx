@@ -11,11 +11,16 @@ import ShareButtons from '@/components/ShareButtons'
 import PropertyCard from '@/components/PropertyCard'
 import { getProperty, getAgentSettings, getPropertyImage, isPlaceholderImage, formatPrice, getPropertyTypes, getPropertyCosts, getSimilarProperties, type Property } from '@/lib/properties'
 import { buildCosts } from '@/lib/costs'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { buildSeo, propertyLocales, OG_LOCALE, BASE } from '@/lib/alternates'
 import { tr, trList } from '@/lib/terms'
 
 export const revalidate = 60
+
+// Empty list = no build-time pages, but each property is cached (ISR) on first visit
+export function generateStaticParams() {
+  return []
+}
 
 function propertyTitle(types: string, p: { gross_size: number | null; city: string; deal_type: string | null }): string {
   const deal = p.deal_type || ''
@@ -26,9 +31,9 @@ function propertyTitle(types: string, p: { gross_size: number | null; city: stri
   return `${types || 'נכס'}${size} ${dealText}${p.city ? ` ב${p.city}` : ''}`
 }
 
-// Hebrew keeps the exact title already indexed; other locales use the dictionary + template.
+// Google title: first two types only, so long type lists don't push size/deal/city out of the snippet.
 async function localizedTitle(p: Property, locale: string): Promise<string> {
-  const types = getPropertyTypes(p)
+  const types = getPropertyTypes(p).split(', ').slice(0, 2).join(', ')
   if (locale === 'he') return propertyTitle(types, p)
   const t = await getTranslations({ locale })
   const deal = p.deal_type || ''
@@ -44,6 +49,7 @@ async function localizedTitle(p: Property, locale: string): Promise<string> {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string; locale: string }> }): Promise<Metadata> {
   const { id, locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations()
   const property = await getProperty(id)
   if (!property) return { title: t('propertyPage.notFound') }
@@ -72,6 +78,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PropertyPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
   const { id, locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations()
   const [property, agent, rawCosts] = await Promise.all([getProperty(id), getAgentSettings(), getPropertyCosts(id)])
   if (!property) notFound()

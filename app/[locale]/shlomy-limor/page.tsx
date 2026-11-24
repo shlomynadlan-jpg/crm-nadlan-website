@@ -6,6 +6,9 @@ import ContactForm from '@/components/ContactForm'
 import { buildSeo, INDEXED, BASE } from '@/lib/alternates'
 import { citySlug, SERVICE_AREAS } from '@/lib/cities'
 import { getCities } from '@/lib/properties'
+import { setRequestLocale } from 'next-intl/server'
+
+export const revalidate = 3600
 
 const PATH = '/shlomy-limor'
 const NAME = 'שלומי לימור'
@@ -55,7 +58,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function ShlomyLimorPage() {
+export default async function ShlomyLimorPage({ params }: { params: Promise<{ locale: string }> }) {
+  setRequestLocale((await params).locale)
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'
   const url = `${BASE}/he${PATH}`
   // Link a city only when it has listings (a city page exists); the rest show as plain chips

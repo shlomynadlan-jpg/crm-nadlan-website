@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, getTranslations } from 'next-intl/server'
-import { OG_LOCALE } from '@/lib/alternates'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
+import { OG_IMAGE, OG_LOCALE } from '@/lib/alternates'
 import { SERVICE_AREAS } from '@/lib/cities'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
@@ -37,12 +37,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('ogDesc'),
       locale: OG_LOCALE[locale],
       url: BASE,
+      images: [OG_IMAGE],
     },
     verification: { google: 'CWZUZyy4u6UCK76rQ4f71IBlbL9mMn_EEVpmEIeGIMI' },
     twitter: {
       card: 'summary_large_image',
       title: t('siteTitle'),
       description: t('ogDesc'),
+      images: [OG_IMAGE.url],
     },
   }
 }
@@ -101,33 +103,6 @@ const orgJsonLd = {
   slogan: 'תיווך נדל״ן מסחרי ומגורים עם ליווי אישי מהחיפוש ועד החתימה',
 }
 
-const homeFaqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'באילו אזורים אתם פועלים?',
-      acceptedAnswer: { '@type': 'Answer', text: 'הבסיס שלנו בפתח תקווה ומרבית הפעילות במרכז הארץ — פתח תקווה, ראש העין, בני ברק, תל אביב, הוד השרון, כפר סבא, קריית אונו, אור יהודה, יהוד, הרצליה, ראשון לציון, גבעת שמואל ורמת גן. אנחנו מטפלים בנכסים בכל הארץ לפי בקשה.' },
-    },
-    {
-      '@type': 'Question',
-      name: 'כמה עולה משרד להשכרה בפתח תקווה?',
-      acceptedAnswer: { '@type': 'Answer', text: 'המחיר הממוצע לשכירות משרד בפתח תקווה בשנת 2026 עומד על 60–110 ₪ למ״ר ברוטו לחודש. במגדלים חדשים בקריית מטלון: 85–115 ₪. באזור סגולה והתעשייה: 45–75 ₪. יש להוסיף דמי ניהול, ארנונה וחניה.' },
-    },
-    {
-      '@type': 'Question',
-      name: 'כמה עולה עמלת תיווך על נכס מסחרי?',
-      acceptedAnswer: { '@type': 'Answer', text: 'בעסקאות שכירות מסחריות מקובלת עמלה בגובה דמי שכירות של חודש אחד בתוספת מע״מ. בעסקאות מכר — 1%–2% ממחיר העסקה בתוספת מע״מ. העמלה נקבעת מראש בהזמנת שירותי תיווך חתומה.' },
-    },
-    {
-      '@type': 'Question',
-      name: 'אני בעל נכס — איך מפרסמים אצלכם?',
-      acceptedAnswer: { '@type': 'Answer', text: 'יוצרים איתנו קשר בטלפון 055-2702800 או דרך טופס האתר. נגיע לנכס, נאסוף פרטים ותמונות, נחתום על הזמנת שירות — והנכס יעלה לאתר תוך ימים ספורים ויוצע ללקוחות הרלוונטיים במאגר שלנו.' },
-    },
-  ],
-}
-
 export default async function LocaleLayout({
   children,
   params,
@@ -137,6 +112,8 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params
   if (!routing.locales.includes(locale as Locale)) notFound()
+  // Lets pages render statically (next-intl otherwise reads request headers)
+  setRequestLocale(locale)
 
   const messages = await getMessages()
   const dir = locale === 'he' ? 'rtl' : 'ltr'
@@ -154,10 +131,6 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }}
         />
       </head>
       <body className="min-h-screen flex flex-col">

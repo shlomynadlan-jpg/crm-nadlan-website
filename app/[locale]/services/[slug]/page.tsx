@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { SERVICES, getService } from '@/lib/services'
 import { AUTHOR } from '@/lib/articles'
-import { buildSeo, INDEXED } from '@/lib/alternates'
+import { buildSeo, INDEXED, OG_IMAGE } from '@/lib/alternates'
 
 const BASE = 'https://www.nadlannow.co.il'
 
@@ -22,12 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: service.description,
     // Content is Hebrew-only for now: keep other locales out of the index.
     ...buildSeo(`/services/${slug}`, locale, INDEXED.heOnly),
-    openGraph: { title: service.h1, description: service.description, type: 'website' },
+    openGraph: { title: service.h1, description: service.description, type: 'website', images: [OG_IMAGE] },
   }
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = await params
+  setRequestLocale(locale)
   const service = getService(slug)
   if (!service) notFound()
 

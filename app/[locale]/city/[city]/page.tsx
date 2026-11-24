@@ -8,7 +8,7 @@ import ContactForm from '@/components/ContactForm'
 import { getProperties } from '@/lib/properties'
 import { notFound } from 'next/navigation'
 import { citySlug, cityFromSlug, normalizeCity } from '@/lib/cities'
-import { buildSeo, INDEXED, OG_LOCALE } from '@/lib/alternates'
+import { buildSeo, INDEXED, OG_IMAGE, OG_LOCALE } from '@/lib/alternates'
 import { tr } from '@/lib/terms'
 
 // Rendered on demand: Vercel's static cache breaks on Hebrew (non-ASCII) route params
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
     description: t('metaDesc', { city: tr(city, locale) }),
     // Cities are Hebrew-only in the index until their listings are translated
     ...buildSeo(`/city/${citySlug(city)}`, locale, INDEXED.heOnly),
-    openGraph: { title, locale: OG_LOCALE[locale], type: 'website' },
+    openGraph: { title, locale: OG_LOCALE[locale], type: 'website', images: [OG_IMAGE] },
   }
 }
 

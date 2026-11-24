@@ -234,7 +234,8 @@ export function formatPrice(price: number | null): string {
 export function getPropertyTypes(p: Property): string {
   if (Array.isArray(p.property_type)) return p.property_type.join(', ')
   const raw = (p.property_type || '').trim()
-  // Some CRM rows store a JSON array as text, e.g. '["משרדים"]'; slash lists stay as-is (indexed titles)
+  // Some CRM rows store a JSON array as text, e.g. '["משרדים"]'
   if (raw.startsWith('[')) return parsePropertyTypeString(raw).join(', ')
-  return raw
+  // Slash lists ("משרדים/חנות") read as a comma list, like arrays
+  return raw.split('/').map(s => s.trim()).filter(Boolean).join(', ')
 }

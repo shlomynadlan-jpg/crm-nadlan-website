@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Link } from '@/i18n/navigation'
 import LegalPage from '@/components/LegalPage'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { buildSeo } from '@/lib/alternates'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -167,6 +167,7 @@ const HOME_LABEL: Record<string, string> = { he: 'דף הבית', en: 'Home', fr
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const c = CONTENT[locale] ?? CONTENT.he
   const phone = process.env.NEXT_PUBLIC_COMPANY_PHONE || '055-2702800'
   const email = process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'info@nadlannow.co.il'

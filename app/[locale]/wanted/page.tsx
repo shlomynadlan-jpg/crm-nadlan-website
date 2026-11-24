@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getTranslations, getLocale, setRequestLocale } from 'next-intl/server'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WantedCard from '@/components/WantedCard'
@@ -9,7 +9,8 @@ import { getPropertyRequests } from '@/lib/properties'
 
 export const revalidate = 60
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  setRequestLocale((await params).locale)
   const t = await getTranslations('wanted')
   return {
     title: t('pageTitle'),
@@ -18,7 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function WantedPage() {
+export default async function WantedPage({ params }: { params: Promise<{ locale: string }> }) {
+  setRequestLocale((await params).locale)
   const t = await getTranslations('wanted')
   const requests = await getPropertyRequests()
 

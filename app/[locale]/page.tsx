@@ -8,7 +8,7 @@ import ProcessSection from '@/components/ProcessSection'
 import Reveal from '@/components/Reveal'
 import { Link } from '@/i18n/navigation'
 import { getProperties, getPropertyRequests } from '@/lib/properties'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { buildSeo } from '@/lib/alternates'
 
@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: { absolute: t('siteTitle') }, ...buildSeo('/', locale) }
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  setRequestLocale((await params).locale)
   const t = await getTranslations()
   const [allProperties, wantedRequests] = await Promise.all([getProperties(), getPropertyRequests()])
   const featured = allProperties.slice(0, 3)

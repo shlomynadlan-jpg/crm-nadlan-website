@@ -16,6 +16,9 @@ export function propertyLocales(published: string[] = []): string[] {
   return ['he', ...LOCALES.filter(l => l !== 'he' && published.includes(l))]
 }
 
+// Default share image (WhatsApp/Facebook preview) for pages without their own photo
+export const OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'LS נדל"ן — NADLANNOW' }
+
 export const OG_LOCALE: Record<string, string> = { he: 'he_IL', en: 'en_US', fr: 'fr_FR', ru: 'ru_RU' }
 
 export function buildSeo(path: string, locale: string, indexed: string[] = INDEXED.all) {
